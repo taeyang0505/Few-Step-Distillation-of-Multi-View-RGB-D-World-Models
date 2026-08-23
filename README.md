@@ -4,7 +4,7 @@ Geo4D(Geometry-aware 4D Video Generation, ICLR 2026)는 로봇 조작 장면의 
 
 결과를 한 줄로 적으면, 분포 매칭 증류(DMD)로 만든 3스텝 student에 입력 기반 깊이 보정과 bf16을 더해 순수 추론 시간을 21.8초에서 1.64초로 줄였고, 선명도·시드 다양성·왼쪽 뷰 깊이 정확도는 teacher와 같은 수준이었다. 오른쪽 뷰 깊이(AbsRel +0.022)와 LPIPS(+0.018)는 작지만 통계적으로 유의한 손실이 남는다.
 
-- 기간 2026-08-20 ~ 08-23, 진행 중. RTX 5090 32GB 한 장(공유 서버).
+- 기간 2026-08-20 ~ 08-24, 진행 중. RTX 5090 32GB 한 장(공유 서버).
 - 날짜순 실험 기록: [docs/research_log.md](docs/research_log.md)
 - 수치는 전부 직접 잰 것이다. 논문 인용은 arXiv 번호와 섹션을 적었다.
 
@@ -22,6 +22,8 @@ Geo4D(Geometry-aware 4D Video Generation, ICLR 2026)는 로봇 조작 장면의 
 | 1스텝 student | | 1.65초, AbsRel 0.116, LPIPS 0.177, 다양성 0.0117 | 다양성이 절반이라 품질 기준 미달 |
 
 준정적 조작 목표(2초)는 충족했고 휴머노이드 목표(0.3~0.5초)는 고정비 0.63초 때문에 아직 아니다.
+
+조건 프레임 깊이에 맞추는 자기 앵커 loss(6-4(d))는 추론 앵커 없이 원시 AbsRel을 0.175에서 0.102로 낮추고 앵커 후 왼쪽/오른쪽 격차를 없앴지만(0.081/0.082), 선명도가 −18%로 아직 수렴하지 않았다(4000스텝 연장 중). 앵커 loss 없이 4000스텝까지 학습한 실행은 단조 개선이 아니었고, 모든 기준을 통과하는 체크포인트는 없었다(4000스텝: LPIPS 0.132, 선명도 teacher 수준, PSNR −0.42 dB).
 
 ### 메인 표
 
@@ -88,8 +90,11 @@ student의 오차가 화면 전체에 균일하게 깔려 있다. 구조가 틀�
 | 6-3 | Geo4D DMD | 2000스텝 1시간, 피크 24.4GB. 선명도·다양성 복원, 최적 ckpt step 1600 |
 | 6-4(a) | 입력 앵커 보정 (조건 프레임 + 카메라 외부 파라미터) | student AbsRel 0.175→0.086. teacher도 0.072→0.060 |
 | 6-4(c) | GT 감독 뷰 간 깊이 비 loss | 세 번 모두 DMD와 충돌해 PSNR −3.5dB |
+| 6-4(d) | 자기 앵커 loss (조건 프레임 깊이, GT 없음) | 원시 AbsRel 0.175→0.102, 오른쪽 0.088→0.082. 선명도 −18%로 미수렴, 4000스텝 연장 중 |
+| 6-5 | 장기 학습 4000스텝 (앵커 loss 없음) | 단조 개선 아님. 3200은 AbsRel 0.073이나 과선명 +17%, 4000은 LPIPS 0.132·선명도 teacher 수준·PSNR −0.42 dB |
 | 7 | uc 생략, bf16, compile | 2.81→1.64→1.18초. bf16은 20샘플에서 무손실 |
 | 8 | 정책 루프 평가 | 미수행 |
+| 8(대리) | 정책 대리 지표 (그리퍼·사과 영역, 시뮬레이터 없음) | 전체 AbsRel 격차는 배경에서 나옴. 그리퍼 중심 오차 +2.0 cm (90% CI가 0 제외) |
 
 도중에 틀린 판단도 있었다. 오른쪽 뷰 GT의 53%가 데이터셋 변환 과정에서 생긴 가짜 픽셀이었는데, 이를 모르고 "teacher 오른쪽 뷰 붕괴", "student 구조 오류"라고 단정하고 학습 실험을 세 번 돌렸다. 마스크를 고친 뒤 철회했다. 세부는 `docs/research_log.md` 5절.
 
@@ -106,6 +111,10 @@ student의 오차가 화면 전체에 균일하게 깔려 있다. 구조가 틀�
 9. 오른쪽 뷰 GT의 53%가 변환된 무효 픽셀이다. 제외 전 teacher 오른쪽 AbsRel 0.418, 제외 후 0.064.
 10. 보고하던 시간에 평가 코드 2.9초가 섞여 있었다.
 11. 입력 앵커 보정은 teacher 자체의 AbsRel도 개선한다.
+12. 자기 앵커 loss는 추론 앵커 없이 원시 AbsRel을 0.175→0.102로 고치고 앵커 후 왼쪽/오른쪽 격차를 없애지만, 선명도 회복이 느리다.
+13. DMD를 더 오래 돌린다고 단조로 좋아지지 않는다. std 비율이 1.1을 넘는 체크포인트는 과선명이고, 4000스텝에서 돌아온다.
+14. 전체 화면 AbsRel 격차는 정적 배경에서 나온다. 그리퍼·사과 영역은 Wilcoxon으로 teacher와 구분되지 않지만, 그리퍼 중심 오차는 +2 cm이고 90% CI가 0을 제외한다.
+15. 뷰 40개에서 AbsRel의 최소 검출 효과는 0.010이다. 0.005 수준의 동등성을 말하려면 약 60샘플이 필요하다.
 
 ## 저장소 구조
 
@@ -113,7 +122,7 @@ student의 오차가 화면 전체에 균일하게 깔려 있다. 구조가 틀�
 code/
   geo4d/                Geo4D(~/4dgen) 위에서 쓰는 스크립트. notebooks/ 에 두고 실행
     geo4d_fewstep.py      재노이징 few-step 샘플러 + 입력 앵커 보정
-    geo4d_dmd_train.py    DMD 트레이너 (--cv_weight 0 = 바닐라)
+    geo4d_dmd_train.py    DMD 트레이너 (--cv_weight 0 = 바닐라, --anchor_weight = 자기 앵커 loss, --resume = 마지막 저장에서 재개)
     geo4d_ode_gen*.py     ODE 쌍 생성
     geo4d_ode_init_train*.py  ODE 회귀 초기화 (실패 기록)
     bench_*.py            평가·진단
@@ -131,6 +140,9 @@ docs/research_log.md    날짜순 실험 기록
 |---|---|
 | `bench_eval_6x.py` | 표준 평가. 고정 시드, 설정 문자열(`T25 T4 S3 S3b S3c ...`), paired Wilcoxon, `--fix_mask`(가짜 픽셀 제외), 앵커 접미사 a/b/c |
 | `bench_precise_6a.py` | LPIPS·선명도·다양성 포함 평가. `--fast`(bf16), `--compile`. 메인 표 |
+| `bench_policy_proxy.py` | 정책 대리 지표: 그리퍼·사과 영역 AbsRel/PSNR, 3D 중심 오차, 90% CI |
+| `geo4d_dmd_train.py --anchor_weight`, `--resume` | 자기 앵커 loss(6-4(d)), OOM 등으로 죽었을 때 마지막 저장에서 재개 |
+| `launchers/train_6d.sh`, `train_long.sh`, `train_6d_long.sh` | 6d 학습, 4000스텝 장기 학습(GPU가 빌 때까지 기다렸다 재시도), 6d 4000스텝 연장 |
 | `bench_speed_variants.py`, `bench_profile_student.py` | 순수 추론 시간 분해, 가속 변형 |
 | `bench_scale_diag.py`, `bench_cond_calib.py`, `bench_frame_diag.py` | 깊이 편향 진단 |
 | `bench_student_qual.py`, `bench_qualitative.py` | 정성 그리드 |
@@ -158,7 +170,8 @@ python notebooks/bench_speed_variants.py --n 5
 - 단일 태스크(apple), 고정 시드 20샘플, 단일 GPU. 다른 에피소드·태스크는 아직 안 봤다.
 - 오른쪽 뷰 AbsRel +0.022, LPIPS +0.018. 1스텝은 품질 미달.
 - 휴머노이드 목표는 고정비(conditioner 0.30 + 디코딩 0.33초)로 미달.
-- 정책 루프 평가(Step 8)를 하지 않았다. Geo4D 한계 1번을 해결했다고 말하려면 필요하다.
+- 정책 루프 평가(Step 8)를 하지 않았다. Geo4D 한계 1번을 해결했다고 말하려면 필요하다. 시뮬레이터 없는 대리 지표(그리퍼·사과 영역 AbsRel, 3D 중심 오차)는 있지만, GT 마스크를 예측에 씌우는 방식이라 팔이 어긋나면 배경이 섞이고 차이만 해석할 수 있다.
+- 자기 앵커 loss는 부분 성공이다. 원시 스케일과 왼/오 격차는 고쳤지만 선명도가 아직 teacher 수준이 아니다(2000스텝, 미수렴).
 - 사용한 방법(DMD, 재노이징 샘플러, bf16)은 기존 기법이다. 이 작업의 기여는 few-step이 멀티뷰 기하를 보존하는지의 첫 검증, 평가에서 드러난 함정들, 입력 앵커 보정, 그리고 실패 기록이다. teacher와 충돌하지 않는 기하 보존 학습이 하나 성공해야 방법 기여가 된다.
 
 ## 참고
