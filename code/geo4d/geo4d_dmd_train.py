@@ -33,6 +33,7 @@ p = argparse.ArgumentParser()
 p.add_argument("--pairs_dir", default="/home/sun4208/Geo4D/ode_pairs_v2")
 p.add_argument("--init_ckpt", default="/home/sun4208/Geo4D/ode_init_geo4d_v2.pt", help="generator 초기화(v2 student). 'teacher'면 teacher 가중치")
 p.add_argument("--init_fake", default="", help="fake_score 초기화 ckpt (resume용, 기본 teacher 사본)")
+p.add_argument("--resume", action="store_true", help="out_dir의 dmd_gen.pt/dmd_fake.pt가 있으면 그 step부터 이어서 학습 (OOM 등으로 죽었을 때; optimizer 모멘트는 재시작)")
 p.add_argument("--out_dir", default="/home/sun4208/Geo4D/dmd_6a")
 p.add_argument("--max_steps", type=int, default=2000)
 p.add_argument("--gen_every", type=int, default=5, help="dfake_gen_update_ratio: critic N번당 generator 1번")
@@ -178,6 +179,14 @@ def to_cuda(idx):
 # ───────────────────────── 3. generator / fake_score 구성 ─────────────────────────
 print("[3/5] generator(v2 student) + fake_score(teacher 사본) 구성", flush=True)
 fake = copy.deepcopy(teacher)
+START_STEP = 1
+if args.resume and os.path.exists(os.path.join(args.out_dir, "dmd_gen.pt")) and os.path.exists(os.path.join(args.out_dir, "dmd_fake.pt")):
+    _g = torch.load(os.path.join(args.out_dir, "dmd_gen.pt"), map_location="cpu")
+    if _g.get("step", 0) >= args.max_steps:
+        print(f"[resume] 이미 {_g.get('step')} step 완료 — 학습 생략", flush=True); sys.exit(0)
+    args.init_ckpt = os.path.join(args.out_dir, "dmd_gen.pt"); args.init_fake = os.path.join(args.out_dir, "dmd_fake.pt")
+    START_STEP = int(_g.get("step", 0)) + 1
+    print(f"[resume] {args.out_dir} step {START_STEP - 1}부터 이어서 학습 (optimizer 상태는 재시작)", flush=True)
 if args.init_fake:
     sd = torch.load(args.init_fake, map_location="cpu")
     fake.load_state_dict(sd["fake"] if "fake" in sd else sd["student"], strict=False)
@@ -408,7 +417,7 @@ mem("학습 전")
 diag(0)
 t0 = time.time()
 acc = {"g": [], "c": [], "gap": [], "gn_g": [], "gn_c": [], "cv": [], "r_s": [], "r_t": [], "lam": [], "an": [], "lam_a": [], "s_L": [], "s_R": []}
-for step in range(1, args.max_steps + 1):
+for step in range(START_STEP, args.max_steps + 1):
     f = random.choice(pair_files)
     idx = int(os.path.basename(f).split("_")[1])
     c, uc, ami = to_cuda(idx)
