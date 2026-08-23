@@ -71,6 +71,7 @@ def render_eq(tex, tag, idx):
 
 def add_runs(par, text):
     """inline: **bold**, *italic*, `code`, $math$"""
+    text = text.replace("\\*", "\u2217")
     pos = 0
     for m in re.finditer(r"(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\$[^$]+\$)", text):
         if m.start() > pos: par.add_run(text[pos:m.start()])

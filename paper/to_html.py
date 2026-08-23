@@ -51,6 +51,7 @@ def render_eq(tex, idx):
         plt.close("all"); print(f"  [eq {idx}] mathtext failed: {str(e)[:80]}"); return None
 
 def inline(text):
+    text = text.replace('\\*', '\u2217')
     out, pos = [], 0
     for m in re.finditer(r"(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\$[^$]+\$)", text):
         out.append(H.escape(text[pos:m.start()])); tok = m.group(0)
