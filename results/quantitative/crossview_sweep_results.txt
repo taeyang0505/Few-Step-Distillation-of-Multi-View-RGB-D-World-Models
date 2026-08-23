@@ -1,0 +1,10 @@
+=== 스텝 수 vs cross-view 기하 정합 (배치 3개, 프레임별 chamfer 평균, 단위: 좌표계 거리) ===
+steps | time(s) | CV-Chamfer(pred) v | CV-Chamfer(GT) | ratio(pred/GT) v
+   25 |    25.7 |             0.1722 |         0.0859 |            2.004
+   16 |    17.9 |             0.1622 |         0.0859 |            1.888
+    8 |    11.6 |             0.1770 |         0.0859 |            2.060
+    4 |     8.0 |             0.1776 |         0.0859 |            2.067
+--- 25스텝 대비 상대 변화(%) ---
+   16 | CV-Chamfer(pred) -5.8% | ratio -5.8%
+    8 | CV-Chamfer(pred) +2.8% | ratio +2.8%
+    4 | CV-Chamfer(pred) +3.1% | ratio +3.1%

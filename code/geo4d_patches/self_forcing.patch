@@ -1,0 +1,234 @@
+diff --git a/model/base.py b/model/base.py
+index 2714042..bf2ef86 100644
+--- a/model/base.py
++++ b/model/base.py
+@@ -132,6 +132,7 @@ class SelfForcingModel(BaseModel):
+         # [21, self.num_training_frames], but still being a multiple of self.num_frame_per_block
+         min_num_frames = 20 if self.args.independent_first_frame else 21
+         max_num_frames = self.num_training_frames - 1 if self.args.independent_first_frame else self.num_training_frames
++        min_num_frames = min(min_num_frames, max_num_frames)  # 5090 스모크: 21프레임 미만의 짧은 rollout 허용
+         assert max_num_frames % self.num_frame_per_block == 0
+         assert min_num_frames % self.num_frame_per_block == 0
+         max_num_blocks = max_num_frames // self.num_frame_per_block
+diff --git a/trainer/distillation.py b/trainer/distillation.py
+index 438fd85..9e2694b 100644
+--- a/trainer/distillation.py
++++ b/trainer/distillation.py
+@@ -70,40 +70,57 @@ class Trainer:
+         # Save pretrained model state_dicts to CPU
+         self.fake_score_state_dict_cpu = self.model.fake_score.state_dict()
+ 
++        # 5090: 순수 bf16 학습 (fp32 마스터+그래디언트 ~10GB 절약, 8-bit Adam과 병용)
++        self.model.generator = self.model.generator.to(torch.bfloat16)
+         self.model.generator = fsdp_wrap(
+             self.model.generator,
+             sharding_strategy=config.sharding_strategy,
+-            mixed_precision=config.mixed_precision,
++            mixed_precision=False,
+             wrap_strategy=config.generator_fsdp_wrap_strategy
+         )
+ 
++        # 5090: 동결 real_score는 fp32 마스터 불필요 -- 순수 bf16으로 2.6GB 절약
++        self.model.real_score = self.model.real_score.to(torch.bfloat16)
+         self.model.real_score = fsdp_wrap(
+             self.model.real_score,
+             sharding_strategy=config.sharding_strategy,
+-            mixed_precision=config.mixed_precision,
++            mixed_precision=False,
+             wrap_strategy=config.real_score_fsdp_wrap_strategy
+         )
+ 
++        # 5090: fake_score는 파라미터·그래디언트·optimizer 상태를 CPU로 offload
++        self.model.fake_score = self.model.fake_score.to(torch.bfloat16)
+         self.model.fake_score = fsdp_wrap(
+             self.model.fake_score,
+             sharding_strategy=config.sharding_strategy,
+-            mixed_precision=config.mixed_precision,
+-            wrap_strategy=config.fake_score_fsdp_wrap_strategy
++            mixed_precision=False,
++            wrap_strategy=config.fake_score_fsdp_wrap_strategy,
++            cpu_offload=getattr(config, "fake_score_cpu_offload", False)
+         )
+ 
+-        self.model.text_encoder = fsdp_wrap(
+-            self.model.text_encoder,
+-            sharding_strategy=config.sharding_strategy,
+-            mixed_precision=config.mixed_precision,
+-            wrap_strategy=config.text_encoder_fsdp_wrap_strategy,
+-            cpu_offload=getattr(config, "text_encoder_cpu_offload", False)
+-        )
++        if getattr(config, "text_encoder_gpu_shuttle", False):
++            # 5090: T5는 CPU 상주, 인코딩 시에만 GPU 셔틀 (FSDP offload는 forward 후 GPU 잔류 문제)
++            self.model.text_encoder = self.model.text_encoder.to("cpu")
++        else:
++            self.model.text_encoder = fsdp_wrap(
++                self.model.text_encoder,
++                sharding_strategy=config.sharding_strategy,
++                mixed_precision=config.mixed_precision,
++                wrap_strategy=config.text_encoder_fsdp_wrap_strategy,
++                cpu_offload=getattr(config, "text_encoder_cpu_offload", False)
++            )
+ 
+         if not config.no_visualize or config.load_raw_video:
+             self.model.vae = self.model.vae.to(
+                 device=self.device, dtype=torch.bfloat16 if config.mixed_precision else torch.float32)
+ 
+-        self.generator_optimizer = torch.optim.AdamW(
++        if getattr(config, "optimizer_8bit", False):
++            import bitsandbytes as bnb
++            _AdamW = bnb.optim.AdamW8bit  # 5090 스모크: optimizer 상태 20.8GB -> ~5GB
++        else:
++            _AdamW = torch.optim.AdamW
++
++        self.generator_optimizer = _AdamW(
+             [param for param in self.model.generator.parameters()
+              if param.requires_grad],
+             lr=config.lr,
+@@ -111,7 +128,7 @@ class Trainer:
+             weight_decay=config.weight_decay
+         )
+ 
+-        self.critic_optimizer = torch.optim.AdamW(
++        self.critic_optimizer = _AdamW(
+             [param for param in self.model.fake_score.parameters()
+              if param.requires_grad],
+             lr=config.lr_critic if hasattr(config, "lr_critic") else config.lr,
+@@ -130,7 +147,7 @@ class Trainer:
+             dataset,
+             batch_size=config.batch_size,
+             sampler=sampler,
+-            num_workers=8)
++            num_workers=0)
+ 
+         if dist.get_rank() == 0:
+             print("DATASET SIZE %d" % len(dataset))
+@@ -160,7 +177,7 @@ class Trainer:
+         # 7. (If resuming) Load the model and optimizer, lr_scheduler, ema's statedicts
+         if getattr(config, "generator_ckpt", False):
+             print(f"Loading pretrained generator from {config.generator_ckpt}")
+-            state_dict = torch.load(config.generator_ckpt, map_location="cpu")
++            state_dict = torch.load(config.generator_ckpt, map_location="cpu", mmap=True)
+             if "generator" in state_dict:
+                 state_dict = state_dict["generator"]
+             elif "model" in state_dict:
+@@ -168,6 +185,8 @@ class Trainer:
+             self.model.generator.load_state_dict(
+                 state_dict, strict=True
+             )
++            del state_dict
++            import gc; gc.collect()
+ 
+         ##############################################################################################################
+ 
+@@ -228,6 +247,9 @@ class Trainer:
+ 
+         # Step 2: Extract the conditional infos
+         with torch.no_grad():
++            _shuttle = getattr(self.config, "text_encoder_gpu_shuttle", False)
++            if _shuttle:
++                self.model.text_encoder = self.model.text_encoder.to(self.device)
+             conditional_dict = self.model.text_encoder(
+                 text_prompts=text_prompts)
+ 
+@@ -239,6 +261,9 @@ class Trainer:
+                 self.unconditional_dict = unconditional_dict  # cache the unconditional_dict
+             else:
+                 unconditional_dict = self.unconditional_dict
++            if _shuttle:
++                self.model.text_encoder = self.model.text_encoder.to("cpu")
++                torch.cuda.empty_cache()
+ 
+         # Step 3: Store gradients for the generator (if training the generator)
+         if train_generator:
+@@ -270,6 +295,7 @@ class Trainer:
+             initial_latent=image_latent if self.config.i2v else None
+         )
+ 
++        print(f"[MEM] critic bwd 직전: alloc={torch.cuda.memory_allocated()/2**30:.2f}GB peak={torch.cuda.max_memory_allocated()/2**30:.2f}GB", flush=True)
+         critic_loss.backward()
+         critic_grad_norm = self.model.fake_score.clip_grad_norm_(
+             self.max_grad_norm_critic)
+@@ -314,6 +340,7 @@ class Trainer:
+ 
+         while True:
+             TRAIN_GENERATOR = self.step % self.config.dfake_gen_update_ratio == 0
++            print(f"[MEM] step {self.step} 시작: alloc={torch.cuda.memory_allocated()/2**30:.2f}GB", flush=True)
+ 
+             # Train the generator
+             if TRAIN_GENERATOR:
+@@ -324,6 +351,10 @@ class Trainer:
+                 extras_list.append(extra)
+                 generator_log_dict = merge_dict_list(extras_list)
+                 self.generator_optimizer.step()
++                self.generator_optimizer.zero_grad(set_to_none=True)
++                torch.cuda.empty_cache()  # 5090: generator/critic 단계 사이 캐시 반환
++                print(f"[MEM] gen 스텝 후: alloc={torch.cuda.memory_allocated()/2**30:.2f}GB peak={torch.cuda.max_memory_allocated()/2**30:.2f}GB", flush=True)
++                torch.cuda.reset_peak_memory_stats()
+                 if self.generator_ema is not None:
+                     self.generator_ema.update(self.model.generator)
+ 
+@@ -335,6 +366,8 @@ class Trainer:
+             extras_list.append(extra)
+             critic_log_dict = merge_dict_list(extras_list)
+             self.critic_optimizer.step()
++            self.critic_optimizer.zero_grad(set_to_none=True)
++            torch.cuda.empty_cache()
+ 
+             # Increment the step since we finished gradient update
+             self.step += 1
+diff --git a/utils/distributed.py b/utils/distributed.py
+index 4367ded..188cee5 100644
+--- a/utils/distributed.py
++++ b/utils/distributed.py
+@@ -73,6 +73,8 @@ def barrier():
+ 
+ 
+ def launch_distributed_job(backend: str = "nccl"):
++    if int(os.environ.get("WORLD_SIZE", "1")) == 1 and os.environ.get("FORCE_GLOO", "0") == "1":
++        backend = "gloo"  # 5090 단일 GPU: NCCL VRAM 워크스페이스 회피
+     rank = int(os.environ["RANK"])
+     local_rank = int(os.environ["LOCAL_RANK"])
+     world_size = int(os.environ["WORLD_SIZE"])
+diff --git a/utils/wan_wrapper.py b/utils/wan_wrapper.py
+index c719d59..ec80e58 100644
+--- a/utils/wan_wrapper.py
++++ b/utils/wan_wrapper.py
+@@ -18,12 +18,12 @@ class WanTextEncoder(torch.nn.Module):
+         self.text_encoder = umt5_xxl(
+             encoder_only=True,
+             return_tokenizer=False,
+-            dtype=torch.float32,
++            dtype=torch.bfloat16,  # 5090 스모크: fp32(22GB RAM) 대신 bf16(11GB)
+             device=torch.device('cpu')
+         ).eval().requires_grad_(False)
+         self.text_encoder.load_state_dict(
+             torch.load("wan_models/Wan2.1-T2V-1.3B/models_t5_umt5-xxl-enc-bf16.pth",
+-                       map_location='cpu', weights_only=False)
++                       map_location='cpu', weights_only=False, mmap=True)
+         )
+ 
+         self.tokenizer = HuggingfaceTokenizer(
+diff --git a/wan/modules/attention.py b/wan/modules/attention.py
+index 8845659..c14a890 100644
+--- a/wan/modules/attention.py
++++ b/wan/modules/attention.py
+@@ -57,6 +57,19 @@ def flash_attention(
+     deterministic:  bool. If True, slightly slower and uses more memory.
+     dtype:          torch.dtype. Apply when dtype of q/k/v is not float16/bfloat16.
+     """
++    if not (FLASH_ATTN_2_AVAILABLE or FLASH_ATTN_3_AVAILABLE):
++        # sm_120: flash-attn 미설치 -- SDPA 폴백 (attention()의 else 분기와 동일 수학)
++        if q_lens is not None or k_lens is not None:
++            warnings.warn(
++                'Padding mask is disabled when using scaled_dot_product_attention. It can have a significant impact on performance.'
++            )
++        if q_scale is not None:
++            q = q * q_scale
++        out = torch.nn.functional.scaled_dot_product_attention(
++            q.transpose(1, 2).to(dtype), k.transpose(1, 2).to(dtype), v.transpose(1, 2).to(dtype),
++            attn_mask=None, is_causal=causal, dropout_p=dropout_p)
++        return out.transpose(1, 2).contiguous()
++
+     half_dtypes = (torch.float16, torch.bfloat16)
+     assert dtype in half_dtypes
+     assert q.device.type == 'cuda' and q.size(-1) <= 256

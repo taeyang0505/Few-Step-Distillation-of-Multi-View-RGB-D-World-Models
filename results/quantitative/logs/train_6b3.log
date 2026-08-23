@@ -1,0 +1,684 @@
+[1/5] teacher 로드
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lightning_fabric/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__("pkg_resources").declare_namespace(__name__)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+no module 'xformers'. Processing without...
+no module 'xformers'. Processing without...
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchdata/datapipes/__init__.py:18: UserWarning: 
+################################################################################
+WARNING!
+The 'datapipes', 'dataloader2' modules are deprecated and will be removed in a
+future torchdata release! Please see https://github.com/pytorch/data/issues/1196
+to learn more and leave feedback.
+################################################################################
+
+  deprecation_warning()
+Global seed set to 42
+wandb: Tracking run with wandb version 0.28.2
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_215145-oj7hmjcw
+wandb: View this run in the terminal with `wandb leet`
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+conditioner_config.params.emb_models[1].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[1].params.en_and_decode_n_samples_a_time: 
+10
+conditioner_config.params.emb_models[2].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[2].params.en_and_decode_n_samples_a_time: 
+10
+Initialized embedder #0: FrozenOpenCLIPImagePredictionEmbedder with 683800065 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+Initialized embedder #1: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Initialized embedder #2: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+Restored from 
+/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple/4dgen.ckpt with 0 
+missing and 0 unexpected keys
+UNet 파라미터 1.54B
+[MEM teacher bf16] alloc 6.77GB | max 9.65GB | reserved 9.76GB
+[2/5] 컨디션 사전계산
+ODE 쌍 284개 / 샘플 142개
+/home/sun4208/4dgen/sgm/util.py:54: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(
+
+
+Is relative traj: False
+
+Loading replay buffer from: /home/sun4208/Geo4D/Data/replay_buffer_infer.zarr
+latent shape: (20, 8, 32, 40) | cond keys: {'crossattn': (2, 1, 1024), 'concat': (20, 8, 32, 40)}
+  50/142 (227s)
+  100/142 (455s)
+컨디션 142개 사전계산 완료 (644s)
+GT 뷰 비 r_gt 평균 0.788 (프레임 std 0.014, 샘플 std 0.164)
+[MEM conditioner/VAE 제거 후] alloc 3.37GB | max 9.65GB | reserved 3.46GB
+[3/5] generator(v2 student) + fake_score(teacher 사본) 구성
+generator 초기화: /home/sun4208/Geo4D/ode_init_geo4d_v2.pt (step 1200, missing=0, unexpected=0)
+[MEM 3벌 구성] alloc 9.12GB | max 9.65GB | reserved 9.14GB
+student σ 스케줄: ['700.0', '70.5', '2.3']
+[3b] teacher 뷰 비 r_teacher 사전계산 (ODE 쌍 z 디코드)
+  142개 샘플, r_teacher 평균 1.318 (프레임 std 0.047, 샘플 std 0.327) (130s)
+[MEM r_teacher 사전계산 후] alloc 9.12GB | max 15.38GB | reserved 9.14GB
+[5/5] DMD 학습 시작
+[MEM 학습 전] alloc 9.12GB | max 15.38GB | reserved 9.14GB
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:1263: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/utils/checkpoint.py:232: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/contextlib.py:103: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+[DIAG step 0] full-step MSE(x0,z)=0.4365 | std비 full=0.791 1step=0.695 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 1.024 vs teacher 1.518 vs GT 0.919
+[MEM 첫 critic step 후] alloc 12.06GB | max 18.61GB | reserved 12.62GB
+[MEM 첫 generator step 후] alloc 14.98GB | max 24.34GB | reserved 15.73GB
+[step 10/2000] gen 0.0007 gap 0.0032 |g| 0.11 | cv 0.2406 λ 2.42e-03 (r_s 1.290 vs r_t 0.791) | critic 0.2349 |g| 18.69 | 1.7s/step | max 27.3GB
+[step 20/2000] gen 0.0022 gap 0.0027 |g| 2.86 | cv 0.4905 λ 9.16e-03 (r_s 1.275 vs r_t 0.698) | critic 0.2590 |g| 3.05 | 1.7s/step | max 27.3GB
+[step 30/2000] gen 0.0010 gap 0.0038 |g| 0.30 | cv 0.1092 λ 1.12e-02 (r_s 1.078 vs r_t 0.958) | critic 0.2553 |g| 4.13 | 1.7s/step | max 27.3GB
+[step 40/2000] gen 0.0005 gap 0.0036 |g| 0.11 | cv 0.0446 λ 9.77e-03 (r_s 1.151 vs r_t 0.937) | critic 0.2949 |g| 2.96 | 1.8s/step | max 27.3GB
+[step 50/2000] gen 0.0005 gap 0.0038 |g| 0.39 | cv 0.0167 λ 2.89e-02 (r_s 1.194 vs r_t 1.061) | critic 0.2684 |g| 3.53 | 1.8s/step | max 27.3GB
+[step 60/2000] gen 0.0015 gap 0.0043 |g| 0.43 | cv 0.2314 λ 5.51e-03 (r_s 1.269 vs r_t 0.822) | critic 0.2757 |g| 3.73 | 1.8s/step | max 27.3GB
+[step 70/2000] gen 0.0026 gap 0.0042 |g| 0.44 | cv 0.1959 λ 1.33e-02 (r_s 1.260 vs r_t 0.819) | critic 0.2521 |g| 3.64 | 1.8s/step | max 27.3GB
+[step 80/2000] gen 0.0005 gap 0.0030 |g| 0.11 | cv 0.1702 λ 3.13e-03 (r_s 1.244 vs r_t 0.850) | critic 0.2960 |g| 2.62 | 1.8s/step | max 27.3GB
+[step 90/2000] gen 0.0012 gap 0.0037 |g| 0.28 | cv 0.4755 λ 2.17e-02 (r_s 1.211 vs r_t 0.744) | critic 0.2860 |g| 2.75 | 1.8s/step | max 27.3GB
+[step 100/2000] gen 0.0014 gap 0.0038 |g| 0.53 | cv 0.5651 λ 3.94e-03 (r_s 1.169 vs r_t 0.610) | critic 0.2480 |g| 4.37 | 1.8s/step | max 27.3GB
+[DIAG step 100] full-step MSE(x0,z)=0.4359 | std비 full=0.789 1step=0.693 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.967 vs teacher 1.518 vs GT 0.919
+[step 110/2000] gen 0.0003 gap 0.0036 |g| 0.20 | cv 0.0210 λ 9.17e-03 (r_s 1.079 vs r_t 0.935) | critic 0.2591 |g| 4.35 | 1.8s/step | max 27.3GB
+[step 120/2000] gen 0.0012 gap 0.0027 |g| 0.39 | cv 0.0690 λ 2.00e-02 (r_s 1.257 vs r_t 0.971) | critic 0.2567 |g| 2.69 | 1.8s/step | max 27.3GB
+[step 130/2000] gen 0.0014 gap 0.0035 |g| 0.46 | cv 0.5233 λ 2.41e-03 (r_s 1.238 vs r_t 0.618) | critic 0.2492 |g| 3.69 | 1.8s/step | max 27.3GB
+[step 140/2000] gen 0.0011 gap 0.0029 |g| 0.52 | cv 0.2264 λ 4.60e-02 (r_s 1.278 vs r_t 0.933) | critic 0.2325 |g| 4.00 | 1.8s/step | max 27.3GB
+[step 150/2000] gen 0.0026 gap 0.0027 |g| 0.37 | cv 0.3167 λ 5.58e-03 (r_s 1.144 vs r_t 0.652) | critic 0.2331 |g| 3.06 | 1.8s/step | max 27.3GB
+[step 160/2000] gen 0.0026 gap 0.0026 |g| 0.52 | cv 0.2804 λ 7.19e-03 (r_s 1.036 vs r_t 0.611) | critic 0.2385 |g| 3.18 | 1.8s/step | max 27.3GB
+[step 170/2000] gen 0.0003 gap 0.0036 |g| 0.16 | cv 0.0355 λ 1.00e-02 (r_s 0.991 vs r_t 0.846) | critic 0.2332 |g| 3.15 | 1.8s/step | max 27.3GB
+[step 180/2000] gen 0.0012 gap 0.0028 |g| 0.40 | cv 0.0233 λ 8.24e-02 (r_s 1.059 vs r_t 0.946) | critic 0.2361 |g| 3.87 | 1.8s/step | max 27.3GB
+[step 190/2000] gen 0.0004 gap 0.0038 |g| 0.15 | cv 0.0480 λ 4.35e-03 (r_s 1.063 vs r_t 0.853) | critic 0.2839 |g| 2.92 | 1.8s/step | max 27.3GB
+[step 200/2000] gen 0.0022 gap 0.0039 |g| 0.26 | cv 0.3010 λ 6.57e-03 (r_s 1.079 vs r_t 0.681) | critic 0.2432 |g| 2.68 | 1.8s/step | max 27.3GB
+[DIAG step 200] full-step MSE(x0,z)=0.4359 | std비 full=0.785 1step=0.694 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.885 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 200)
+[step 210/2000] gen 0.0016 gap 0.0028 |g| 0.28 | cv 0.2817 λ 2.11e-02 (r_s 1.050 vs r_t 0.663) | critic 0.2574 |g| 3.04 | 1.8s/step | max 27.3GB
+[step 220/2000] gen 0.0016 gap 0.0041 |g| 0.38 | cv 0.0695 λ 1.43e-02 (r_s 1.087 vs r_t 0.957) | critic 0.2569 |g| 3.35 | 1.8s/step | max 27.3GB
+[step 230/2000] gen 0.0005 gap 0.0034 |g| 0.11 | cv 0.1325 λ 4.08e-03 (r_s 1.026 vs r_t 0.732) | critic 0.2747 |g| 2.98 | 1.8s/step | max 27.3GB
+[step 240/2000] gen 0.0016 gap 0.0043 |g| 0.42 | cv 0.1533 λ 6.18e-03 (r_s 1.196 vs r_t 0.809) | critic 0.2568 |g| 2.96 | 1.8s/step | max 27.3GB
+[step 250/2000] gen 0.0013 gap 0.0031 |g| 0.59 | cv 0.2211 λ 2.28e-02 (r_s 1.135 vs r_t 0.790) | critic 0.2659 |g| 3.27 | 1.8s/step | max 27.3GB
+[step 260/2000] gen 0.0007 gap 0.0040 |g| 0.21 | cv 0.0574 λ 1.07e-02 (r_s 1.125 vs r_t 0.897) | critic 0.2645 |g| 2.59 | 1.8s/step | max 27.3GB
+[step 270/2000] gen 0.0013 gap 0.0036 |g| 0.71 | cv 0.0018 λ 1.19e-01 (r_s 0.956 vs r_t 0.953) | critic 0.2781 |g| 2.78 | 1.8s/step | max 27.3GB
+[step 280/2000] gen 0.0012 gap 0.0047 |g| 0.52 | cv 0.0745 λ 1.16e-02 (r_s 1.117 vs r_t 0.852) | critic 0.2799 |g| 3.39 | 1.8s/step | max 27.3GB
+[step 290/2000] gen 0.0006 gap 0.0041 |g| 0.20 | cv 0.0341 λ 1.08e-02 (r_s 0.998 vs r_t 0.831) | critic 0.2763 |g| 2.74 | 1.8s/step | max 27.3GB
+[step 300/2000] gen 0.0005 gap 0.0040 |g| 0.28 | cv 0.0256 λ 1.78e-02 (r_s 0.976 vs r_t 0.836) | critic 0.2543 |g| 4.18 | 1.8s/step | max 27.3GB
+[DIAG step 300] full-step MSE(x0,z)=0.4368 | std비 full=0.784 1step=0.685 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.827 vs teacher 1.518 vs GT 0.919
+[step 310/2000] gen 0.0018 gap 0.0039 |g| 0.20 | cv 0.5232 λ 3.00e-03 (r_s 1.079 vs r_t 0.523) | critic 0.2478 |g| 2.50 | 1.8s/step | max 27.3GB
+[step 320/2000] gen 0.0014 gap 0.0039 |g| 0.46 | cv 0.0334 λ 2.10e-02 (r_s 0.898 vs r_t 0.794) | critic 0.2899 |g| 2.75 | 1.8s/step | max 27.3GB
+[step 330/2000] gen 0.0006 gap 0.0042 |g| 0.26 | cv 0.0639 λ 1.13e-02 (r_s 0.945 vs r_t 0.751) | critic 0.2314 |g| 3.90 | 1.8s/step | max 27.3GB
+[step 340/2000] gen 0.0015 gap 0.0023 |g| 0.74 | cv 0.0328 λ 2.13e-02 (r_s 1.015 vs r_t 0.848) | critic 0.3171 |g| 3.60 | 1.8s/step | max 27.3GB
+[step 350/2000] gen 0.0051 gap 0.0033 |g| 1.80 | cv 0.4223 λ 9.31e-03 (r_s 1.080 vs r_t 0.566) | critic 0.2430 |g| 3.89 | 1.8s/step | max 27.3GB
+[step 360/2000] gen 0.0002 gap 0.0034 |g| 0.11 | cv 0.0167 λ 1.67e-02 (r_s 0.989 vs r_t 0.883) | critic 0.2618 |g| 2.99 | 1.8s/step | max 27.3GB
+[step 370/2000] gen 0.0011 gap 0.0027 |g| 0.27 | cv 0.0372 λ 3.06e-02 (r_s 0.925 vs r_t 0.779) | critic 0.2338 |g| 8.67 | 1.8s/step | max 27.3GB
+[step 380/2000] gen 0.0005 gap 0.0044 |g| 0.26 | cv 0.0218 λ 2.61e-02 (r_s 0.929 vs r_t 0.836) | critic 0.2824 |g| 3.12 | 1.8s/step | max 27.3GB
+[step 390/2000] gen 0.0010 gap 0.0037 |g| 3.25 | cv 0.0119 λ 3.04e-02 (r_s 0.880 vs r_t 0.932) | critic 0.2481 |g| 2.95 | 1.8s/step | max 27.3GB
+[step 400/2000] gen 0.0017 gap 0.0053 |g| 0.70 | cv 0.0314 λ 2.27e-02 (r_s 0.870 vs r_t 0.727) | critic 0.2676 |g| 3.28 | 1.8s/step | max 27.3GB
+[DIAG step 400] full-step MSE(x0,z)=0.4393 | std비 full=0.778 1step=0.684 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.699 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 400)
+[step 410/2000] gen 0.0030 gap 0.0049 |g| 2.14 | cv 0.0590 λ 2.54e-02 (r_s 0.873 vs r_t 0.861) | critic 0.2292 |g| 3.41 | 1.8s/step | max 27.3GB
+[step 420/2000] gen 0.0011 gap 0.0037 |g| 0.26 | cv 0.3015 λ 4.78e-03 (r_s 0.956 vs r_t 0.575) | critic 0.2294 |g| 4.40 | 1.8s/step | max 27.3GB
+[step 430/2000] gen 0.0015 gap 0.0045 |g| 0.93 | cv 0.0236 λ 2.16e-02 (r_s 0.800 vs r_t 0.807) | critic 0.2502 |g| 2.64 | 1.8s/step | max 27.3GB
+[step 440/2000] gen 0.0007 gap 0.0035 |g| 1.06 | cv 0.1635 λ 9.94e-03 (r_s 1.007 vs r_t 0.751) | critic 0.2236 |g| 3.12 | 1.8s/step | max 27.3GB
+[step 450/2000] gen 0.0009 gap 0.0054 |g| 0.30 | cv 0.0487 λ 8.86e-03 (r_s 0.963 vs r_t 0.964) | critic 0.2428 |g| 4.16 | 1.8s/step | max 27.3GB
+[step 460/2000] gen 0.0014 gap 0.0045 |g| 0.39 | cv 0.1627 λ 1.82e-02 (r_s 0.830 vs r_t 0.657) | critic 0.2481 |g| 11.11 | 1.8s/step | max 27.3GB
+[step 470/2000] gen 0.0011 gap 0.0041 |g| 0.27 | cv 0.2141 λ 8.81e-03 (r_s 1.082 vs r_t 0.727) | critic 0.2514 |g| 2.99 | 1.8s/step | max 27.3GB
+[step 480/2000] gen 0.0010 gap 0.0039 |g| 0.56 | cv 0.0021 λ 1.91e-01 (r_s 0.994 vs r_t 0.958) | critic 0.2789 |g| 3.14 | 1.8s/step | max 27.3GB
+[step 490/2000] gen 0.0034 gap 0.0071 |g| 0.43 | cv 0.1854 λ 2.38e-02 (r_s 0.916 vs r_t 0.768) | critic 0.2227 |g| 3.50 | 1.8s/step | max 27.3GB
+[step 500/2000] gen 0.0017 gap 0.0054 |g| 0.30 | cv 0.1427 λ 7.93e-03 (r_s 0.781 vs r_t 0.714) | critic 0.2721 |g| 2.78 | 1.8s/step | max 27.3GB
+[DIAG step 500] full-step MSE(x0,z)=0.4405 | std비 full=0.781 1step=0.685 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.701 vs teacher 1.518 vs GT 0.919
+[step 510/2000] gen 0.0018 gap 0.0064 |g| 0.42 | cv 0.0652 λ 1.68e-02 (r_s 1.191 vs r_t 0.930) | critic 0.2694 |g| 2.82 | 1.8s/step | max 27.3GB
+[step 520/2000] gen 0.0008 gap 0.0036 |g| 0.30 | cv 0.4193 λ 1.92e-03 (r_s 1.005 vs r_t 0.541) | critic 0.2475 |g| 29.25 | 1.8s/step | max 27.3GB
+[step 530/2000] gen 0.0053 gap 0.0059 |g| 0.78 | cv 0.1980 λ 5.83e-02 (r_s 0.878 vs r_t 0.688) | critic 0.2359 |g| 6.66 | 1.8s/step | max 27.3GB
+[step 540/2000] gen 0.0007 gap 0.0047 |g| 0.27 | cv 0.0454 λ 8.75e-03 (r_s 0.872 vs r_t 0.704) | critic 0.2326 |g| 3.67 | 1.8s/step | max 27.3GB
+[step 550/2000] gen 0.0004 gap 0.0037 |g| 0.28 | cv 0.1503 λ 1.16e-02 (r_s 0.911 vs r_t 0.711) | critic 0.2597 |g| 3.21 | 1.8s/step | max 27.3GB
+[step 560/2000] gen 0.0008 gap 0.0037 |g| 0.15 | cv 0.1453 λ 1.98e-02 (r_s 1.010 vs r_t 0.781) | critic 0.2250 |g| 3.46 | 1.8s/step | max 27.3GB
+[step 570/2000] gen 0.0022 gap 0.0054 |g| 0.44 | cv 0.0661 λ 1.30e-02 (r_s 0.877 vs r_t 0.686) | critic 0.2436 |g| 3.04 | 1.8s/step | max 27.3GB
+[step 580/2000] gen 0.0028 gap 0.0038 |g| 0.57 | cv 0.1253 λ 1.98e-01 (r_s 0.985 vs r_t 0.804) | critic 0.2371 |g| 3.18 | 1.8s/step | max 27.3GB
+[step 590/2000] gen 0.0023 gap 0.0078 |g| 1.89 | cv 0.0086 λ 5.80e-02 (r_s 0.884 vs r_t 0.874) | critic 0.2659 |g| 4.33 | 1.8s/step | max 27.3GB
+[step 600/2000] gen 0.0028 gap 0.0042 |g| 0.55 | cv 0.1751 λ 1.21e-02 (r_s 0.858 vs r_t 0.756) | critic 0.2551 |g| 4.23 | 1.8s/step | max 27.3GB
+[DIAG step 600] full-step MSE(x0,z)=0.4430 | std비 full=0.787 1step=0.687 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.710 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 600)
+[step 610/2000] gen 0.0029 gap 0.0066 |g| 0.68 | cv 0.1633 λ 1.01e-02 (r_s 0.917 vs r_t 0.616) | critic 0.2448 |g| 2.89 | 1.8s/step | max 27.3GB
+[step 620/2000] gen 0.0005 gap 0.0045 |g| 0.35 | cv 0.0818 λ 4.73e-02 (r_s 0.876 vs r_t 0.720) | critic 0.2895 |g| 2.67 | 1.8s/step | max 27.3GB
+[step 630/2000] gen 0.0014 gap 0.0048 |g| 1.12 | cv 0.0003 λ 4.61e-01 (r_s 0.781 vs r_t 0.770) | critic 0.2723 |g| 2.75 | 1.8s/step | max 27.3GB
+[step 640/2000] gen 0.0003 gap 0.0044 |g| 0.16 | cv 0.0129 λ 1.02e-02 (r_s 0.816 vs r_t 0.914) | critic 0.2167 |g| 4.01 | 1.8s/step | max 27.3GB
+[step 650/2000] gen 0.0020 gap 0.0028 |g| 0.64 | cv 0.1527 λ 3.05e-02 (r_s 0.672 vs r_t 0.905) | critic 0.2495 |g| 3.41 | 1.8s/step | max 27.3GB
+[step 660/2000] gen 0.0070 gap 0.0084 |g| 0.52 | cv 0.2495 λ 1.98e-02 (r_s 0.907 vs r_t 0.551) | critic 0.2426 |g| 4.83 | 1.8s/step | max 27.3GB
+[step 670/2000] gen 0.0014 gap 0.0044 |g| 0.30 | cv 0.4547 λ 3.83e-03 (r_s 1.004 vs r_t 0.520) | critic 0.2461 |g| 2.56 | 1.8s/step | max 27.3GB
+[step 680/2000] gen 0.0006 gap 0.0038 |g| 0.24 | cv 0.0977 λ 4.57e-03 (r_s 0.759 vs r_t 0.704) | critic 0.2590 |g| 2.56 | 1.8s/step | max 27.3GB
+[step 690/2000] gen 0.0027 gap 0.0031 |g| 0.28 | cv 0.1960 λ 8.23e-03 (r_s 0.863 vs r_t 0.800) | critic 0.2644 |g| 3.48 | 1.8s/step | max 27.3GB
+[step 700/2000] gen 0.0042 gap 0.0091 |g| 0.65 | cv 0.0166 λ 4.77e-02 (r_s 0.821 vs r_t 0.846) | critic 0.2479 |g| 3.41 | 1.8s/step | max 27.3GB
+[DIAG step 700] full-step MSE(x0,z)=0.4467 | std비 full=0.789 1step=0.689 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.656 vs teacher 1.518 vs GT 0.919
+[step 710/2000] gen 0.0004 gap 0.0046 |g| 0.25 | cv 0.0069 λ 3.54e-02 (r_s 0.774 vs r_t 0.833) | critic 0.2802 |g| 3.10 | 1.8s/step | max 27.3GB
+[step 720/2000] gen 0.0009 gap 0.0056 |g| 0.31 | cv 0.0507 λ 8.13e-03 (r_s 0.845 vs r_t 0.810) | critic 0.2236 |g| 5.24 | 1.8s/step | max 27.3GB
+[step 730/2000] gen 0.0038 gap 0.0094 |g| 4.18 | cv 0.0018 λ 1.58e-01 (r_s 0.814 vs r_t 0.835) | critic 0.2408 |g| 3.75 | 1.8s/step | max 27.3GB
+[step 740/2000] gen 0.0022 gap 0.0074 |g| 0.48 | cv 0.0264 λ 1.84e-02 (r_s 0.808 vs r_t 0.688) | critic 0.2798 |g| 2.48 | 1.8s/step | max 27.3GB
+[step 750/2000] gen 0.0016 gap 0.0066 |g| 0.35 | cv 0.0133 λ 6.28e-02 (r_s 0.775 vs r_t 0.695) | critic 0.2763 |g| 3.09 | 1.8s/step | max 27.3GB
+[step 760/2000] gen 0.0069 gap 0.0067 |g| 1.39 | cv 0.1050 λ 3.91e-02 (r_s 0.774 vs r_t 0.677) | critic 0.2334 |g| 2.81 | 1.8s/step | max 27.3GB
+[step 770/2000] gen 0.0009 gap 0.0052 |g| 1.00 | cv 0.0639 λ 9.23e-03 (r_s 0.847 vs r_t 0.832) | critic 0.2820 |g| 2.96 | 1.8s/step | max 27.3GB
+[step 780/2000] gen 0.0053 gap 0.0077 |g| 0.65 | cv 0.1170 λ 2.41e-02 (r_s 0.831 vs r_t 0.592) | critic 0.2530 |g| 3.34 | 1.8s/step | max 27.3GB
+[step 790/2000] gen 0.0007 gap 0.0044 |g| 0.54 | cv 0.1406 λ 6.11e-03 (r_s 0.877 vs r_t 0.730) | critic 0.2499 |g| 2.77 | 1.8s/step | max 27.3GB
+[step 800/2000] gen 0.0032 gap 0.0053 |g| 0.65 | cv 0.0899 λ 1.06e-02 (r_s 0.828 vs r_t 0.917) | critic 0.2518 |g| 2.48 | 1.8s/step | max 27.3GB
+[DIAG step 800] full-step MSE(x0,z)=0.4500 | std비 full=0.798 1step=0.690 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.716 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 800)
+[step 810/2000] gen 0.0022 gap 0.0051 |g| 1.06 | cv 0.0030 λ 6.25e-02 (r_s 0.930 vs r_t 0.947) | critic 0.2501 |g| 2.78 | 1.8s/step | max 27.3GB
+[step 820/2000] gen 0.0024 gap 0.0076 |g| 0.40 | cv 0.0175 λ 4.39e-02 (r_s 0.783 vs r_t 0.887) | critic 0.2050 |g| 2.59 | 1.8s/step | max 27.3GB
+[step 830/2000] gen 0.0009 gap 0.0046 |g| 0.36 | cv 0.1773 λ 3.62e-02 (r_s 0.846 vs r_t 0.621) | critic 0.2429 |g| 2.57 | 1.8s/step | max 27.3GB
+[step 840/2000] gen 0.0010 gap 0.0060 |g| 0.93 | cv 0.0127 λ 2.57e-02 (r_s 0.946 vs r_t 0.845) | critic 0.2156 |g| 3.71 | 1.8s/step | max 27.3GB
+[step 850/2000] gen 0.0021 gap 0.0054 |g| 0.72 | cv 0.0133 λ 3.87e-02 (r_s 0.805 vs r_t 0.904) | critic 0.2100 |g| 3.08 | 1.8s/step | max 27.3GB
+[step 860/2000] gen 0.0052 gap 0.0065 |g| 6.09 | cv 0.0522 λ 5.50e-02 (r_s 0.930 vs r_t 1.027) | critic 0.2251 |g| 3.24 | 1.8s/step | max 27.3GB
+[step 870/2000] gen 0.0032 gap 0.0064 |g| 1.17 | cv 0.1271 λ 1.61e-02 (r_s 1.052 vs r_t 0.771) | critic 0.2375 |g| 4.01 | 1.8s/step | max 27.3GB
+[step 880/2000] gen 0.0057 gap 0.0085 |g| 0.55 | cv 0.0318 λ 3.66e-02 (r_s 0.853 vs r_t 1.004) | critic 0.2479 |g| 5.60 | 1.8s/step | max 27.3GB
+[step 890/2000] gen 0.0046 gap 0.0086 |g| 1.26 | cv 0.0453 λ 8.55e-02 (r_s 0.768 vs r_t 0.929) | critic 0.2186 |g| 2.94 | 1.8s/step | max 27.3GB
+[step 900/2000] gen 0.0015 gap 0.0060 |g| 0.89 | cv 0.0485 λ 2.84e-02 (r_s 0.914 vs r_t 0.835) | critic 0.2402 |g| 2.74 | 1.8s/step | max 27.3GB
+[DIAG step 900] full-step MSE(x0,z)=0.4555 | std비 full=0.812 1step=0.705 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.853 vs teacher 1.518 vs GT 0.919
+[step 910/2000] gen 0.0099 gap 0.0077 |g| 1.09 | cv 0.4487 λ 1.37e-02 (r_s 1.164 vs r_t 0.601) | critic 0.2224 |g| 3.69 | 1.8s/step | max 27.3GB
+[step 920/2000] gen 0.0009 gap 0.0044 |g| 0.31 | cv 0.2412 λ 7.42e-03 (r_s 1.023 vs r_t 0.706) | critic 0.2514 |g| 2.73 | 1.8s/step | max 27.3GB
+[step 930/2000] gen 0.0016 gap 0.0068 |g| 0.59 | cv 0.1083 λ 6.99e+00 (r_s 0.892 vs r_t 0.710) | critic 0.1964 |g| 4.17 | 1.8s/step | max 27.3GB
+[step 940/2000] gen 0.0108 gap 0.0090 |g| 1.62 | cv 0.2512 λ 3.18e-02 (r_s 1.171 vs r_t 0.763) | critic 0.2268 |g| 3.16 | 1.8s/step | max 27.3GB
+[step 950/2000] gen 0.0019 gap 0.0058 |g| 0.43 | cv 0.2582 λ 8.37e-03 (r_s 0.987 vs r_t 0.645) | critic 0.2452 |g| 3.05 | 1.8s/step | max 27.3GB
+[step 960/2000] gen 0.0033 gap 0.0061 |g| 0.66 | cv 0.1153 λ 1.54e-02 (r_s 1.004 vs r_t 0.712) | critic 0.2477 |g| 3.82 | 1.8s/step | max 27.3GB
+[step 970/2000] gen 0.0015 gap 0.0062 |g| 0.46 | cv 0.1072 λ 1.23e-02 (r_s 0.921 vs r_t 0.797) | critic 0.2112 |g| 2.57 | 1.8s/step | max 27.3GB
+[step 980/2000] gen 0.0007 gap 0.0047 |g| 0.40 | cv 0.0550 λ 7.77e-03 (r_s 1.062 vs r_t 0.842) | critic 0.2212 |g| 3.98 | 1.8s/step | max 27.3GB
+[step 990/2000] gen 0.0015 gap 0.0071 |g| 0.94 | cv 0.1389 λ 2.30e-02 (r_s 0.992 vs r_t 0.752) | critic 0.2254 |g| 4.16 | 1.8s/step | max 27.3GB
+[step 1000/2000] gen 0.0022 gap 0.0033 |g| 0.71 | cv 0.0221 λ 3.83e-02 (r_s 1.061 vs r_t 0.929) | critic 0.2198 |g| 2.47 | 1.8s/step | max 27.3GB
+[DIAG step 1000] full-step MSE(x0,z)=0.4586 | std비 full=0.811 1step=0.697 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.774 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 1000)
+[step 1010/2000] gen 0.0035 gap 0.0055 |g| 0.72 | cv 0.0412 λ 3.24e-02 (r_s 0.815 vs r_t 0.772) | critic 0.2479 |g| 3.95 | 1.8s/step | max 27.3GB
+[step 1020/2000] gen 0.0072 gap 0.0097 |g| 0.69 | cv 0.2124 λ 2.30e-02 (r_s 0.913 vs r_t 0.785) | critic 0.2390 |g| 2.87 | 1.8s/step | max 27.3GB
+[step 1030/2000] gen 0.0023 gap 0.0068 |g| 0.67 | cv 0.0122 λ 3.95e-02 (r_s 0.803 vs r_t 0.844) | critic 0.2379 |g| 2.63 | 1.8s/step | max 27.3GB
+[step 1040/2000] gen 0.0035 gap 0.0059 |g| 0.43 | cv 0.1567 λ 1.47e-02 (r_s 0.908 vs r_t 0.640) | critic 0.2154 |g| 2.49 | 1.8s/step | max 27.3GB
+[step 1050/2000] gen 0.0004 gap 0.0057 |g| 0.37 | cv 0.0019 λ 1.43e-01 (r_s 0.980 vs r_t 0.944) | critic 0.2545 |g| 2.83 | 1.8s/step | max 27.3GB
+[step 1060/2000] gen 0.0028 gap 0.0059 |g| 0.85 | cv 0.3560 λ 5.90e-03 (r_s 0.957 vs r_t 0.527) | critic 0.2435 |g| 2.44 | 1.8s/step | max 27.3GB
+[step 1070/2000] gen 0.0047 gap 0.0076 |g| 1.58 | cv 0.1918 λ 1.13e-02 (r_s 0.936 vs r_t 0.769) | critic 0.2555 |g| 3.37 | 1.8s/step | max 27.3GB
+[step 1080/2000] gen 0.0038 gap 0.0065 |g| 0.71 | cv 0.0550 λ 1.95e-02 (r_s 0.866 vs r_t 0.871) | critic 0.2220 |g| 3.40 | 1.8s/step | max 27.3GB
+[step 1090/2000] gen 0.0012 gap 0.0069 |g| 0.50 | cv 0.0129 λ 3.80e-02 (r_s 0.874 vs r_t 0.969) | critic 0.2026 |g| 3.23 | 1.8s/step | max 27.3GB
+[step 1100/2000] gen 0.0012 gap 0.0056 |g| 1.79 | cv 0.1550 λ 2.08e-02 (r_s 0.948 vs r_t 0.787) | critic 0.1905 |g| 6.13 | 1.8s/step | max 27.3GB
+[DIAG step 1100] full-step MSE(x0,z)=0.4637 | std비 full=0.818 1step=0.709 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.810 vs teacher 1.518 vs GT 0.919
+[step 1110/2000] gen 0.0060 gap 0.0104 |g| 0.86 | cv 0.0129 λ 5.56e-02 (r_s 0.985 vs r_t 0.882) | critic 0.2163 |g| 2.80 | 1.8s/step | max 27.3GB
+[step 1120/2000] gen 0.0059 gap 0.0081 |g| 1.16 | cv 0.1451 λ 4.45e-02 (r_s 0.953 vs r_t 0.779) | critic 0.2290 |g| 3.48 | 1.8s/step | max 27.3GB
+[step 1130/2000] gen 0.0055 gap 0.0077 |g| 1.03 | cv 0.1357 λ 1.68e-02 (r_s 0.789 vs r_t 0.743) | critic 0.2074 |g| 2.50 | 1.8s/step | max 27.3GB
+[step 1140/2000] gen 0.0044 gap 0.0073 |g| 0.61 | cv 0.0665 λ 2.53e-02 (r_s 0.859 vs r_t 0.934) | critic 0.2181 |g| 3.80 | 1.8s/step | max 27.3GB
+[step 1150/2000] gen 0.0050 gap 0.0066 |g| 0.85 | cv 0.0693 λ 3.16e-02 (r_s 0.871 vs r_t 0.804) | critic 0.2175 |g| 2.85 | 1.8s/step | max 27.3GB
+[step 1160/2000] gen 0.0067 gap 0.0108 |g| 1.39 | cv 0.0425 λ 8.75e-02 (r_s 0.827 vs r_t 0.932) | critic 0.2407 |g| 2.79 | 1.8s/step | max 27.3GB
+[step 1170/2000] gen 0.0030 gap 0.0069 |g| 1.22 | cv 0.0129 λ 1.15e-01 (r_s 0.896 vs r_t 0.956) | critic 0.2142 |g| 2.83 | 1.8s/step | max 27.3GB
+[step 1180/2000] gen 0.0036 gap 0.0090 |g| 3.86 | cv 0.0012 λ 2.16e-01 (r_s 0.889 vs r_t 0.884) | critic 0.2084 |g| 3.68 | 1.8s/step | max 27.3GB
+[step 1190/2000] gen 0.0028 gap 0.0078 |g| 0.72 | cv 0.0416 λ 2.00e-02 (r_s 0.724 vs r_t 0.884) | critic 0.2000 |g| 5.91 | 1.8s/step | max 27.3GB
+[step 1200/2000] gen 0.0063 gap 0.0090 |g| 0.66 | cv 0.0849 λ 4.18e-02 (r_s 0.975 vs r_t 0.775) | critic 0.2088 |g| 2.00 | 1.8s/step | max 27.3GB
+[DIAG step 1200] full-step MSE(x0,z)=0.4766 | std비 full=0.828 1step=0.714 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.787 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 1200)
+[step 1210/2000] gen 0.0014 gap 0.0065 |g| 0.37 | cv 0.0416 λ 2.05e-02 (r_s 0.863 vs r_t 0.805) | critic 0.2052 |g| 2.41 | 1.8s/step | max 27.3GB
+[step 1220/2000] gen 0.0051 gap 0.0089 |g| 1.20 | cv 0.0089 λ 1.02e-01 (r_s 0.831 vs r_t 0.818) | critic 0.2073 |g| 2.83 | 1.8s/step | max 27.3GB
+[step 1230/2000] gen 0.0016 gap 0.0062 |g| 0.44 | cv 0.1302 λ 1.22e-02 (r_s 0.900 vs r_t 0.773) | critic 0.2176 |g| 2.50 | 1.8s/step | max 27.3GB
+[step 1240/2000] gen 0.0031 gap 0.0074 |g| 1.06 | cv 0.0094 λ 6.65e-02 (r_s 0.966 vs r_t 0.943) | critic 0.2097 |g| 3.51 | 1.8s/step | max 27.3GB
+[step 1250/2000] gen 0.0039 gap 0.0071 |g| 0.66 | cv 0.1273 λ 6.90e-02 (r_s 0.890 vs r_t 0.670) | critic 0.2015 |g| 2.42 | 1.8s/step | max 27.3GB
+[step 1260/2000] gen 0.0071 gap 0.0105 |g| 0.68 | cv 0.1473 λ 5.32e-02 (r_s 0.802 vs r_t 0.696) | critic 0.2046 |g| 3.11 | 1.8s/step | max 27.3GB
+[step 1270/2000] gen 0.0057 gap 0.0082 |g| 0.64 | cv 0.1244 λ 2.14e-02 (r_s 0.742 vs r_t 0.734) | critic 0.1817 |g| 3.50 | 1.8s/step | max 27.3GB
+[step 1280/2000] gen 0.0015 gap 0.0057 |g| 0.35 | cv 0.0745 λ 1.49e-02 (r_s 0.898 vs r_t 0.690) | critic 0.2142 |g| 7.44 | 1.8s/step | max 27.3GB
+[step 1290/2000] gen 0.0038 gap 0.0079 |g| 0.71 | cv 0.0262 λ 1.32e-01 (r_s 1.001 vs r_t 0.898) | critic 0.2251 |g| 2.44 | 1.8s/step | max 27.3GB
+[step 1300/2000] gen 0.0030 gap 0.0046 |g| 0.75 | cv 0.1074 λ 3.10e-02 (r_s 0.908 vs r_t 0.670) | critic 0.1912 |g| 5.95 | 1.8s/step | max 27.3GB
+[DIAG step 1300] full-step MSE(x0,z)=0.4862 | std비 full=0.841 1step=0.714 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.832 vs teacher 1.518 vs GT 0.919
+[step 1310/2000] gen 0.0032 gap 0.0068 |g| 0.90 | cv 0.0004 λ 4.28e-01 (r_s 0.914 vs r_t 0.908) | critic 0.1942 |g| 2.77 | 1.8s/step | max 27.3GB
+[step 1320/2000] gen 0.0031 gap 0.0076 |g| 1.19 | cv 0.0508 λ 2.17e-02 (r_s 0.947 vs r_t 0.757) | critic 0.2091 |g| 2.80 | 1.8s/step | max 27.3GB
+[step 1330/2000] gen 0.0018 gap 0.0081 |g| 0.64 | cv 0.0009 λ 1.66e-01 (r_s 0.949 vs r_t 0.922) | critic 0.2186 |g| 2.74 | 1.8s/step | max 27.3GB
+[step 1340/2000] gen 0.0093 gap 0.0102 |g| 1.15 | cv 0.0075 λ 1.38e-01 (r_s 0.918 vs r_t 0.934) | critic 0.2189 |g| 2.57 | 1.8s/step | max 27.3GB
+[step 1350/2000] gen 0.0024 gap 0.0077 |g| 0.65 | cv 0.0175 λ 3.34e-01 (r_s 1.019 vs r_t 0.932) | critic 0.1702 |g| 2.90 | 1.8s/step | max 27.3GB
+[step 1360/2000] gen 0.0058 gap 0.0071 |g| 1.66 | cv 0.0131 λ 6.85e-01 (r_s 0.878 vs r_t 0.818) | critic 0.2040 |g| 5.63 | 1.8s/step | max 27.3GB
+[step 1370/2000] gen 0.0051 gap 0.0043 |g| 1.34 | cv 0.0467 λ 5.63e-02 (r_s 0.906 vs r_t 0.823) | critic 0.1867 |g| 2.22 | 1.8s/step | max 27.3GB
+[step 1380/2000] gen 0.0016 gap 0.0074 |g| 0.78 | cv 0.0148 λ 3.91e-02 (r_s 1.054 vs r_t 1.023) | critic 0.2006 |g| 2.24 | 1.8s/step | max 27.3GB
+[step 1390/2000] gen 0.0009 gap 0.0071 |g| 0.66 | cv 0.0014 λ 1.57e-01 (r_s 0.941 vs r_t 0.925) | critic 0.1745 |g| 2.26 | 1.8s/step | max 27.3GB
+[step 1400/2000] gen 0.0012 gap 0.0055 |g| 0.29 | cv 0.0468 λ 1.74e-01 (r_s 0.804 vs r_t 0.721) | critic 0.1839 |g| 2.34 | 1.8s/step | max 27.3GB
+[DIAG step 1400] full-step MSE(x0,z)=0.5041 | std비 full=0.857 1step=0.729 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.856 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 1400)
+[step 1410/2000] gen 0.0037 gap 0.0077 |g| 0.71 | cv 0.0155 λ 5.97e-02 (r_s 1.055 vs r_t 0.936) | critic 0.1900 |g| 2.31 | 1.8s/step | max 27.3GB
+[step 1420/2000] gen 0.0068 gap 0.0090 |g| 1.00 | cv 0.2417 λ 2.15e-02 (r_s 0.896 vs r_t 0.747) | critic 0.1781 |g| 2.72 | 1.8s/step | max 27.3GB
+[step 1430/2000] gen 0.0077 gap 0.0080 |g| 0.79 | cv 0.3316 λ 1.29e-02 (r_s 0.963 vs r_t 0.549) | critic 0.1715 |g| 4.39 | 1.8s/step | max 27.3GB
+[step 1440/2000] gen 0.0018 gap 0.0061 |g| 0.58 | cv 0.0382 λ 2.71e-02 (r_s 0.745 vs r_t 0.758) | critic 0.1706 |g| 4.19 | 1.8s/step | max 27.3GB
+[step 1450/2000] gen 0.0047 gap 0.0073 |g| 0.50 | cv 0.4305 λ 7.47e-03 (r_s 1.018 vs r_t 0.547) | critic 0.1627 |g| 3.17 | 1.8s/step | max 27.3GB
+[step 1460/2000] gen 0.0028 gap 0.0076 |g| 0.78 | cv 0.0126 λ 1.10e-01 (r_s 0.871 vs r_t 0.814) | critic 0.1737 |g| 2.43 | 1.8s/step | max 27.3GB
+[step 1470/2000] gen 0.0090 gap 0.0101 |g| 1.40 | cv 0.1932 λ 1.36e-01 (r_s 0.955 vs r_t 0.701) | critic 0.1865 |g| 2.79 | 1.8s/step | max 27.3GB
+[step 1480/2000] gen 0.0019 gap 0.0059 |g| 0.49 | cv 0.0421 λ 4.16e-02 (r_s 0.963 vs r_t 0.831) | critic 0.2066 |g| 2.49 | 1.8s/step | max 27.3GB
+[step 1490/2000] gen 0.0012 gap 0.0066 |g| 0.50 | cv 0.0013 λ 4.59e-01 (r_s 0.993 vs r_t 1.015) | critic 0.1913 |g| 2.45 | 1.8s/step | max 27.3GB
+[step 1500/2000] gen 0.0085 gap 0.0086 |g| 1.03 | cv 0.1069 λ 4.37e-02 (r_s 0.753 vs r_t 1.034) | critic 0.1828 |g| 2.20 | 1.8s/step | max 27.3GB
+[DIAG step 1500] full-step MSE(x0,z)=0.5149 | std비 full=0.865 1step=0.726 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.840 vs teacher 1.518 vs GT 0.919
+[step 1510/2000] gen 0.0062 gap 0.0097 |g| 1.18 | cv 0.0184 λ 9.34e-02 (r_s 1.074 vs r_t 0.995) | critic 0.1548 |g| 2.56 | 1.8s/step | max 27.3GB
+[step 1520/2000] gen 0.0054 gap 0.0084 |g| 0.90 | cv 0.0202 λ 6.56e-02 (r_s 0.781 vs r_t 0.887) | critic 0.1697 |g| 2.78 | 1.8s/step | max 27.3GB
+[step 1530/2000] gen 0.0042 gap 0.0067 |g| 0.38 | cv 0.3319 λ 9.34e-03 (r_s 0.897 vs r_t 0.504) | critic 0.1702 |g| 2.19 | 1.8s/step | max 27.3GB
+[step 1540/2000] gen 0.0035 gap 0.0055 |g| 0.71 | cv 0.0093 λ 1.77e-01 (r_s 0.746 vs r_t 0.693) | critic 0.1808 |g| 2.84 | 1.8s/step | max 27.3GB
+[step 1550/2000] gen 0.0057 gap 0.0076 |g| 0.61 | cv 0.0964 λ 2.40e-02 (r_s 0.946 vs r_t 0.700) | critic 0.1872 |g| 2.04 | 1.8s/step | max 27.3GB
+[step 1560/2000] gen 0.0031 gap 0.0055 |g| 0.63 | cv 0.0558 λ 6.28e-02 (r_s 0.815 vs r_t 1.016) | critic 0.1570 |g| 2.41 | 1.8s/step | max 27.3GB
+[step 1570/2000] gen 0.0053 gap 0.0087 |g| 0.61 | cv 0.0919 λ 2.52e-02 (r_s 1.008 vs r_t 0.771) | critic 0.1767 |g| 2.87 | 1.8s/step | max 27.3GB
+[step 1580/2000] gen 0.0012 gap 0.0056 |g| 0.33 | cv 0.0428 λ 8.99e-02 (r_s 0.974 vs r_t 0.837) | critic 0.1775 |g| 2.57 | 1.8s/step | max 27.3GB
+[step 1590/2000] gen 0.0055 gap 0.0094 |g| 1.60 | cv 0.0167 λ 5.39e-02 (r_s 0.841 vs r_t 0.855) | critic 0.1776 |g| 3.01 | 1.8s/step | max 27.3GB
+[step 1600/2000] gen 0.0047 gap 0.0073 |g| 1.04 | cv 0.0147 λ 8.01e-02 (r_s 0.890 vs r_t 0.873) | critic 0.1985 |g| 2.62 | 1.8s/step | max 27.3GB
+[DIAG step 1600] full-step MSE(x0,z)=0.5273 | std비 full=0.877 1step=0.745 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.865 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 1600)
+[step 1610/2000] gen 0.0036 gap 0.0080 |g| 1.02 | cv 0.0080 λ 3.12e-01 (r_s 0.825 vs r_t 0.768) | critic 0.1847 |g| 2.58 | 1.8s/step | max 27.3GB
+[step 1620/2000] gen 0.0043 gap 0.0070 |g| 0.73 | cv 0.1682 λ 1.62e-02 (r_s 0.839 vs r_t 0.562) | critic 0.1764 |g| 2.52 | 1.8s/step | max 27.3GB
+[step 1630/2000] gen 0.0041 gap 0.0074 |g| 0.48 | cv 0.0940 λ 2.35e-02 (r_s 1.044 vs r_t 0.924) | critic 0.2354 |g| 3.03 | 1.8s/step | max 27.3GB
+[step 1640/2000] gen 0.0027 gap 0.0046 |g| 0.64 | cv 0.0167 λ 1.25e+00 (r_s 0.783 vs r_t 0.713) | critic 0.1535 |g| 3.89 | 1.8s/step | max 27.3GB
+[step 1650/2000] gen 0.0046 gap 0.0087 |g| 0.91 | cv 0.0248 λ 3.79e-02 (r_s 0.822 vs r_t 0.805) | critic 0.1563 |g| 2.00 | 1.8s/step | max 27.3GB
+[step 1660/2000] gen 0.0007 gap 0.0065 |g| 0.45 | cv 0.0009 λ 1.10e-01 (r_s 0.901 vs r_t 0.927) | critic 0.1598 |g| 2.38 | 1.8s/step | max 27.3GB
+[step 1670/2000] gen 0.0020 gap 0.0068 |g| 0.60 | cv 0.1189 λ 2.70e-02 (r_s 0.976 vs r_t 0.743) | critic 0.1596 |g| 1.93 | 1.8s/step | max 27.3GB
+[step 1680/2000] gen 0.0035 gap 0.0071 |g| 0.71 | cv 0.0687 λ 2.39e-02 (r_s 0.810 vs r_t 0.725) | critic 0.1665 |g| 2.19 | 1.8s/step | max 27.3GB
+[step 1690/2000] gen 0.0014 gap 0.0066 |g| 0.53 | cv 0.0149 λ 6.36e-02 (r_s 0.843 vs r_t 0.898) | critic 0.1635 |g| 3.30 | 1.8s/step | max 27.3GB
+[step 1700/2000] gen 0.0030 gap 0.0071 |g| 0.70 | cv 0.0097 λ 4.21e-01 (r_s 0.987 vs r_t 1.056) | critic 0.1449 |g| 2.59 | 1.8s/step | max 27.3GB
+[DIAG step 1700] full-step MSE(x0,z)=0.5360 | std비 full=0.882 1step=0.742 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.829 vs teacher 1.518 vs GT 0.919
+[step 1710/2000] gen 0.0058 gap 0.0077 |g| 1.57 | cv 0.1376 λ 1.09e-01 (r_s 0.949 vs r_t 0.744) | critic 0.1642 |g| 2.13 | 1.8s/step | max 27.3GB
+[step 1720/2000] gen 0.0024 gap 0.0064 |g| 0.53 | cv 0.0420 λ 1.39e-01 (r_s 0.832 vs r_t 0.738) | critic 0.1378 |g| 2.08 | 1.8s/step | max 27.3GB
+[step 1730/2000] gen 0.0027 gap 0.0068 |g| 0.86 | cv 0.1158 λ 3.57e-02 (r_s 0.752 vs r_t 0.997) | critic 0.1797 |g| 1.99 | 1.8s/step | max 27.3GB
+[step 1740/2000] gen 0.0062 gap 0.0079 |g| 0.92 | cv 0.0497 λ 3.70e-02 (r_s 0.870 vs r_t 0.696) | critic 0.1520 |g| 3.08 | 1.8s/step | max 27.3GB
+[step 1750/2000] gen 0.0045 gap 0.0081 |g| 1.16 | cv 0.0125 λ 9.05e-02 (r_s 0.838 vs r_t 0.880) | critic 0.1559 |g| 2.20 | 1.8s/step | max 27.3GB
+[step 1760/2000] gen 0.0080 gap 0.0091 |g| 0.99 | cv 0.0741 λ 3.97e-02 (r_s 0.745 vs r_t 0.771) | critic 0.1372 |g| 3.35 | 1.8s/step | max 27.3GB
+[step 1770/2000] gen 0.0032 gap 0.0090 |g| 1.22 | cv 0.0074 λ 1.22e-01 (r_s 0.820 vs r_t 0.760) | critic 0.1887 |g| 3.54 | 1.8s/step | max 27.3GB
+[step 1780/2000] gen 0.0010 gap 0.0062 |g| 0.78 | cv 0.0235 λ 4.11e-01 (r_s 0.852 vs r_t 0.772) | critic 0.1406 |g| 2.26 | 1.8s/step | max 27.3GB
+[step 1790/2000] gen 0.0066 gap 0.0104 |g| 1.27 | cv 0.0150 λ 8.10e-02 (r_s 1.012 vs r_t 0.901) | critic 0.1837 |g| 1.96 | 1.8s/step | max 27.3GB
+[step 1800/2000] gen 0.0058 gap 0.0086 |g| 0.90 | cv 0.0412 λ 6.47e-02 (r_s 0.871 vs r_t 0.974) | critic 0.1793 |g| 3.60 | 1.8s/step | max 27.3GB
+[DIAG step 1800] full-step MSE(x0,z)=0.5456 | std비 full=0.884 1step=0.740 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.735 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 1800)
+[step 1810/2000] gen 0.0031 gap 0.0081 |g| 0.57 | cv 0.1156 λ 1.74e-02 (r_s 0.618 vs r_t 0.840) | critic 0.1532 |g| 2.07 | 1.8s/step | max 27.3GB
+[step 1820/2000] gen 0.0019 gap 0.0064 |g| 0.56 | cv 0.1477 λ 2.26e-02 (r_s 0.907 vs r_t 0.678) | critic 0.1323 |g| 3.11 | 1.8s/step | max 27.3GB
+[step 1830/2000] gen 0.0055 gap 0.0066 |g| 0.96 | cv 0.1834 λ 2.97e-02 (r_s 0.906 vs r_t 0.756) | critic 0.1723 |g| 2.84 | 1.8s/step | max 27.3GB
+[step 1840/2000] gen 0.0026 gap 0.0070 |g| 1.11 | cv 0.1270 λ 1.26e-02 (r_s 0.761 vs r_t 0.782) | critic 0.1624 |g| 2.04 | 1.8s/step | max 27.3GB
+[step 1850/2000] gen 0.0042 gap 0.0092 |g| 1.25 | cv 0.0123 λ 7.13e-02 (r_s 0.776 vs r_t 0.862) | critic 0.1593 |g| 3.69 | 1.8s/step | max 27.3GB
+[step 1860/2000] gen 0.0051 gap 0.0083 |g| 2.62 | cv 0.0293 λ 8.54e-02 (r_s 0.912 vs r_t 1.057) | critic 0.1658 |g| 1.90 | 1.8s/step | max 27.3GB
+[step 1870/2000] gen 0.0047 gap 0.0071 |g| 0.95 | cv 0.0317 λ 6.44e-02 (r_s 0.798 vs r_t 0.680) | critic 0.1329 |g| 1.67 | 1.8s/step | max 27.3GB
+[step 1880/2000] gen 0.0076 gap 0.0090 |g| 1.21 | cv 0.0960 λ 2.16e-01 (r_s 1.047 vs r_t 0.832) | critic 0.1446 |g| 2.04 | 1.8s/step | max 27.3GB
+[step 1890/2000] gen 0.0051 gap 0.0063 |g| 0.53 | cv 0.0907 λ 9.12e-02 (r_s 0.856 vs r_t 0.759) | critic 0.1495 |g| 2.57 | 1.8s/step | max 27.3GB
+[step 1900/2000] gen 0.0070 gap 0.0077 |g| 1.96 | cv 0.0443 λ 2.65e-01 (r_s 0.904 vs r_t 0.778) | critic 0.1332 |g| 1.86 | 1.8s/step | max 27.3GB
+[DIAG step 1900] full-step MSE(x0,z)=0.5716 | std비 full=0.914 1step=0.765 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.861 vs teacher 1.518 vs GT 0.919
+[step 1910/2000] gen 0.0020 gap 0.0064 |g| 0.78 | cv 0.0787 λ 8.99e-02 (r_s 0.973 vs r_t 0.800) | critic 0.1548 |g| 1.87 | 1.8s/step | max 27.3GB
+[step 1920/2000] gen 0.0058 gap 0.0100 |g| 0.61 | cv 0.0553 λ 5.57e-02 (r_s 1.001 vs r_t 0.809) | critic 0.1428 |g| 2.56 | 1.8s/step | max 27.3GB
+[step 1930/2000] gen 0.0037 gap 0.0066 |g| 0.65 | cv 0.2102 λ 4.07e-02 (r_s 0.972 vs r_t 0.776) | critic 0.1493 |g| 1.68 | 1.8s/step | max 27.3GB
+[step 1940/2000] gen 0.0045 gap 0.0069 |g| 1.06 | cv 0.0177 λ 2.79e-01 (r_s 0.864 vs r_t 0.789) | critic 0.1335 |g| 3.76 | 1.8s/step | max 27.3GB
+[step 1950/2000] gen 0.0059 gap 0.0089 |g| 1.21 | cv 0.0307 λ 2.20e-01 (r_s 1.048 vs r_t 0.903) | critic 0.1761 |g| 2.21 | 1.8s/step | max 27.3GB
+[step 1960/2000] gen 0.0022 gap 0.0070 |g| 0.68 | cv 0.0239 λ 2.13e-01 (r_s 0.886 vs r_t 0.784) | critic 0.1523 |g| 2.03 | 1.8s/step | max 27.3GB
+[step 1970/2000] gen 0.0045 gap 0.0051 |g| 1.04 | cv 0.1202 λ 3.57e-02 (r_s 0.905 vs r_t 0.798) | critic 0.1292 |g| 2.69 | 1.8s/step | max 27.3GB
+[step 1980/2000] gen 0.0058 gap 0.0077 |g| 0.75 | cv 0.1159 λ 2.92e-02 (r_s 1.258 vs r_t 0.902) | critic 0.1392 |g| 2.94 | 1.8s/step | max 27.3GB
+[step 1990/2000] gen 0.0028 gap 0.0064 |g| 0.70 | cv 0.0059 λ 7.99e-02 (r_s 0.991 vs r_t 0.920) | critic 0.1300 |g| 2.75 | 1.8s/step | max 27.3GB
+[step 2000/2000] gen 0.0064 gap 0.0064 |g| 0.75 | cv 0.2564 λ 2.46e-02 (r_s 0.931 vs r_t 0.585) | critic 0.1289 |g| 2.00 | 1.8s/step | max 27.3GB
+[DIAG step 2000] full-step MSE(x0,z)=0.5828 | std비 full=0.923 1step=0.779 (1.0=teacher 수준, ↓=안개/평균 붕괴) | 뷰비 r student 0.857 vs teacher 1.518 vs GT 0.919
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6b3/dmd_gen.pt, dmd_fake.pt (step 2000)
+완료
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_215145-oj7hmjcw[0m
+[1;34mwandb[0m: Find logs at: [1;35m../Geo4D/bench_out/wandb/offline-run-20260822_215145-oj7hmjcw/logs[0m
+TRAIN_6B3_DONE
+[1/3] 모델·LPIPS 로드
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lightning_fabric/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__("pkg_resources").declare_namespace(__name__)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+no module 'xformers'. Processing without...
+no module 'xformers'. Processing without...
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchdata/datapipes/__init__.py:18: UserWarning: 
+################################################################################
+WARNING!
+The 'datapipes', 'dataloader2' modules are deprecated and will be removed in a
+future torchdata release! Please see https://github.com/pytorch/data/issues/1196
+to learn more and leave feedback.
+################################################################################
+
+  deprecation_warning()
+Global seed set to 42
+wandb: Tracking run with wandb version 0.28.2
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_230551-1cqr1tp6
+wandb: View this run in the terminal with `wandb leet`
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+conditioner_config.params.emb_models[1].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[1].params.en_and_decode_n_samples_a_time: 
+10
+conditioner_config.params.emb_models[2].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[2].params.en_and_decode_n_samples_a_time: 
+10
+Initialized embedder #0: FrozenOpenCLIPImagePredictionEmbedder with 683800065 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+Initialized embedder #1: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Initialized embedder #2: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+Restored from 
+/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple/4dgen.ckpt with 0 
+missing and 0 unexpected keys
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: /home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lpips/weights/v0.1/alex.pth
+[2/3] 데이터 (RNG 고정)
+/home/sun4208/4dgen/sgm/util.py:54: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:1263: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/utils/checkpoint.py:232: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/contextlib.py:103: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+
+
+Is relative traj: False
+
+Loading replay buffer from: /home/sun4208/Geo4D/Data/replay_buffer_infer.zarr
+[3/3] 측정: ['T25', 'S3', 'S3a', 'S1a']
+[ T25] 24.8s | PSNR 20.09 | AbsRel 0.2492 (L 0.0803 / R 0.4181) | LPIPS 0.1254 | CV 0.1828 | 뷰비오차 0.5086 | s 1.000±0.000
+[  S3] 5.8s | PSNR 16.57 | AbsRel 1.0878 (L 0.2308 / R 1.9449) | LPIPS 0.3573 | CV 0.1275 | 뷰비오차 0.2982 | s 1.000±0.000
+[ S3a] 5.8s | PSNR 16.57 | AbsRel 1.0174 (L 0.2153 / R 1.8195) | LPIPS 0.3573 | CV 0.1233 | 뷰비오차 0.2982 | s 0.966±0.045
+[ S1a] 5.0s | PSNR 15.88 | AbsRel 1.2965 (L 0.2604 / R 2.3326) | LPIPS 0.7029 | CV 0.1434 | 뷰비오차 0.2343 | s 1.030±0.069
+
+=== 통합 평가 (data_seed 1234, 배치 10=뷰 20) student=dmd_gen_step1600.pt ===
+
+설정 | s/생성 | PSNR^ | AbsRel v | AbsRel L | AbsRel R | LPIPS v | CV v | 뷰비오차 v | 앵커 s
+ T25 |  24.8 | 20.09 | 0.2492 | 0.0803 | 0.4181 | 0.1254 | 0.1828 | 0.5086 | 1.000
+  S3 |   5.8 | 16.57 | 1.0878 | 0.2308 | 1.9449 | 0.3573 | 0.1275 | 0.2982 | 1.000
+ S3a |   5.8 | 16.57 | 1.0174 | 0.2153 | 1.8195 | 0.3573 | 0.1233 | 0.2982 | 0.966
+ S1a |   5.0 | 15.88 | 1.2965 | 0.2604 | 2.3326 | 0.7029 | 0.1434 | 0.2343 | 1.030
+
+[paired X − T25] 지표 | 설정 | 평균차 ± std | X 우수 비율 | Wilcoxon p
+    PSNR |   S3 | -3.5217 ± 1.7247 |   0.0% | 0.000
+    PSNR |  S3a | -3.5217 ± 1.7247 |   0.0% | 0.000
+    PSNR |  S1a | -4.2164 ± 1.3195 |   0.0% | 0.000
+  AbsRel |   S3 | +0.8386 ± 2.3995 |   0.0% | 0.000
+  AbsRel |  S3a | +0.7682 ± 2.1608 |   0.0% | 0.000
+  AbsRel |  S1a | +1.0473 ± 3.0303 |   0.0% | 0.000
+AbsRel_L |   S3 | +0.1504 ± 0.0285 |   0.0% | 0.002
+AbsRel_L |  S3a | +0.1350 ± 0.0299 |   0.0% | 0.002
+AbsRel_L |  S1a | +0.1801 ± 0.0255 |   0.0% | 0.002
+AbsRel_R |   S3 | +1.5268 ± 3.2507 |   0.0% | 0.002
+AbsRel_R |  S3a | +1.4014 ± 2.9216 |   0.0% | 0.002
+AbsRel_R |  S1a | +1.9145 ± 4.1062 |   0.0% | 0.002
+   LPIPS |   S3 | +0.2320 ± 0.0733 |   0.0% | 0.000
+   LPIPS |  S3a | +0.2320 ± 0.0733 |   0.0% | 0.000
+   LPIPS |  S1a | +0.5775 ± 0.0645 |   0.0% | 0.000
+      CV |   S3 | -0.0553 ± 0.0647 |  70.0% | 0.037
+      CV |  S3a | -0.0596 ± 0.0611 |  80.0% | 0.020
+      CV |  S1a | -0.0394 ± 0.0554 |  70.0% | 0.084
+      SR |   S3 | -0.2104 ± 0.2846 |  70.0% | 0.084
+      SR |  S3a | -0.2104 ± 0.2846 |  70.0% | 0.084
+      SR |  S1a | -0.2742 ± 0.2775 |  70.0% | 0.027
+
+저장: ~/Geo4D/bench_out/eval_6x_6b3_s1600.txt
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_230551-1cqr1tp6[0m
+[1;34mwandb[0m: Find logs at: [1;35m../Geo4D/bench_out/wandb/offline-run-20260822_230551-1cqr1tp6/logs[0m
+[1/3] 모델·LPIPS 로드
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lightning_fabric/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__("pkg_resources").declare_namespace(__name__)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+no module 'xformers'. Processing without...
+no module 'xformers'. Processing without...
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchdata/datapipes/__init__.py:18: UserWarning: 
+################################################################################
+WARNING!
+The 'datapipes', 'dataloader2' modules are deprecated and will be removed in a
+future torchdata release! Please see https://github.com/pytorch/data/issues/1196
+to learn more and leave feedback.
+################################################################################
+
+  deprecation_warning()
+Global seed set to 42
+wandb: Tracking run with wandb version 0.28.2
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_231428-yw3e7l8d
+wandb: View this run in the terminal with `wandb leet`
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+conditioner_config.params.emb_models[1].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[1].params.en_and_decode_n_samples_a_time: 
+10
+conditioner_config.params.emb_models[2].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[2].params.en_and_decode_n_samples_a_time: 
+10
+Initialized embedder #0: FrozenOpenCLIPImagePredictionEmbedder with 683800065 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+Initialized embedder #1: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Initialized embedder #2: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+Restored from 
+/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple/4dgen.ckpt with 0 
+missing and 0 unexpected keys
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: /home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lpips/weights/v0.1/alex.pth
+[2/3] 데이터 (RNG 고정)
+/home/sun4208/4dgen/sgm/util.py:54: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:1263: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/utils/checkpoint.py:232: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/contextlib.py:103: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+
+
+Is relative traj: False
+
+Loading replay buffer from: /home/sun4208/Geo4D/Data/replay_buffer_infer.zarr
+[3/3] 측정: ['T25', 'S3', 'S3a', 'S1a']
+[ T25] 24.8s | PSNR 20.09 | AbsRel 0.2492 (L 0.0803 / R 0.4181) | LPIPS 0.1254 | CV 0.1828 | 뷰비오차 0.5086 | s 1.000±0.000
+[  S3] 5.8s | PSNR 19.91 | AbsRel 0.4567 (L 0.1459 / R 0.7676) | LPIPS 0.1457 | CV 0.1964 | 뷰비오차 0.2340 | s 1.000±0.000
+[ S3a] 5.8s | PSNR 19.91 | AbsRel 0.3753 (L 0.0861 / R 0.6645) | LPIPS 0.1457 | CV 0.1777 | 뷰비오차 0.2340 | s 0.908±0.033
+[ S1a] 5.0s | PSNR 20.35 | AbsRel 0.4369 (L 0.1374 / R 0.7364) | LPIPS 0.1861 | CV 0.1929 | 뷰비오차 0.4002 | s 0.919±0.041
+
+=== 통합 평가 (data_seed 1234, 배치 10=뷰 20) student=dmd_gen_step1600.pt ===
+
+설정 | s/생성 | PSNR^ | AbsRel v | AbsRel L | AbsRel R | LPIPS v | CV v | 뷰비오차 v | 앵커 s
+ T25 |  24.8 | 20.09 | 0.2492 | 0.0803 | 0.4181 | 0.1254 | 0.1828 | 0.5086 | 1.000
+  S3 |   5.8 | 19.91 | 0.4567 | 0.1459 | 0.7676 | 0.1457 | 0.1964 | 0.2340 | 1.000
+ S3a |   5.8 | 19.91 | 0.3753 | 0.0861 | 0.6645 | 0.1457 | 0.1777 | 0.2340 | 0.908
+ S1a |   5.0 | 20.35 | 0.4369 | 0.1374 | 0.7364 | 0.1861 | 0.1929 | 0.4002 | 0.919
+
+[paired X − T25] 지표 | 설정 | 평균차 ± std | X 우수 비율 | Wilcoxon p
+    PSNR |   S3 | -0.1788 ± 0.5122 |  25.0% | 0.076
+    PSNR |  S3a | -0.1788 ± 0.5122 |  25.0% | 0.076
+    PSNR |  S1a | +0.2572 ± 0.5147 |  75.0% | 0.044
+  AbsRel |   S3 | +0.2075 ± 0.3117 |   0.0% | 0.000
+  AbsRel |  S3a | +0.1261 ± 0.2385 |  20.0% | 0.001
+  AbsRel |  S1a | +0.1877 ± 0.4088 |   0.0% | 0.000
+AbsRel_L |   S3 | +0.0655 ± 0.0334 |   0.0% | 0.002
+AbsRel_L |  S3a | +0.0058 ± 0.0262 |  40.0% | 0.432
+AbsRel_L |  S1a | +0.0570 ± 0.0202 |   0.0% | 0.002
+AbsRel_R |   S3 | +0.3495 ± 0.3910 |   0.0% | 0.002
+AbsRel_R |  S3a | +0.2464 ± 0.2901 |   0.0% | 0.002
+AbsRel_R |  S1a | +0.3183 ± 0.5475 |   0.0% | 0.002
+   LPIPS |   S3 | +0.0203 ± 0.0113 |   5.0% | 0.000
+   LPIPS |  S3a | +0.0203 ± 0.0113 |   5.0% | 0.000
+   LPIPS |  S1a | +0.0607 ± 0.0188 |   0.0% | 0.000
+      CV |   S3 | +0.0135 ± 0.0525 |  50.0% | 0.557
+      CV |  S3a | -0.0051 ± 0.0479 |  50.0% | 0.695
+      CV |  S1a | +0.0101 ± 0.0557 |  40.0% | 0.625
+      SR |   S3 | -0.2745 ± 0.2760 |  90.0% | 0.027
+      SR |  S3a | -0.2745 ± 0.2760 |  90.0% | 0.027
+      SR |  S1a | -0.1083 ± 0.2073 |  70.0% | 0.131
+
+저장: ~/Geo4D/bench_out/eval_6x_6a_s1600_v2.txt
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_231428-yw3e7l8d[0m
+[1;34mwandb[0m: Find logs at: [1;35m../Geo4D/bench_out/wandb/offline-run-20260822_231428-yw3e7l8d/logs[0m
+EVAL_6B3_DONE

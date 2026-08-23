@@ -1,0 +1,5 @@
+=== student(dmd_gen.pt, sampler=renoise) vs teacher(EulerEDM, 학습 없는 축소) — 배치 10 ===
+steps | time(s) | PSNR^ | AbsRel v | CV-Chamfer v | (teacher CV | 개선율)
+    3 |     5.9 | 19.21 | 0.2271 | 0.1763
+    2 |     5.4 | 19.31 | 0.2401 | 0.1621 | 0.1919 | -15.6%
+    1 |     5.0 | 19.85 | 0.2521 | 0.1811 | 0.1943 | -6.8%

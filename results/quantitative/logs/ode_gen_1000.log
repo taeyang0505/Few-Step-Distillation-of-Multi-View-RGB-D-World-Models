@@ -1,0 +1,202 @@
+nohup: ignoring input
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lightning_fabric/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__("pkg_resources").declare_namespace(__name__)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+no module 'xformers'. Processing without...
+no module 'xformers'. Processing without...
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchdata/datapipes/__init__.py:18: UserWarning: 
+################################################################################
+WARNING!
+The 'datapipes', 'dataloader2' modules are deprecated and will be removed in a
+future torchdata release! Please see https://github.com/pytorch/data/issues/1196
+to learn more and leave feedback.
+################################################################################
+
+  deprecation_warning()
+Global seed set to 42
+wandb: Tracking run with wandb version 0.28.2
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_160623-bzebxswd
+wandb: View this run in the terminal with `wandb leet`
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+[1/3] 모델 로드
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+conditioner_config.params.emb_models[1].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[1].params.en_and_decode_n_samples_a_time: 
+10
+conditioner_config.params.emb_models[2].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[2].params.en_and_decode_n_samples_a_time: 
+10
+Initialized embedder #0: FrozenOpenCLIPImagePredictionEmbedder with 683800065 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+Initialized embedder #1: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Initialized embedder #2: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+Restored from 
+/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple/4dgen.ckpt with 0 
+missing and 0 unexpected keys
+student σ 타깃: ['700.0', '70.5', '2.3']
+[2/3] 데이터 준비
+
+
+Is relative traj: False
+
+Loading replay buffer from: /home/sun4208/Geo4D/Data/replay_buffer_infer.zarr
+[3/3] 궤적 캡처 생성 시작
+/home/sun4208/4dgen/sgm/util.py:54: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:1263: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/utils/checkpoint.py:232: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/contextlib.py:103: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+[201/1000] idx=100 seed=0 (0.5초/쌍, 남은 예상 7분)
+[202/1000] idx=100 seed=1 (0.6초/쌍, 남은 예상 8분)
+[203/1000] idx=101 seed=0 (0.7초/쌍, 남은 예상 10분)
+[204/1000] idx=101 seed=1 (0.8초/쌍, 남은 예상 11분)
+[205/1000] idx=102 seed=0 (0.9초/쌍, 남은 예상 12분)
+[206/1000] idx=102 seed=1 (1.0초/쌍, 남은 예상 14분)
+[207/1000] idx=103 seed=0 (1.1초/쌍, 남은 예상 15분)
+[208/1000] idx=103 seed=1 (1.2초/쌍, 남은 예상 16분)
+[209/1000] idx=104 seed=0 (1.3초/쌍, 남은 예상 18분)
+[210/1000] idx=104 seed=1 (1.4초/쌍, 남은 예상 19분)
+[211/1000] idx=105 seed=0 (1.5초/쌍, 남은 예상 20분)
+[212/1000] idx=105 seed=1 (1.6초/쌍, 남은 예상 21분)
+[213/1000] idx=106 seed=0 (1.7초/쌍, 남은 예상 23분)
+[214/1000] idx=106 seed=1 (1.8초/쌍, 남은 예상 24분)
+[215/1000] idx=107 seed=0 (1.9초/쌍, 남은 예상 25분)
+[216/1000] idx=107 seed=1 (2.0초/쌍, 남은 예상 26분)
+[217/1000] idx=108 seed=0 (2.1초/쌍, 남은 예상 27분)
+[218/1000] idx=108 seed=1 (2.2초/쌍, 남은 예상 28분)
+[219/1000] idx=109 seed=0 (2.3초/쌍, 남은 예상 30분)
+[220/1000] idx=109 seed=1 (2.4초/쌍, 남은 예상 31분)
+[221/1000] idx=110 seed=0 (2.4초/쌍, 남은 예상 32분)
+[222/1000] idx=110 seed=1 (2.5초/쌍, 남은 예상 33분)
+[223/1000] idx=111 seed=0 (2.6초/쌍, 남은 예상 34분)
+[224/1000] idx=111 seed=1 (2.7초/쌍, 남은 예상 35분)
+[225/1000] idx=112 seed=0 (2.8초/쌍, 남은 예상 36분)
+[226/1000] idx=112 seed=1 (2.9초/쌍, 남은 예상 37분)
+[227/1000] idx=113 seed=0 (3.0초/쌍, 남은 예상 38분)
+[228/1000] idx=113 seed=1 (3.0초/쌍, 남은 예상 39분)
+[229/1000] idx=114 seed=0 (3.1초/쌍, 남은 예상 40분)
+[230/1000] idx=114 seed=1 (3.2초/쌍, 남은 예상 41분)
+[231/1000] idx=115 seed=0 (3.3초/쌍, 남은 예상 42분)
+[232/1000] idx=115 seed=1 (3.4초/쌍, 남은 예상 43분)
+[233/1000] idx=116 seed=0 (3.4초/쌍, 남은 예상 44분)
+[234/1000] idx=116 seed=1 (3.5초/쌍, 남은 예상 45분)
+[235/1000] idx=117 seed=0 (3.6초/쌍, 남은 예상 46분)
+[236/1000] idx=117 seed=1 (3.7초/쌍, 남은 예상 47분)
+[237/1000] idx=118 seed=0 (3.7초/쌍, 남은 예상 48분)
+[238/1000] idx=118 seed=1 (3.8초/쌍, 남은 예상 49분)
+[239/1000] idx=119 seed=0 (3.9초/쌍, 남은 예상 49분)
+[240/1000] idx=119 seed=1 (4.0초/쌍, 남은 예상 50분)
+[241/1000] idx=120 seed=0 (4.0초/쌍, 남은 예상 51분)
+[242/1000] idx=120 seed=1 (4.1초/쌍, 남은 예상 52분)
+[243/1000] idx=121 seed=0 (4.2초/쌍, 남은 예상 53분)
+[244/1000] idx=121 seed=1 (4.3초/쌍, 남은 예상 54분)
+[245/1000] idx=122 seed=0 (4.3초/쌍, 남은 예상 54분)
+[246/1000] idx=122 seed=1 (4.4초/쌍, 남은 예상 55분)
+[247/1000] idx=123 seed=0 (4.5초/쌍, 남은 예상 56분)
+[248/1000] idx=123 seed=1 (4.5초/쌍, 남은 예상 57분)
+[249/1000] idx=124 seed=0 (4.6초/쌍, 남은 예상 58분)
+[250/1000] idx=124 seed=1 (4.7초/쌍, 남은 예상 59분)
+[251/1000] idx=125 seed=0 (4.7초/쌍, 남은 예상 59분)
+[252/1000] idx=125 seed=1 (4.8초/쌍, 남은 예상 60분)
+[253/1000] idx=126 seed=0 (4.9초/쌍, 남은 예상 61분)
+[254/1000] idx=126 seed=1 (5.0초/쌍, 남은 예상 62분)
+[255/1000] idx=127 seed=0 (5.0초/쌍, 남은 예상 62분)
+[256/1000] idx=127 seed=1 (5.1초/쌍, 남은 예상 63분)
+[257/1000] idx=128 seed=0 (5.1초/쌍, 남은 예상 64분)
+[258/1000] idx=128 seed=1 (5.2초/쌍, 남은 예상 64분)
+[259/1000] idx=129 seed=0 (5.3초/쌍, 남은 예상 65분)
+[260/1000] idx=129 seed=1 (5.3초/쌍, 남은 예상 66분)
+[261/1000] idx=130 seed=0 (5.4초/쌍, 남은 예상 66분)
+[262/1000] idx=130 seed=1 (5.5초/쌍, 남은 예상 67분)
+[263/1000] idx=131 seed=0 (5.5초/쌍, 남은 예상 68분)
+[264/1000] idx=131 seed=1 (5.6초/쌍, 남은 예상 68분)
+[265/1000] idx=132 seed=0 (5.6초/쌍, 남은 예상 69분)
+[266/1000] idx=132 seed=1 (5.7초/쌍, 남은 예상 70분)
+[267/1000] idx=133 seed=0 (5.8초/쌍, 남은 예상 70분)
+[268/1000] idx=133 seed=1 (5.8초/쌍, 남은 예상 71분)
+[269/1000] idx=134 seed=0 (5.9초/쌍, 남은 예상 72분)
+[270/1000] idx=134 seed=1 (5.9초/쌍, 남은 예상 72분)
+[271/1000] idx=135 seed=0 (6.0초/쌍, 남은 예상 73분)
+[272/1000] idx=135 seed=1 (6.1초/쌍, 남은 예상 73분)
+[273/1000] idx=136 seed=0 (6.1초/쌍, 남은 예상 74분)
+[274/1000] idx=136 seed=1 (6.2초/쌍, 남은 예상 75분)
+[275/1000] idx=137 seed=0 (6.2초/쌍, 남은 예상 75분)
+[276/1000] idx=137 seed=1 (6.3초/쌍, 남은 예상 76분)
+[277/1000] idx=138 seed=0 (6.3초/쌍, 남은 예상 76분)
+[278/1000] idx=138 seed=1 (6.4초/쌍, 남은 예상 77분)
+[279/1000] idx=139 seed=0 (6.5초/쌍, 남은 예상 78분)
+[280/1000] idx=139 seed=1 (6.5초/쌍, 남은 예상 78분)
+[281/1000] idx=140 seed=0 (6.6초/쌍, 남은 예상 79분)
+[282/1000] idx=140 seed=1 (6.6초/쌍, 남은 예상 79분)
+[283/1000] idx=141 seed=0 (6.7초/쌍, 남은 예상 80분)
+[284/1000] idx=141 seed=1 (6.7초/쌍, 남은 예상 80분)
+완료: 284쌍 → /home/sun4208/Geo4D/ode_pairs_v2
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_160623-bzebxswd[0m
+[1;34mwandb[0m: Find logs at: [1;35m../Geo4D/bench_out/wandb/offline-run-20260822_160623-bzebxswd/logs[0m

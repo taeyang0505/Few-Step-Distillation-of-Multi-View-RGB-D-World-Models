@@ -1,0 +1,363 @@
+nohup: ignoring input
+[1/5] teacher 로드
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/lightning_fabric/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  __import__("pkg_resources").declare_namespace(__name__)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/transformers/utils/generic.py:339: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.
+  _torch_pytree._register_pytree_node(
+no module 'xformers'. Processing without...
+no module 'xformers'. Processing without...
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torchdata/datapipes/__init__.py:18: UserWarning: 
+################################################################################
+WARNING!
+The 'datapipes', 'dataloader2' modules are deprecated and will be removed in a
+future torchdata release! Please see https://github.com/pytorch/data/issues/1196
+to learn more and leave feedback.
+################################################################################
+
+  deprecation_warning()
+Global seed set to 42
+wandb: Tracking run with wandb version 0.28.2
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_164047-y6nbr290
+wandb: View this run in the terminal with `wandb leet`
+wandb: WARNING Symlinked 1 file into the W&B run directory; call wandb.save again to sync new files.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+Attention mode 'softmax-xformers' is not available. Falling back to native attention. This is not a problem in Pytorch >= 2.0. FYI, you are running with PyTorch version 2.11.0+cu128.
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+VideoTransformerBlock is using checkpointing
+conditioner_config.params.emb_models[1].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[1].params.en_and_decode_n_samples_a_time: 
+10
+conditioner_config.params.emb_models[2].params.disable_encoder_autocast: True
+conditioner_config.params.emb_models[2].params.en_and_decode_n_samples_a_time: 
+10
+Initialized embedder #0: FrozenOpenCLIPImagePredictionEmbedder with 683800065 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+Initialized embedder #1: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is None, skipping!
+Autoencoder ckpt is not None...
+missing_keys:
+[
+    'quant_conv.weight',
+    'quant_conv.bias',
+    'post_quant_conv.weight',
+    'post_quant_conv.bias'
+]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Initialized embedder #2: VideoPredictionEmbedderWithEncoder with 83653863 params. Trainable: False
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+WARNING:sgm.models.autoencoder:Checkpoint path is deprecated, use `checkpoint_egnine` instead
+Autoencoder ckpt is not None...
+missing_keys:
+[]
+Restored from 
+/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple/4dgen.ckpt with 0 
+missing and 0 unexpected keys
+UNet 파라미터 1.54B
+[MEM teacher bf16] alloc 6.88GB | max 9.77GB | reserved 10.13GB
+[2/5] 컨디션 사전계산
+ODE 쌍 284개 / 샘플 142개
+/home/sun4208/4dgen/sgm/util.py:54: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(
+
+
+Is relative traj: False
+
+Loading replay buffer from: /home/sun4208/Geo4D/Data/replay_buffer_infer.zarr
+latent shape: (20, 8, 32, 40) | cond keys: {'crossattn': (2, 1, 1024), 'concat': (20, 8, 32, 40)}
+  50/142 (228s)
+  100/142 (454s)
+컨디션 142개 사전계산 완료 (644s)
+[MEM conditioner/VAE 제거 후] alloc 3.03GB | max 9.77GB | reserved 4.34GB
+[3/5] generator(v2 student) + fake_score(teacher 사본) 구성
+generator 초기화: /home/sun4208/Geo4D/ode_init_geo4d_v2.pt (step 1200, missing=0, unexpected=0)
+[MEM 3벌 구성] alloc 8.85GB | max 9.77GB | reserved 8.94GB
+student σ 스케줄: ['700.0', '70.5', '2.3']
+[5/5] DMD 학습 시작
+[MEM 학습 전] alloc 8.85GB | max 9.77GB | reserved 8.94GB
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:1263: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/site-packages/torch/utils/checkpoint.py:232: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/sun4208/miniconda3/envs/video_policy/lib/python3.10/contextlib.py:103: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+[DIAG step 0] full-step MSE(x0,z)=0.4365 | std비 full=0.791 1step=0.695 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[MEM 첫 critic step 후] alloc 11.83GB | max 18.43GB | reserved 13.53GB
+[MEM 첫 generator step 후] alloc 14.81GB | max 21.41GB | reserved 17.78GB
+[step 10/2000] gen 0.0001 gap 0.0032 |g| 0.01 | critic 0.2318 |g| 6.22 | 1.6s/step | max 24.4GB
+[step 20/2000] gen 0.0004 gap 0.0026 |g| 0.03 | critic 0.2913 |g| 3.31 | 1.7s/step | max 24.4GB
+[step 30/2000] gen 0.0002 gap 0.0038 |g| 0.02 | critic 0.2570 |g| 5.68 | 1.7s/step | max 24.4GB
+[step 40/2000] gen 0.0002 gap 0.0040 |g| 0.02 | critic 0.3080 |g| 3.20 | 1.7s/step | max 24.4GB
+[step 50/2000] gen 0.0001 gap 0.0032 |g| 0.02 | critic 0.2329 |g| 3.32 | 1.7s/step | max 24.4GB
+[step 60/2000] gen 0.0001 gap 0.0035 |g| 0.01 | critic 0.2488 |g| 2.77 | 1.7s/step | max 24.4GB
+[step 70/2000] gen 0.0006 gap 0.0030 |g| 0.02 | critic 0.2467 |g| 3.03 | 1.7s/step | max 24.4GB
+[step 80/2000] gen 0.0001 gap 0.0030 |g| 0.01 | critic 0.2289 |g| 2.95 | 1.7s/step | max 24.4GB
+[step 90/2000] gen 0.0009 gap 0.0017 |g| 0.04 | critic 0.2768 |g| 3.79 | 1.7s/step | max 24.4GB
+[step 100/2000] gen 0.0001 gap 0.0036 |g| 0.02 | critic 0.2782 |g| 3.04 | 1.7s/step | max 24.4GB
+[DIAG step 100] full-step MSE(x0,z)=0.4376 | std비 full=0.791 1step=0.693 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 110/2000] gen 0.0002 gap 0.0036 |g| 0.02 | critic 0.2715 |g| 3.52 | 1.7s/step | max 24.4GB
+[step 120/2000] gen 0.0004 gap 0.0041 |g| 0.03 | critic 0.2639 |g| 3.06 | 1.7s/step | max 24.4GB
+[step 130/2000] gen 0.0007 gap 0.0027 |g| 0.02 | critic 0.2240 |g| 4.38 | 1.7s/step | max 24.4GB
+[step 140/2000] gen 0.0009 gap 0.0042 |g| 0.08 | critic 0.2779 |g| 2.77 | 1.7s/step | max 24.4GB
+[step 150/2000] gen 0.0004 gap 0.0042 |g| 0.04 | critic 0.2547 |g| 3.13 | 1.7s/step | max 24.4GB
+[step 160/2000] gen 0.0008 gap 0.0041 |g| 0.06 | critic 0.2644 |g| 2.81 | 1.7s/step | max 24.4GB
+[step 170/2000] gen 0.0005 gap 0.0046 |g| 0.03 | critic 0.2703 |g| 9.24 | 1.7s/step | max 24.4GB
+[step 180/2000] gen 0.0002 gap 0.0034 |g| 0.02 | critic 0.2411 |g| 3.02 | 1.7s/step | max 24.4GB
+[step 190/2000] gen 0.0007 gap 0.0025 |g| 0.06 | critic 0.2591 |g| 3.65 | 1.7s/step | max 24.4GB
+[step 200/2000] gen 0.0006 gap 0.0036 |g| 0.04 | critic 0.2259 |g| 3.76 | 1.7s/step | max 24.4GB
+[DIAG step 200] full-step MSE(x0,z)=0.4473 | std비 full=0.806 1step=0.709 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 200)
+[step 210/2000] gen 0.0004 gap 0.0039 |g| 0.04 | critic 0.2633 |g| 2.69 | 1.7s/step | max 24.4GB
+[step 220/2000] gen 0.0004 gap 0.0024 |g| 0.04 | critic 0.2211 |g| 3.09 | 1.7s/step | max 24.4GB
+[step 230/2000] gen 0.0001 gap 0.0031 |g| 0.02 | critic 0.2293 |g| 2.69 | 1.7s/step | max 24.4GB
+[step 240/2000] gen 0.0001 gap 0.0030 |g| 0.03 | critic 0.2418 |g| 2.90 | 1.7s/step | max 24.4GB
+[step 250/2000] gen 0.0005 gap 0.0036 |g| 0.04 | critic 0.2427 |g| 2.63 | 1.7s/step | max 24.4GB
+[step 260/2000] gen 0.0001 gap 0.0035 |g| 0.04 | critic 0.2702 |g| 2.97 | 1.7s/step | max 24.4GB
+[step 270/2000] gen 0.0005 gap 0.0048 |g| 0.06 | critic 0.2064 |g| 2.78 | 1.7s/step | max 24.4GB
+[step 280/2000] gen 0.0011 gap 0.0034 |g| 0.07 | critic 0.2367 |g| 2.34 | 1.7s/step | max 24.4GB
+[step 290/2000] gen 0.0006 gap 0.0028 |g| 0.07 | critic 0.2315 |g| 2.46 | 1.7s/step | max 24.4GB
+[step 300/2000] gen 0.0004 gap 0.0048 |g| 0.07 | critic 0.2432 |g| 3.12 | 1.7s/step | max 24.4GB
+[DIAG step 300] full-step MSE(x0,z)=0.4666 | std비 full=0.831 1step=0.718 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 310/2000] gen 0.0004 gap 0.0040 |g| 0.07 | critic 0.2095 |g| 3.15 | 1.7s/step | max 24.4GB
+[step 320/2000] gen 0.0002 gap 0.0037 |g| 0.02 | critic 0.2143 |g| 2.47 | 1.7s/step | max 24.4GB
+[step 330/2000] gen 0.0005 gap 0.0049 |g| 0.09 | critic 0.2125 |g| 2.55 | 1.7s/step | max 24.4GB
+[step 340/2000] gen 0.0001 gap 0.0033 |g| 0.03 | critic 0.2259 |g| 2.47 | 1.7s/step | max 24.4GB
+[step 350/2000] gen 0.0008 gap 0.0043 |g| 0.08 | critic 0.2177 |g| 2.06 | 1.7s/step | max 24.4GB
+[step 360/2000] gen 0.0007 gap 0.0036 |g| 0.06 | critic 0.1939 |g| 2.47 | 1.7s/step | max 24.4GB
+[step 370/2000] gen 0.0013 gap 0.0038 |g| 0.09 | critic 0.2475 |g| 2.91 | 1.7s/step | max 24.4GB
+[step 380/2000] gen 0.0002 gap 0.0037 |g| 0.03 | critic 0.1879 |g| 4.69 | 1.7s/step | max 24.4GB
+[step 390/2000] gen 0.0007 gap 0.0043 |g| 0.08 | critic 0.2021 |g| 2.21 | 1.7s/step | max 24.4GB
+[step 400/2000] gen 0.0005 gap 0.0047 |g| 0.06 | critic 0.1872 |g| 2.77 | 1.7s/step | max 24.4GB
+[DIAG step 400] full-step MSE(x0,z)=0.5032 | std비 full=0.867 1step=0.731 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 400)
+[step 410/2000] gen 0.0006 gap 0.0047 |g| 0.08 | critic 0.1738 |g| 3.62 | 1.7s/step | max 24.4GB
+[step 420/2000] gen 0.0004 gap 0.0032 |g| 0.04 | critic 0.1805 |g| 2.30 | 1.7s/step | max 24.4GB
+[step 430/2000] gen 0.0006 gap 0.0040 |g| 0.09 | critic 0.1907 |g| 7.33 | 1.7s/step | max 24.4GB
+[step 440/2000] gen 0.0007 gap 0.0046 |g| 0.08 | critic 0.1712 |g| 10.53 | 1.7s/step | max 24.4GB
+[step 450/2000] gen 0.0013 gap 0.0035 |g| 0.09 | critic 0.1966 |g| 2.94 | 1.7s/step | max 24.4GB
+[step 460/2000] gen 0.0002 gap 0.0033 |g| 0.04 | critic 0.1725 |g| 2.42 | 1.7s/step | max 24.4GB
+[step 470/2000] gen 0.0010 gap 0.0035 |g| 0.23 | critic 0.1642 |g| 2.45 | 1.7s/step | max 24.4GB
+[step 480/2000] gen 0.0005 gap 0.0029 |g| 0.08 | critic 0.1480 |g| 3.12 | 1.7s/step | max 24.4GB
+[step 490/2000] gen 0.0003 gap 0.0037 |g| 0.05 | critic 0.1511 |g| 2.30 | 1.7s/step | max 24.4GB
+[step 500/2000] gen 0.0005 gap 0.0042 |g| 0.07 | critic 0.1779 |g| 2.43 | 1.7s/step | max 24.4GB
+[DIAG step 500] full-step MSE(x0,z)=0.5466 | std비 full=0.904 1step=0.760 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 510/2000] gen 0.0006 gap 0.0024 |g| 0.09 | critic 0.2240 |g| 1.89 | 1.7s/step | max 24.4GB
+[step 520/2000] gen 0.0009 gap 0.0035 |g| 0.10 | critic 0.1512 |g| 2.18 | 1.7s/step | max 24.4GB
+[step 530/2000] gen 0.0008 gap 0.0023 |g| 0.07 | critic 0.1432 |g| 2.18 | 1.7s/step | max 24.4GB
+[step 540/2000] gen 0.0002 gap 0.0034 |g| 0.08 | critic 0.1600 |g| 1.97 | 1.7s/step | max 24.4GB
+[step 550/2000] gen 0.0004 gap 0.0039 |g| 0.06 | critic 0.1480 |g| 2.12 | 1.7s/step | max 24.4GB
+[step 560/2000] gen 0.0009 gap 0.0029 |g| 0.08 | critic 0.1381 |g| 1.69 | 1.7s/step | max 24.4GB
+[step 570/2000] gen 0.0009 gap 0.0041 |g| 0.09 | critic 0.1327 |g| 1.72 | 1.7s/step | max 24.4GB
+[step 580/2000] gen 0.0005 gap 0.0041 |g| 0.12 | critic 0.1377 |g| 2.48 | 1.7s/step | max 24.4GB
+[step 590/2000] gen 0.0006 gap 0.0038 |g| 0.11 | critic 0.1187 |g| 1.90 | 1.7s/step | max 24.4GB
+[step 600/2000] gen 0.0007 gap 0.0043 |g| 0.07 | critic 0.1104 |g| 1.90 | 1.7s/step | max 24.4GB
+[DIAG step 600] full-step MSE(x0,z)=0.5938 | std비 full=0.934 1step=0.788 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 600)
+[step 610/2000] gen 0.0003 gap 0.0037 |g| 0.05 | critic 0.1350 |g| 2.07 | 1.7s/step | max 24.4GB
+[step 620/2000] gen 0.0010 gap 0.0042 |g| 0.09 | critic 0.1348 |g| 1.98 | 1.7s/step | max 24.4GB
+[step 630/2000] gen 0.0008 gap 0.0041 |g| 0.12 | critic 0.1291 |g| 1.73 | 1.7s/step | max 24.4GB
+[step 640/2000] gen 0.0011 gap 0.0043 |g| 0.09 | critic 0.1044 |g| 2.09 | 1.7s/step | max 24.4GB
+[step 650/2000] gen 0.0009 gap 0.0042 |g| 0.09 | critic 0.1099 |g| 2.37 | 1.7s/step | max 24.4GB
+[step 660/2000] gen 0.0008 gap 0.0036 |g| 0.10 | critic 0.1186 |g| 2.09 | 1.7s/step | max 24.4GB
+[step 670/2000] gen 0.0004 gap 0.0038 |g| 0.08 | critic 0.1158 |g| 1.59 | 1.7s/step | max 24.4GB
+[step 680/2000] gen 0.0006 gap 0.0037 |g| 0.17 | critic 0.0786 |g| 2.87 | 1.7s/step | max 24.4GB
+[step 690/2000] gen 0.0009 gap 0.0039 |g| 0.09 | critic 0.1002 |g| 1.73 | 1.7s/step | max 24.4GB
+[step 700/2000] gen 0.0007 gap 0.0031 |g| 0.08 | critic 0.1081 |g| 1.82 | 1.7s/step | max 24.4GB
+[DIAG step 700] full-step MSE(x0,z)=0.6277 | std비 full=0.954 1step=0.801 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 710/2000] gen 0.0013 gap 0.0041 |g| 0.11 | critic 0.0900 |g| 1.41 | 1.7s/step | max 24.4GB
+[step 720/2000] gen 0.0014 gap 0.0044 |g| 0.12 | critic 0.1226 |g| 1.47 | 1.7s/step | max 24.4GB
+[step 730/2000] gen 0.0008 gap 0.0043 |g| 0.11 | critic 0.0810 |g| 3.29 | 1.7s/step | max 24.4GB
+[step 740/2000] gen 0.0010 gap 0.0038 |g| 0.08 | critic 0.0805 |g| 1.41 | 1.7s/step | max 24.4GB
+[step 750/2000] gen 0.0008 gap 0.0039 |g| 0.15 | critic 0.0896 |g| 1.77 | 1.7s/step | max 24.4GB
+[step 760/2000] gen 0.0008 gap 0.0038 |g| 0.07 | critic 0.1063 |g| 1.24 | 1.7s/step | max 24.4GB
+[step 770/2000] gen 0.0010 gap 0.0032 |g| 0.12 | critic 0.0792 |g| 1.67 | 1.7s/step | max 24.4GB
+[step 780/2000] gen 0.0010 gap 0.0039 |g| 0.11 | critic 0.0957 |g| 1.47 | 1.7s/step | max 24.4GB
+[step 790/2000] gen 0.0009 gap 0.0040 |g| 0.13 | critic 0.0762 |g| 2.75 | 1.7s/step | max 24.4GB
+[step 800/2000] gen 0.0011 gap 0.0037 |g| 0.09 | critic 0.1195 |g| 1.49 | 1.7s/step | max 24.4GB
+[DIAG step 800] full-step MSE(x0,z)=0.6609 | std비 full=0.969 1step=0.831 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 800)
+[step 810/2000] gen 0.0013 gap 0.0036 |g| 0.09 | critic 0.0731 |g| 1.17 | 1.7s/step | max 24.4GB
+[step 820/2000] gen 0.0014 gap 0.0042 |g| 0.08 | critic 0.0780 |g| 1.33 | 1.7s/step | max 24.4GB
+[step 830/2000] gen 0.0012 gap 0.0031 |g| 0.11 | critic 0.0611 |g| 1.36 | 1.7s/step | max 24.4GB
+[step 840/2000] gen 0.0013 gap 0.0016 |g| 0.08 | critic 0.0641 |g| 1.48 | 1.7s/step | max 24.4GB
+[step 850/2000] gen 0.0010 gap 0.0030 |g| 0.14 | critic 0.0651 |g| 1.30 | 1.7s/step | max 24.4GB
+[step 860/2000] gen 0.0018 gap 0.0038 |g| 0.08 | critic 0.1019 |g| 1.44 | 1.7s/step | max 24.4GB
+[step 870/2000] gen 0.0012 gap 0.0039 |g| 0.09 | critic 0.0717 |g| 1.57 | 1.7s/step | max 24.4GB
+[step 880/2000] gen 0.0006 gap 0.0037 |g| 0.09 | critic 0.0664 |g| 2.65 | 1.7s/step | max 24.4GB
+[step 890/2000] gen 0.0013 gap 0.0039 |g| 0.19 | critic 0.0636 |g| 1.44 | 1.7s/step | max 24.4GB
+[step 900/2000] gen 0.0010 gap 0.0039 |g| 0.08 | critic 0.0511 |g| 1.38 | 1.7s/step | max 24.4GB
+[DIAG step 900] full-step MSE(x0,z)=0.6781 | std비 full=0.982 1step=0.839 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 910/2000] gen 0.0021 gap 0.0046 |g| 0.17 | critic 0.0606 |g| 1.02 | 1.7s/step | max 24.4GB
+[step 920/2000] gen 0.0009 gap 0.0035 |g| 0.12 | critic 0.0745 |g| 1.35 | 1.7s/step | max 24.4GB
+[step 930/2000] gen 0.0010 gap 0.0041 |g| 0.17 | critic 0.0819 |g| 2.63 | 1.7s/step | max 24.4GB
+[step 940/2000] gen 0.0013 gap 0.0037 |g| 0.11 | critic 0.0967 |g| 1.36 | 1.7s/step | max 24.4GB
+[step 950/2000] gen 0.0009 gap 0.0037 |g| 0.09 | critic 0.0598 |g| 1.86 | 1.7s/step | max 24.4GB
+[step 960/2000] gen 0.0006 gap 0.0039 |g| 0.16 | critic 0.0579 |g| 1.21 | 1.7s/step | max 24.4GB
+[step 970/2000] gen 0.0015 gap 0.0048 |g| 0.21 | critic 0.0491 |g| 1.32 | 1.7s/step | max 24.4GB
+[step 980/2000] gen 0.0008 gap 0.0035 |g| 0.08 | critic 0.0709 |g| 1.56 | 1.7s/step | max 24.4GB
+[step 990/2000] gen 0.0014 gap 0.0035 |g| 0.11 | critic 0.0535 |g| 1.31 | 1.7s/step | max 24.4GB
+[step 1000/2000] gen 0.0009 gap 0.0039 |g| 0.10 | critic 0.0960 |g| 1.28 | 1.7s/step | max 24.4GB
+[DIAG step 1000] full-step MSE(x0,z)=0.6951 | std비 full=0.993 1step=0.863 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 1000)
+[step 1010/2000] gen 0.0011 gap 0.0040 |g| 0.15 | critic 0.0478 |g| 1.68 | 1.7s/step | max 24.4GB
+[step 1020/2000] gen 0.0009 gap 0.0033 |g| 0.08 | critic 0.0588 |g| 1.28 | 1.7s/step | max 24.4GB
+[step 1030/2000] gen 0.0014 gap 0.0044 |g| 0.13 | critic 0.0461 |g| 1.07 | 1.7s/step | max 24.4GB
+[step 1040/2000] gen 0.0008 gap 0.0038 |g| 0.07 | critic 0.0491 |g| 8.54 | 1.7s/step | max 24.4GB
+[step 1050/2000] gen 0.0018 gap 0.0045 |g| 0.32 | critic 0.0499 |g| 1.66 | 1.7s/step | max 24.4GB
+[step 1060/2000] gen 0.0012 gap 0.0043 |g| 0.12 | critic 0.0647 |g| 1.02 | 1.7s/step | max 24.4GB
+[step 1070/2000] gen 0.0016 gap 0.0035 |g| 0.11 | critic 0.0540 |g| 1.15 | 1.7s/step | max 24.4GB
+[step 1080/2000] gen 0.0016 gap 0.0031 |g| 0.08 | critic 0.0604 |g| 1.18 | 1.7s/step | max 24.4GB
+[step 1090/2000] gen 0.0016 gap 0.0035 |g| 0.14 | critic 0.0516 |g| 1.12 | 1.7s/step | max 24.4GB
+[step 1100/2000] gen 0.0015 gap 0.0039 |g| 0.08 | critic 0.0510 |g| 1.88 | 1.7s/step | max 24.4GB
+[DIAG step 1100] full-step MSE(x0,z)=0.7097 | std비 full=1.001 1step=0.876 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 1110/2000] gen 0.0028 gap 0.0040 |g| 0.30 | critic 0.0620 |g| 0.98 | 1.7s/step | max 24.4GB
+[step 1120/2000] gen 0.0013 gap 0.0044 |g| 0.13 | critic 0.0627 |g| 3.41 | 1.7s/step | max 24.4GB
+[step 1130/2000] gen 0.0018 gap 0.0044 |g| 0.12 | critic 0.0583 |g| 1.21 | 1.7s/step | max 24.4GB
+[step 1140/2000] gen 0.0012 gap 0.0035 |g| 0.10 | critic 0.0445 |g| 1.12 | 1.7s/step | max 24.4GB
+[step 1150/2000] gen 0.0020 gap 0.0046 |g| 0.17 | critic 0.0380 |g| 1.09 | 1.7s/step | max 24.4GB
+[step 1160/2000] gen 0.0017 gap 0.0032 |g| 0.13 | critic 0.0507 |g| 1.24 | 1.7s/step | max 24.4GB
+[step 1170/2000] gen 0.0018 gap 0.0042 |g| 0.11 | critic 0.0488 |g| 0.95 | 1.7s/step | max 24.4GB
+[step 1180/2000] gen 0.0019 gap 0.0035 |g| 0.14 | critic 0.0432 |g| 1.02 | 1.7s/step | max 24.4GB
+[step 1190/2000] gen 0.0015 gap 0.0035 |g| 0.09 | critic 0.0411 |g| 0.88 | 1.7s/step | max 24.4GB
+[step 1200/2000] gen 0.0027 gap 0.0039 |g| 0.12 | critic 0.0422 |g| 1.16 | 1.7s/step | max 24.4GB
+[DIAG step 1200] full-step MSE(x0,z)=0.7258 | std비 full=1.012 1step=0.893 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 1200)
+[step 1210/2000] gen 0.0019 gap 0.0036 |g| 0.13 | critic 0.0791 |g| 1.57 | 1.7s/step | max 24.4GB
+[step 1220/2000] gen 0.0022 gap 0.0034 |g| 0.13 | critic 0.0415 |g| 1.54 | 1.7s/step | max 24.4GB
+[step 1230/2000] gen 0.0023 gap 0.0037 |g| 0.10 | critic 0.0648 |g| 1.09 | 1.7s/step | max 24.4GB
+[step 1240/2000] gen 0.0020 gap 0.0035 |g| 0.14 | critic 0.0763 |g| 1.09 | 1.7s/step | max 24.4GB
+[step 1250/2000] gen 0.0017 gap 0.0040 |g| 0.10 | critic 0.0599 |g| 1.14 | 1.7s/step | max 24.4GB
+[step 1260/2000] gen 0.0018 gap 0.0048 |g| 0.21 | critic 0.0458 |g| 89.69 | 1.7s/step | max 24.4GB
+[step 1270/2000] gen 0.0018 gap 0.0035 |g| 0.10 | critic 0.0422 |g| 2.41 | 1.7s/step | max 24.4GB
+[step 1280/2000] gen 0.0022 gap 0.0045 |g| 0.14 | critic 0.0701 |g| 1.99 | 1.7s/step | max 24.4GB
+[step 1290/2000] gen 0.0015 gap 0.0037 |g| 0.10 | critic 0.0363 |g| 1.07 | 1.7s/step | max 24.4GB
+[step 1300/2000] gen 0.0019 gap 0.0043 |g| 0.12 | critic 0.0434 |g| 1.06 | 1.7s/step | max 24.4GB
+[DIAG step 1300] full-step MSE(x0,z)=0.7422 | std비 full=1.021 1step=0.910 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 1310/2000] gen 0.0030 gap 0.0041 |g| 0.16 | critic 0.0534 |g| 1.50 | 1.7s/step | max 24.4GB
+[step 1320/2000] gen 0.0021 gap 0.0035 |g| 0.27 | critic 0.0527 |g| 1.29 | 1.7s/step | max 24.4GB
+[step 1330/2000] gen 0.0017 gap 0.0031 |g| 0.08 | critic 0.0526 |g| 1.00 | 1.7s/step | max 24.4GB
+[step 1340/2000] gen 0.0026 gap 0.0040 |g| 0.17 | critic 0.0379 |g| 0.89 | 1.7s/step | max 24.4GB
+[step 1350/2000] gen 0.0016 gap 0.0039 |g| 0.12 | critic 0.0700 |g| 1.35 | 1.7s/step | max 24.4GB
+[step 1360/2000] gen 0.0019 gap 0.0043 |g| 0.20 | critic 0.0408 |g| 2.90 | 1.7s/step | max 24.4GB
+[step 1370/2000] gen 0.0019 gap 0.0025 |g| 0.07 | critic 0.0496 |g| 0.88 | 1.7s/step | max 24.4GB
+[step 1380/2000] gen 0.0018 gap 0.0040 |g| 0.13 | critic 0.0359 |g| 0.84 | 1.7s/step | max 24.4GB
+[step 1390/2000] gen 0.0026 gap 0.0038 |g| 0.12 | critic 0.0787 |g| 1.04 | 1.7s/step | max 24.4GB
+[step 1400/2000] gen 0.0021 gap 0.0043 |g| 0.12 | critic 0.0404 |g| 1.76 | 1.7s/step | max 24.4GB
+[DIAG step 1400] full-step MSE(x0,z)=0.7579 | std비 full=1.033 1step=0.922 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 1400)
+[step 1410/2000] gen 0.0021 gap 0.0039 |g| 0.11 | critic 0.0436 |g| 1.35 | 1.7s/step | max 24.4GB
+[step 1420/2000] gen 0.0026 gap 0.0048 |g| 0.20 | critic 0.0720 |g| 1.29 | 1.7s/step | max 24.4GB
+[step 1430/2000] gen 0.0019 gap 0.0043 |g| 0.13 | critic 0.0328 |g| 0.95 | 1.7s/step | max 24.4GB
+[step 1440/2000] gen 0.0014 gap 0.0026 |g| 0.12 | critic 0.0394 |g| 1.53 | 1.7s/step | max 24.4GB
+[step 1450/2000] gen 0.0015 gap 0.0017 |g| 0.06 | critic 0.0528 |g| 1.17 | 1.7s/step | max 24.4GB
+[step 1460/2000] gen 0.0020 gap 0.0048 |g| 0.14 | critic 0.0640 |g| 0.89 | 1.7s/step | max 24.4GB
+[step 1470/2000] gen 0.0026 gap 0.0037 |g| 0.11 | critic 0.0372 |g| 0.74 | 1.7s/step | max 24.4GB
+[step 1480/2000] gen 0.0018 gap 0.0042 |g| 0.29 | critic 0.0369 |g| 1.03 | 1.7s/step | max 24.4GB
+[step 1490/2000] gen 0.0029 gap 0.0045 |g| 0.13 | critic 0.0492 |g| 0.68 | 1.7s/step | max 24.4GB
+[step 1500/2000] gen 0.0022 gap 0.0039 |g| 0.15 | critic 0.0438 |g| 1.08 | 1.7s/step | max 24.4GB
+[DIAG step 1500] full-step MSE(x0,z)=0.7786 | std비 full=1.045 1step=0.945 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 1510/2000] gen 0.0019 gap 0.0045 |g| 0.16 | critic 0.0428 |g| 1.77 | 1.7s/step | max 24.4GB
+[step 1520/2000] gen 0.0015 gap 0.0038 |g| 0.41 | critic 0.0285 |g| 0.86 | 1.7s/step | max 24.4GB
+[step 1530/2000] gen 0.0017 gap 0.0041 |g| 0.17 | critic 0.0329 |g| 1.37 | 1.7s/step | max 24.4GB
+[step 1540/2000] gen 0.0027 gap 0.0043 |g| 0.15 | critic 0.0392 |g| 0.75 | 1.7s/step | max 24.4GB
+[step 1550/2000] gen 0.0026 gap 0.0040 |g| 0.16 | critic 0.0438 |g| 0.69 | 1.7s/step | max 24.4GB
+[step 1560/2000] gen 0.0018 gap 0.0018 |g| 0.07 | critic 0.0462 |g| 1.07 | 1.7s/step | max 24.4GB
+[step 1570/2000] gen 0.0026 gap 0.0036 |g| 0.14 | critic 0.0465 |g| 1.19 | 1.7s/step | max 24.4GB
+[step 1580/2000] gen 0.0018 gap 0.0026 |g| 0.09 | critic 0.0294 |g| 1.32 | 1.7s/step | max 24.4GB
+[step 1590/2000] gen 0.0036 gap 0.0042 |g| 0.15 | critic 0.0435 |g| 1.26 | 1.7s/step | max 24.4GB
+[step 1600/2000] gen 0.0028 gap 0.0042 |g| 0.18 | critic 0.0355 |g| 0.71 | 1.7s/step | max 24.4GB
+[DIAG step 1600] full-step MSE(x0,z)=0.7991 | std비 full=1.059 1step=0.969 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 1600)
+[step 1610/2000] gen 0.0029 gap 0.0048 |g| 0.17 | critic 0.0388 |g| 0.99 | 1.7s/step | max 24.4GB
+[step 1620/2000] gen 0.0026 gap 0.0040 |g| 0.14 | critic 0.0456 |g| 0.82 | 1.7s/step | max 24.4GB
+[step 1630/2000] gen 0.0020 gap 0.0028 |g| 0.16 | critic 0.0769 |g| 1.68 | 1.7s/step | max 24.4GB
+[step 1640/2000] gen 0.0027 gap 0.0037 |g| 0.27 | critic 0.0379 |g| 1.07 | 1.7s/step | max 24.4GB
+[step 1650/2000] gen 0.0020 gap 0.0033 |g| 0.11 | critic 0.0411 |g| 1.33 | 1.7s/step | max 24.4GB
+[step 1660/2000] gen 0.0025 gap 0.0040 |g| 0.14 | critic 0.0568 |g| 1.18 | 1.7s/step | max 24.4GB
+[step 1670/2000] gen 0.0018 gap 0.0035 |g| 0.20 | critic 0.0473 |g| 0.82 | 1.7s/step | max 24.4GB
+[step 1680/2000] gen 0.0033 gap 0.0046 |g| 0.23 | critic 0.0557 |g| 0.82 | 1.7s/step | max 24.4GB
+[step 1690/2000] gen 0.0027 gap 0.0040 |g| 0.23 | critic 0.0608 |g| 0.89 | 1.7s/step | max 24.4GB
+[step 1700/2000] gen 0.0026 gap 0.0042 |g| 0.15 | critic 0.0630 |g| 1.02 | 1.7s/step | max 24.4GB
+[DIAG step 1700] full-step MSE(x0,z)=0.8215 | std비 full=1.073 1step=0.993 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 1710/2000] gen 0.0033 gap 0.0054 |g| 0.41 | critic 0.0437 |g| 0.88 | 1.7s/step | max 24.4GB
+[step 1720/2000] gen 0.0017 gap 0.0030 |g| 0.13 | critic 0.0396 |g| 0.74 | 1.7s/step | max 24.4GB
+[step 1730/2000] gen 0.0023 gap 0.0038 |g| 0.28 | critic 0.0550 |g| 1.60 | 1.7s/step | max 24.4GB
+[step 1740/2000] gen 0.0021 gap 0.0041 |g| 0.11 | critic 0.0369 |g| 1.07 | 1.7s/step | max 24.4GB
+[step 1750/2000] gen 0.0027 gap 0.0041 |g| 0.14 | critic 0.0329 |g| 1.13 | 1.7s/step | max 24.4GB
+[step 1760/2000] gen 0.0021 gap 0.0040 |g| 0.29 | critic 0.0389 |g| 2.14 | 1.7s/step | max 24.4GB
+[step 1770/2000] gen 0.0018 gap 0.0038 |g| 0.10 | critic 0.0454 |g| 0.96 | 1.7s/step | max 24.4GB
+[step 1780/2000] gen 0.0023 gap 0.0043 |g| 0.18 | critic 0.0678 |g| 1.36 | 1.7s/step | max 24.4GB
+[step 1790/2000] gen 0.0025 gap 0.0038 |g| 0.19 | critic 0.0370 |g| 4.46 | 1.7s/step | max 24.4GB
+[step 1800/2000] gen 0.0018 gap 0.0030 |g| 0.11 | critic 0.0560 |g| 0.85 | 1.7s/step | max 24.4GB
+[DIAG step 1800] full-step MSE(x0,z)=0.8421 | std비 full=1.088 1step=1.019 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 1800)
+[step 1810/2000] gen 0.0017 gap 0.0039 |g| 0.14 | critic 0.0665 |g| 1.42 | 1.7s/step | max 24.4GB
+[step 1820/2000] gen 0.0030 gap 0.0040 |g| 0.50 | critic 0.0311 |g| 0.83 | 1.7s/step | max 24.4GB
+[step 1830/2000] gen 0.0013 gap 0.0042 |g| 0.12 | critic 0.0721 |g| 1.69 | 1.7s/step | max 24.4GB
+[step 1840/2000] gen 0.0025 gap 0.0043 |g| 0.16 | critic 0.0571 |g| 0.90 | 1.7s/step | max 24.4GB
+[step 1850/2000] gen 0.0020 gap 0.0035 |g| 0.14 | critic 0.0408 |g| 0.96 | 1.7s/step | max 24.4GB
+[step 1860/2000] gen 0.0016 gap 0.0041 |g| 0.82 | critic 0.0453 |g| 0.77 | 1.7s/step | max 24.4GB
+[step 1870/2000] gen 0.0024 gap 0.0041 |g| 0.23 | critic 0.0404 |g| 1.30 | 1.7s/step | max 24.4GB
+[step 1880/2000] gen 0.0016 gap 0.0030 |g| 0.11 | critic 0.0565 |g| 2.14 | 1.7s/step | max 24.4GB
+[step 1890/2000] gen 0.0023 gap 0.0040 |g| 0.60 | critic 0.0645 |g| 0.82 | 1.7s/step | max 24.4GB
+[step 1900/2000] gen 0.0020 gap 0.0040 |g| 0.57 | critic 0.0956 |g| 1.43 | 1.7s/step | max 24.4GB
+[DIAG step 1900] full-step MSE(x0,z)=0.8595 | std비 full=1.099 1step=1.040 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+[step 1910/2000] gen 0.0021 gap 0.0043 |g| 0.16 | critic 0.0398 |g| 1.17 | 1.7s/step | max 24.4GB
+[step 1920/2000] gen 0.0021 gap 0.0039 |g| 0.15 | critic 0.0359 |g| 0.80 | 1.7s/step | max 24.4GB
+[step 1930/2000] gen 0.0016 gap 0.0042 |g| 0.14 | critic 0.0471 |g| 1.46 | 1.7s/step | max 24.4GB
+[step 1940/2000] gen 0.0026 gap 0.0045 |g| 0.32 | critic 0.1057 |g| 1.20 | 1.7s/step | max 24.4GB
+[step 1950/2000] gen 0.0014 gap 0.0039 |g| 0.11 | critic 0.0373 |g| 1.01 | 1.7s/step | max 24.4GB
+[step 1960/2000] gen 0.0017 gap 0.0029 |g| 0.11 | critic 0.0363 |g| 0.94 | 1.7s/step | max 24.4GB
+[step 1970/2000] gen 0.0023 gap 0.0038 |g| 0.22 | critic 0.0511 |g| 1.17 | 1.7s/step | max 24.4GB
+[step 1980/2000] gen 0.0016 gap 0.0038 |g| 0.11 | critic 0.0384 |g| 1.04 | 1.7s/step | max 24.4GB
+[step 1990/2000] gen 0.0017 gap 0.0036 |g| 0.21 | critic 0.0629 |g| 1.06 | 1.7s/step | max 24.4GB
+[step 2000/2000] gen 0.0015 gap 0.0039 |g| 0.14 | critic 0.0428 |g| 1.19 | 1.7s/step | max 24.4GB
+[DIAG step 2000] full-step MSE(x0,z)=0.8727 | std비 full=1.108 1step=1.054 (1.0=teacher 수준, ↓=안개/평균 붕괴)
+체크포인트 저장: /home/sun4208/Geo4D/dmd_6a/dmd_gen.pt, dmd_fake.pt (step 2000)
+완료
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/sun4208/Geo4D/bench_out/wandb/offline-run-20260822_164047-y6nbr290[0m
+[1;34mwandb[0m: Find logs at: [1;35m../Geo4D/bench_out/wandb/offline-run-20260822_164047-y6nbr290/logs[0m
