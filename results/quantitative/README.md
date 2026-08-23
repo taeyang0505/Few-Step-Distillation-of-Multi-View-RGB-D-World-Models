@@ -2,7 +2,7 @@
 
 | 파일 | 내용 |
 |---|---|
-| `precise_6a_main20.txt` / `precise_6a_main20_fast.txt` | **메인 표** (20샘플; fp32 / bf16) + paired Wilcoxon, 샘플별 AbsRel |
+| `precise_6a_main20.txt` / `precise_6a_main20_fast.txt` | 메인 표 (20샘플; fp32 / bf16) + paired Wilcoxon, 샘플별 AbsRel |
 | `precise_6a_renoise.txt`, `precise_6a.txt` | 10샘플 정밀 분석 (T3r 대조군, 발견 9) |
 | `speed_variants.txt` | Step 7 가속 변형 A~F 시간·품질 |
 | `eval_6x_maskfix.txt` | 오른쪽 GT 가짜 픽셀 제외 후 재평가 (발견 10) |
@@ -14,4 +14,4 @@
 | `*_raw.json` | 샘플별 원시 수치 |
 | `logs/` | 학습(dmd_6a, train_6b*)·생성(ode_gen_1000)·평가 로그 |
 
-⚠ `eval_6x_6a_anchor/affine/cprime`, `student_sweep_results*`, `precise_6a.txt`, `precise_6a_renoise.txt`의 오른쪽 뷰 AbsRel은 발견 10(가짜 픽셀) 이전 마스크 기준이라 오염되어 있음. 확정 수치는 `_maskfix` / `_main20*` 사용.
+주의: `eval_6x_6a_anchor/affine/cprime`, `student_sweep_results*`, `precise_6a.txt`, `precise_6a_renoise.txt`의 오른쪽 뷰 AbsRel은 발견 10(가짜 픽셀) 이전 마스크 기준이라 오염되어 있음. 확정 수치는 `_maskfix` / `_main20*` 사용.
