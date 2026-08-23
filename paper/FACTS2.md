@@ -73,3 +73,39 @@
 - Status of the 6a-1600 student under these margins: PSNR pass (-0.19, CI [-0.34,-0.04]); AbsRel fail (+0.0155, CI [+0.010,+0.021]);
   LPIPS perceptual pass / strict fail (+0.018, CI [+0.015,+0.020]); sharpness pass (+1.6%); diversity provisional pass (CI wider than
   margin); CV pass; gripper centroid practical borderline (+2.0, CI [+0.3,+3.7]).
+
+## N5. Self-anchor loss extended to 4000 steps (run 6d, resumed from 2000) — SUCCESS at step 3200 (added 08-24 04:50)
+- Training: resumed at 2000 with --resume, one OOM crash (another user's job) auto-recovered by the retry launcher. std ratio 1.075 at 4000;
+  anchor loss 0.07-0.09 at the end, anchor scales s_L/s_R 0.95-1.03.
+- Eval (20 samples, paired vs teacher n=40):
+| ckpt | raw S3 AbsRel (L/R) | S3b AbsRel (L/R) | dAbsRel [90% CI] | LPIPS (d) | sharpness (d, p) | PSNR (d, p) | diversity |
+|---|---|---|---|---|---|---|---|
+| teacher | 0.066 (.067/.066) | — | — | 0.118 | 0.0134 | 20.62 | 0.0227 |
+| 6d 2400 | 0.095 (.086/.104) | 0.080 (.079/.081) | +0.013 | 0.143 (+0.025) | 0.0117 (-0.0017, <0.001) | 20.45 (-0.17, 0.048) | 0.0219 |
+| **6d 3200** | 0.098 (.093/.103) | **0.078 (.076/.080)** | **+0.011 [+0.007, +0.016]** | 0.135 (+0.017 [+0.015,+0.019]) | **0.0135 (+0.0001, p=0.94)** | 20.45 (-0.16 [-0.31,-0.01], p=0.07) | 0.0213 (-0.0014, n.s., n=6) |
+| 6d 4000 | 0.093 (.089/.098) | 0.079 (.076/.082) | +0.013 | 0.135 (+0.017) | 0.0151 (+0.0017, <0.001, over) | 20.28 (-0.34, 0.001) | 0.0218 |
+- CV-Chamfer at 3200: +0.0115 vs teacher (p=0.29, not worse; note 6a-1600 was better than teacher on CV).
+- Against the pre-set success criteria: sharpness >= 0.0127 PASS (0.0135, p=0.94); raw AbsRel <= 0.10 PASS (0.098); LPIPS <= 0.136 PASS
+  (0.135); anchored AbsRel <= 0.076 MISSED by 0.002 (0.078). Three of four met.
+- Reading: with 3200 steps the self-anchor loss delivers what neither 6a (raw 0.175) nor plain longer training (over-sharpening) did:
+  raw scale mostly fixed without any inference anchor (0.098), left/right gap closed (0.076/0.080), sharpness exactly teacher level,
+  PSNR within margin, AbsRel gap reduced from +0.0155 to +0.0113 (90% CI upper 0.0157, still above the 0.010 practical margin, so
+  equivalence is not yet claimable at n=40). At 4000 the over-sharpening pattern (Finding 14) begins (+0.0017, p<0.001).
+- 6d step 3200 is the best checkpoint overall and a candidate to replace 6a step 1600 as the main student. Timing is unchanged
+  (same architecture, 1.64 s bf16). NOT yet promoted in the paper — pending author decision.
+
+## N6. PROMOTION DECISION (author-approved, 08-24): 6d step 3200 is the MAIN student
+- The paper's main student is now "DMD + self-anchored training loss (beta=1, 3200 steps) + per-view inference anchor + bf16".
+  Inference pipeline and timing unchanged: 1.64 s (13.3x), 1.18 s with compile — same architecture and sampler as before.
+- Main numbers (20 samples, paired vs teacher n=40):
+  PSNR 20.45 (d -0.16 [90% CI -0.31, -0.01], p=0.070); AbsRel 0.078, L 0.076 / R 0.080 (d +0.0113 [+0.0069, +0.0157], p<0.001);
+  LPIPS 0.135 (d +0.0172 [+0.0150, +0.0194], p<0.001); sharpness 0.0135 (d +0.0001, p=0.94); diversity 0.0213 (d -0.0014, p=0.44, n=6);
+  CV-Chamfer 0.181 (d +0.0115, p=0.29, within the 0.034 MDE; note the 6a student was better than the teacher on CV, -0.032).
+  Raw AbsRel without the inference anchor: 0.098 (vs 0.175 for the 6a student); the inference anchor then takes 0.098 -> 0.078.
+- Margin status of the new main student: PSNR pass; sharpness pass; diversity provisional pass; CV pass (one-sided, n.s.);
+  LPIPS perceptual pass / strict fail (+0.017); AbsRel practical margin now NEARLY met (CI [+0.007, +0.016] vs margin 0.010 — center above
+  by 0.001, upper bound 0.016; still not claimable as equivalent at n=40).
+- The 6a student (no training anchor, step 1600) remains in the paper as the ablation "without the self-anchored training loss":
+  AbsRel 0.082 (0.076/0.088), raw 0.175, LPIPS 0.137, sharpness 0.0136, PSNR 20.43, diversity 0.0224, CV 0.137.
+- The policy proxy (N3) numbers were measured on the 6a student and have NOT been rerun on 6d-3200 — say so where cited.
+- Checkpoint file: ~/Geo4D/dmd_6d/dmd_gen_step3200.pt. Training cost of the main student: 2000 + 2000 resumed steps, ~2 h total.
