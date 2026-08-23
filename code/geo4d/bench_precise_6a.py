@@ -24,7 +24,7 @@ ap.add_argument("--n_div", type=int, default=3, help="시드 다양성 측정 �
 ap.add_argument("--tag", default="")
 ap.add_argument("--configs", nargs="+", default=["T25", "T4", "T1", "S3", "S1"])
 ap.add_argument("--data_seed", type=int, default=1234)
-ap.add_argument("--compile", action="store_true", help="--fast에 더해 UNet·VAE 디코더 torch.compile (Step 7-② 설정 F)")
+ap.add_argument("--compile", action="store_true", help="--fast에 더해 UNet torch.compile (VAE 디코더 compile은 sgm 속성 패턴과 충돌해 제외)")
 ap.add_argument("--fast", action="store_true", help="student 설정에 bf16 autocast(UNet·conditioner·VAE 디코더) 적용 — Step 7-② 빠른 설정 D의 품질 재측정")
 a = ap.parse_args()
 SEEDS = [0, 1, 2, 3]
@@ -130,11 +130,11 @@ def set_fast(on):
     if on and a.compile and not _compiled["done"]:
         model.model.diffusion_model = torch.compile(model.model.diffusion_model)
         model.model.diffusion_model_2 = model.model.diffusion_model      # 가중치 공유(발견 8)
-        model.first_stage_pointmap_model.decoder = torch.compile(model.first_stage_pointmap_model.decoder)
-        model.first_stage_color_model.decoder = torch.compile(model.first_stage_color_model.decoder)
+        # VAE 디코더는 compile하지 않음: sgm VideoDecoder가 호출 시 모듈에 timesteps 속성을 심는 패턴이
+        # torch.compile 래퍼(OptimizedModule)와 충돌 (AttributeError: 'NewCls' has no attribute 'timesteps')
         _orig["unet"] = model.model.forward
         _compiled["done"] = True
-        print("  [compile] UNet·VAE 디코더 torch.compile 적용", flush=True)
+        print("  [compile] UNet torch.compile 적용 (VAE 디코더는 제외)", flush=True)
     model.model.forward = _bf16(_orig["unet"]) if on else _orig["unet"]
     model.conditioner.forward = _bf16(_orig["cond"]) if on else _orig["cond"]
     model.first_stage_pointmap_model.decode = _bf16(_orig["dec_pm"]) if on else _orig["dec_pm"]
@@ -215,7 +215,8 @@ for name, who, samp, steps, anchor in CONFIGS:
     print(f"[{name}] {rec['time']:.1f}s/생성 | PSNR {mv('PSNR'):.2f} | AbsRel {mv('AbsRel'):.4f} (L {mvv('left'):.4f} / R {mvv('right'):.4f}) | LPIPS {mv('LPIPS'):.4f} | "
           f"선명도 {mv('sharp'):.5f} (GT {GT_SHARP:.5f}) | CV {np.mean(rec['cv']):.4f} | 다양성 {np.mean(rec['div']):.5f}", flush=True)
 
-# ── paired 분석 ──
+# ── paired 분석 ── (기준 설정: T25가 있으면 T25, 없으면 첫 설정)
+REF = "T25" if "T25" in raw else a.configs[0]
 try:
     from scipy.stats import wilcoxon
 except Exception:
@@ -228,23 +229,23 @@ for name, *_ in CONFIGS:
     r = raw[name]; mv = lambda k: np.mean([x[k] for x in r["view"]]); mvv = lambda vv: np.mean([x["AbsRel"] for x in r["view"] if x["view"] == vv])
     L.append(f"{name:>4} | {r['time']:5.1f} | {mv('PSNR'):5.2f} | {mv('AbsRel'):.4f} (L {mvv('left'):.4f}/R {mvv('right'):.4f}) | {mv('LPIPS'):.4f} | {mv('sharp'):.5f} | {np.mean(r['cv']):.4f} | {np.mean(r['div']):.5f}")
 
-L += ["", "[paired: X − T25, 샘플별 차이] 지표 | 설정 | 평균차 ± std | X가 나은 샘플 비율 | Wilcoxon p"]
+L += ["", f"[paired: X − {REF}, 샘플별 차이] 지표 | 설정 | 평균차 ± std | X가 나은 샘플 비율 | Wilcoxon p"]
 better_sign = {"PSNR": +1, "AbsRel": -1, "LPIPS": -1, "sharp": +1, "CV": -1, "div": +1}
 for k in ["PSNR", "AbsRel", "LPIPS", "sharp", "CV", "div"]:
-    for name, *_ in CONFIGS[1:]:
+    for name, *_ in [c for c in CONFIGS if c[0] != REF]:
         if k == "CV":
-            xs, ts = np.array(raw[name]["cv"]), np.array(raw["T25"]["cv"])
+            xs, ts = np.array(raw[name]["cv"]), np.array(raw[REF]["cv"])
         elif k == "div":
-            xs, ts = np.array(raw[name]["div"]), np.array(raw["T25"]["div"])
+            xs, ts = np.array(raw[name]["div"]), np.array(raw[REF]["div"])
         else:
-            xs = np.array([r[k] for r in raw[name]["view"]]); ts = np.array([r[k] for r in raw["T25"]["view"]])
+            xs = np.array([r[k] for r in raw[name]["view"]]); ts = np.array([r[k] for r in raw[REF]["view"]])
         d = xs - ts
         wins = np.mean(np.sign(d) == better_sign[k]) if len(d) else float("nan")
         p = wilcoxon(xs, ts).pvalue if (wilcoxon and len(d) >= 5 and np.any(d != 0)) else float("nan")
         L.append(f"{k:>6} | {name:>4} | {d.mean():+.4f} ± {d.std():.4f} | {100*wins:5.1f}% | {p:.3f}")
 
 L += ["", "[샘플별 AbsRel] batch/view | " + " | ".join(n for n, *_ in CONFIGS)]
-for i, r in enumerate(raw["T25"]["view"]):
+for i, r in enumerate(raw[REF]["view"]):
     L.append(f"{r['batch']}/{r['view'][0]} | " + " | ".join(f"{raw[n]['view'][i]['AbsRel']:.3f}" for n, *_ in CONFIGS))
 L += ["", "해석 가이드: S3가 T25 대비 PSNR·LPIPS·선명도·다양성은 동급(p>0.05 또는 개선)인데 AbsRel만 유의하게 나쁘면 '픽셀 복원, 기하 미달'이 샘플 수준에서 확정."]
 text = "\n".join(L)
