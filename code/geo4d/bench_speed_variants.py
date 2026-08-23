@@ -59,11 +59,15 @@ model.first_stage_color_model.decode = timed("VAE decode(color)", dec_col)
 
 unnorm = lambda x, mn, mx: torch.clamp(((x + 1.) / 2.) * (mx - mn) + mn, mn, mx)
 
+DECODE_COLOR = [True]
 def decode(z, ac):
     z = 1.0 / model.scale_factor * z
     with torch.autocast("cuda", dtype=torch.bfloat16, enabled=ac):
         o1 = model.first_stage_pointmap_model.decode(z[:, :4], timesteps=z.shape[0])
-        o2 = model.first_stage_color_model.decode(z[:, 4:], timesteps=z.shape[0])
+        if DECODE_COLOR[0]:
+            o2 = model.first_stage_color_model.decode(z[:, 4:], timesteps=z.shape[0])
+        else:
+            o2 = torch.zeros_like(o1)   # 깊이만 쓰는 용도(계획용)에서는 색 디코더 생략
     return torch.cat([o1.float(), o2.float()], dim=1)
 
 def infer(batch_old, ac_unet, ac_cond, ac_dec, seed=0):
@@ -124,15 +128,23 @@ def run(label, ac_unet, ac_cond, ac_dec):
 for v in VARIANTS: run(*v)
 
 if not a.no_compile:
-    for label, what in [("E D+compile(디코더)", "dec"), ("F E+compile(UNet)", "unet")]:
+    for label, what in [("E D+compile(디코더)", "dec"), ("F E+compile(UNet)", "unet"), ("G F+compile(cond)", "cond"), ("H G+색 디코더 생략", "nocolor")]:
         try:
             t0 = time.time()
             if what == "dec":
                 model.first_stage_pointmap_model.decoder = torch.compile(model.first_stage_pointmap_model.decoder)
                 model.first_stage_color_model.decoder = torch.compile(model.first_stage_color_model.decoder)
-            else:
+            elif what == "unet":
                 model.model.diffusion_model = torch.compile(model.model.diffusion_model)
                 model.model.diffusion_model_2 = model.model.diffusion_model   # 가중치 공유(발견 8)
+            elif what == "cond":
+                for emb in model.conditioner.embedders:
+                    if hasattr(emb, "encoder") and isinstance(emb.encoder, torch.nn.Module):
+                        emb.encoder = torch.compile(emb.encoder)
+                    elif hasattr(emb, "model") and isinstance(emb.model, torch.nn.Module):
+                        emb.model = torch.compile(emb.model)
+            else:
+                DECODE_COLOR[0] = False
             with torch.no_grad(): infer(batches[0], True, True, True)
             print(f"  ({label} 컴파일+워밍업 {time.time()-t0:.0f}초)", flush=True)
             run(label, True, True, True)
