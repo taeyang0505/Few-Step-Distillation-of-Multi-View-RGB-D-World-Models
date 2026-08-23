@@ -2,7 +2,7 @@
 
 | 파일 | 내용 |
 |---|---|
-| `precise_6a_main20.txt` / `precise_6a_main20_fast.txt` | 메인 표 (20샘플; fp32 / bf16) + paired Wilcoxon, 샘플별 AbsRel |
+| `precise_6a_main20.txt` / `precise_6a_main20_fast.txt` / `precise_6a_main20_compile.txt` | 메인 표 (20샘플; fp32 / bf16 / bf16+UNet compile) + paired Wilcoxon, 샘플별 AbsRel |
 | `precise_6a_renoise.txt`, `precise_6a.txt` | 10샘플 정밀 분석 (T3r 대조군, 발견 9) |
 | `speed_variants.txt` | Step 7 가속 변형 A~F 시간·품질 |
 | `eval_6x_maskfix.txt` | 오른쪽 GT 가짜 픽셀 제외 후 재평가 (발견 10) |

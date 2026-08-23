@@ -201,7 +201,7 @@ student 호출당 UNet이 0.40초인 것은 CFG가 없어 배치가 teacher의 �
 | + torch.compile(디코더) | 1.29 | 0.66 | 0.30 | 0.33 | 0.105 / 0.098 |
 | + torch.compile(UNet) | 1.18 | 0.55 | 0.30 | 0.33 | 0.112 / 0.094 |
 
-추론 UNet이 fp32로 돌고 있었던 것이 가장 큰 낭비였다(학습만 bf16). bf16 설정은 20샘플에서 fp32와 품질이 같았다(AbsRel 0.0813→0.0819, LPIPS 0.1360→0.1357, 다양성 동일). UNet compile도 20샘플에서 같았다(AbsRel 0.0821, LPIPS 0.1357, 선명도 0.01357, 다양성 0.02243; 로그 `logs/precise_6a_main20_compile.log`). VAE 디코더 compile은 sgm VideoDecoder가 호출 시 모듈에 `timesteps` 속성을 심는 패턴이 `torch.compile` 래퍼와 충돌해 평가 경로에서 확인하지 못했다. 논문에는 bf16 1.64초를 주 수치로 쓰고, UNet compile(약 1.5초)은 품질 확정, 디코더 compile(1.18초)은 5샘플 확인으로 층을 나눠 적는다.
+추론 UNet이 fp32로 돌고 있었던 것이 가장 큰 낭비였다(학습만 bf16). bf16 설정은 20샘플에서 fp32와 품질이 같았다(AbsRel 0.0813→0.0819, LPIPS 0.1360→0.1357, 다양성 동일). UNet compile도 20샘플 paired 검정에서 같았다. teacher 대비 AbsRel +0.016 (p<0.001), LPIPS +0.018 (p<0.001), 선명도 +0.0002 (p=0.69), 다양성 −0.0003 (p=1.00)로 bf16 실행과 같은 결론이다(`precise_6a_main20_compile.txt`). VAE 디코더 compile은 sgm VideoDecoder가 호출 시 모듈에 `timesteps` 속성을 심는 패턴이 `torch.compile` 래퍼와 충돌해 평가 경로에서 확인하지 못했다. 논문에는 bf16 1.64초를 주 수치로 쓰고, UNet compile(약 1.5초)은 품질 확정, 디코더 compile(1.18초)은 5샘플 확인으로 층을 나눠 적는다.
 
 ### 6.3 메인 표 (20샘플, bf16)
 
