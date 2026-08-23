@@ -53,6 +53,7 @@ p.add_argument("--save_every", type=int, default=200)
 p.add_argument("--seed", type=int, default=0)
 p.add_argument("--cv_weight", type=float, default=0.0, help="6-4(c) 뷰 간 consistency 상대 강도 β: x0 그래디언트 크기 기준 DMD 대비 배율 (0=6a)")
 p.add_argument("--anchor_weight", type=float, default=0.0, help="6-4(d) 자기 앵커 loss 상대 강도 β: 프레임0 깊이를 조건 프레임 깊이(입력, GT 아님)에 맞춤. 0=끔")
+p.add_argument("--anchor_exclude_robot", action="store_true", help="앵커 loss에서 로봇(그리퍼) 픽셀 제외: 예측 프레임0은 조건 프레임보다 5스텝 뒤라 로봇만 움직임 → 정적 장면만 맞춤")
 p.add_argument("--anchor_frames", default="0", help="앵커 loss를 거는 예측 프레임 인덱스(콤마). 조건 프레임은 클립 프레임0이므로 기본 0")
 p.add_argument("--cv_target", choices=["teacher", "gt"], default="teacher", help="뷰 비 표적: teacher(ODE 쌍 z 디코드) 또는 gt(데이터셋 GT 포인트맵)")
 p.add_argument("--cv_frames", type=int, default=1, help="consistency loss에 grad 디코드할 프레임 수")
@@ -139,6 +140,9 @@ with torch.no_grad():
         hom = torch.cat([xyzR.reshape(3, -1), torch.ones(1, xyzR.shape[1] * xyzR.shape[2], device=xyzR.device)], 0)
         zR_ref = (T @ hom)[2].reshape(xyzR.shape[1:])
         dL = _un(cL[2]); validL = dL > 0
+        if args.anchor_exclude_robot:   # 데이터셋의 팽창된 로봇 마스크(H/8) → 예측 프레임0 기준, 8배 업샘플해 제외
+            up = lambda m: torch.nn.functional.interpolate(m.reshape(1, 1, *m.shape[-2:]).float(), scale_factor=8, mode="nearest")[0, 0] > 0.5
+            validL = validL & ~up(batch["masks"][0][0]).to(validL.device); validR = validR & ~up(batch["masks_right"][0][0]).to(validR.device)
         anchor_depth[idx] = (torch.where(validL, dL, torch.zeros_like(dL)).cpu(), torch.where(validR & (zR_ref > 0), zR_ref, torch.zeros_like(zR_ref)).cpu())
         if n == 0:
             mv = torch.cat([batch["pointmap"][0], batch["pointmap_right"][0]], dim=0)
