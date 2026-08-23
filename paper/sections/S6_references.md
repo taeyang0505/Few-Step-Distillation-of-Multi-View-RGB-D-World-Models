@@ -10,6 +10,8 @@ Shenyuan Gao, William Liang, Kaiyuan Zheng, Ayaan Malik, Seonghyeon Ye, Sihyun Y
 
 Jonathan Ho and Tim Salimans. Classifier-free diffusion guidance. arXiv preprint, 2022. arXiv:2207.12598.
 
+Qiqi Hou, Abhijay Ghildyal, and Feng Liu. A perceptual quality metric for video frame interpolation. In *European Conference on Computer Vision (ECCV)*, 2022. https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136750231.pdf
+
 Xun Huang, Zhengqi Li, Guande He, Mingyuan Zhou, and Eli Shechtman. Self Forcing: Bridging the train-test gap in autoregressive video diffusion. In *Advances in Neural Information Processing Systems (NeurIPS)*, 2025. arXiv:2506.08009.
 
 Byeongguk Jeon, Seonghyeon Ye, JaeHyeok Doo, Sungdong Kim, Minjoon Seo, Hyungmok Son, and Kimin Lee. RoboWorld: Fast and reliable neural simulators for generalist robot policy evaluation. arXiv preprint, 2026. arXiv:2607.01060.
@@ -38,7 +40,11 @@ Yang Song, Prafulla Dhariwal, Mark Chen, and Ilya Sutskever. Consistency models.
 
 Toyota Research Institute (TRI LBM Team). A careful examination of large behavior models for multitask dexterous manipulation. arXiv preprint, 2025. arXiv:2507.05331.
 
+Jonathan Tremblay, Stephen Tyree, Terry Mosier, and Stan Birchfield. Indirect object-to-robot pose estimation from an external monocular RGB camera. In *IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2020. arXiv:2008.11822.
+
 Frank Wilcoxon. Individual comparisons by ranking methods. *Biometrics Bulletin*, 1(6):80-83, 1945.
+
+Lihe Yang, Bingyi Kang, Zilong Huang, Zhen Zhao, Xiaogang Xu, Jiashi Feng, and Hengshuang Zhao. Depth Anything V2. In *Advances in Neural Information Processing Systems (NeurIPS)*, 2024. arXiv:2406.09414.
 
 Tianwei Yin, Michaël Gharbi, Richard Zhang, Eli Shechtman, Fredo Durand, William T. Freeman, and Taesung Park. One-step diffusion with distribution matching distillation. In *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, 2024a. arXiv:2311.18828.
 
