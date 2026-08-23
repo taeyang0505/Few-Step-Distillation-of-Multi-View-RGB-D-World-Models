@@ -1,4 +1,4 @@
-"""Step 6-3/6-4: Geo4D DMD 증류. --cv_weight 0 = 6a 바닐라, >0 = 6b (c) 뷰 간 스케일 consistency loss
+"""Step 6-3/6-4: Geo4D DMD 증류. --cv_weight 0 = 6a 바닐라, >0 = 6b (c) 뷰 간 스케일 consistency loss(실패), --anchor_weight >0 = 6-4(d) 자기 앵커 loss
 6-4(c): L_cv = (log r_student − log r_teacher)², r = mean depth_R / mean depth_L (참조 좌표계, 스케일 불변).
   생성 latent의 프레임 cv_frames개만 VAE 포인트맵 디코더로 grad 디코드. r_teacher는 ODE 쌍 z를 디코드해 샘플별·프레임별 사전계산.
 
@@ -52,6 +52,8 @@ p.add_argument("--diag_every", type=int, default=100)
 p.add_argument("--save_every", type=int, default=200)
 p.add_argument("--seed", type=int, default=0)
 p.add_argument("--cv_weight", type=float, default=0.0, help="6-4(c) 뷰 간 consistency 상대 강도 β: x0 그래디언트 크기 기준 DMD 대비 배율 (0=6a)")
+p.add_argument("--anchor_weight", type=float, default=0.0, help="6-4(d) 자기 앵커 loss 상대 강도 β: 프레임0 깊이를 조건 프레임 깊이(입력, GT 아님)에 맞춤. 0=끔")
+p.add_argument("--anchor_frames", default="0", help="앵커 loss를 거는 예측 프레임 인덱스(콤마). 조건 프레임은 클립 프레임0이므로 기본 0")
 p.add_argument("--cv_target", choices=["teacher", "gt"], default="teacher", help="뷰 비 표적: teacher(ODE 쌍 z 디코드) 또는 gt(데이터셋 GT 포인트맵)")
 p.add_argument("--cv_frames", type=int, default=1, help="consistency loss에 grad 디코드할 프레임 수")
 p.add_argument("--keep_steps", default="1000,1600", help="이 스텝들의 generator ckpt를 별도 보존")
@@ -108,6 +110,7 @@ dataset = hydra.utils.instantiate(cfg.task.dataset)
 
 conds = {}
 gt_ratio = {}
+anchor_depth = {}
 t0 = time.time()
 with torch.no_grad():
     for n, idx in enumerate(idx_set):
@@ -126,6 +129,17 @@ with torch.no_grad():
         zr = torch.clamp(((batch["pointmap_right"][0][:, 2] + 1.) / 2.) * 3.0 - 1.0, -1.0, 2.0)
         ml, mr = (zl > 0).float(), (zr > 0).float()
         gt_ratio[idx] = ((zr * mr).sum((1, 2)) / mr.sum((1, 2)).clamp_min(1) / ((zl * ml).sum((1, 2)) / ml.sum((1, 2)).clamp_min(1)).clamp_min(1e-3)).cpu()
+        # 자기 앵커용 조건 프레임 깊이 (입력 정보만 사용, GT 아님). 왼쪽: 조건 포인트맵 z. 오른쪽: 조건 포인트맵을 참조 프레임으로 변환한 z
+        def _un(x): return torch.clamp(((x + 1.) / 2.) * 3.0 - 1.0, -1.0, 2.0)
+        cL = batch["cond_pointmaps_without_noise"][0]; cL = cL.reshape(-1, *cL.shape[-3:])[-1]
+        cR = batch["cond_pointmaps_without_noise_right"][0]; cR = cR.reshape(-1, *cR.shape[-3:])[-1]
+        E1 = batch["cam_extr"].reshape(-1, 4, 4)[0].float(); E2 = batch["cam_extr_right"].reshape(-1, 4, 4)[0].float()
+        T = torch.linalg.inv(E1) @ E2
+        xyzR = _un(cR[:3]); validR = xyzR[2] > 0
+        hom = torch.cat([xyzR.reshape(3, -1), torch.ones(1, xyzR.shape[1] * xyzR.shape[2], device=xyzR.device)], 0)
+        zR_ref = (T @ hom)[2].reshape(xyzR.shape[1:])
+        dL = _un(cL[2]); validL = dL > 0
+        anchor_depth[idx] = (torch.where(validL, dL, torch.zeros_like(dL)).cpu(), torch.where(validR & (zR_ref > 0), zR_ref, torch.zeros_like(zR_ref)).cpu())
         if n == 0:
             mv = torch.cat([batch["pointmap"][0], batch["pointmap_right"][0]], dim=0)
             BT, C, H, W = mv.shape
@@ -140,7 +154,7 @@ print(f"GT 뷰 비 r_gt 평균 {allg.mean():.3f} (프레임 std {allg.std(1).mea
 # GPU에서 동결 모듈 제거 (Step 5 교훈: 동결 모듈 잔류가 최대 복병)
 model.conditioner.cpu()
 model.first_stage_color_model.cpu()
-if args.cv_weight > 0:
+if args.cv_weight > 0 or args.anchor_weight > 0:
     model.first_stage_pointmap_model.requires_grad_(False).eval()   # GPU 유지 (fp32, 디코더 activation에 grad 흐름)
 else:
     model.first_stage_pointmap_model.cpu()
@@ -238,6 +252,32 @@ if args.cv_weight > 0:
     print(f"  {len(teacher_ratio)}개 샘플, r_teacher 평균 {allr.mean():.3f} (프레임 std {allr.std(1).mean():.3f}, 샘플 std {allr.mean(1).std():.3f}) ({time.time()-t0:.0f}s)", flush=True)
     torch.cuda.empty_cache()
     mem("r_teacher 사전계산 후")
+
+
+ANCHOR_FRAMES = [int(t) for t in args.anchor_frames.split(",")]
+
+
+def anchor_loss(x0, idx):
+    """자기 앵커: 예측 프레임 t(기본 0)의 깊이를 조건 프레임 깊이에 로그 L1로 맞춤. 양 뷰, GT 불필요, teacher와 무충돌"""
+    dL_ref, dR_ref = anchor_depth[idx]
+    dL_ref, dR_ref = dL_ref.to(x0.device), dR_ref.to(x0.device)
+    idx_l = torch.tensor(ANCHOR_FRAMES, device=x0.device); idx_r = idx_l + NV
+    d = decode_depth(torch.cat([x0[idx_l], x0[idx_r]], 0))               # (2n, H, W)
+    n = len(ANCHOR_FRAMES)
+    if d.shape[-2:] != dL_ref.shape:
+        dL_ref = torch.nn.functional.interpolate(dL_ref[None, None], size=d.shape[-2:], mode="nearest")[0, 0]
+        dR_ref = torch.nn.functional.interpolate(dR_ref[None, None], size=d.shape[-2:], mode="nearest")[0, 0]
+    losses, stats_ = [], {}
+    for v, ref, pred in (("L", dL_ref, d[:n]), ("R", dR_ref, d[n:])):
+        m = (ref > 0)[None].expand_as(pred) & (pred > 0)                  # (n, H, W)
+        if m.sum() < 100:
+            continue
+        diff = (torch.log(pred.clamp_min(1e-3)) - torch.log(ref.clamp_min(1e-3))[None]).abs()
+        losses.append(diff[m].mean())
+        m0 = m[0]
+        stats_[f"s_{v}"] = torch.median(ref[m0] / pred[0][m0].clamp_min(1e-3)).item()   # 1.0이면 조건과 스케일 일치
+    loss = torch.stack(losses).mean() if losses else x0.new_zeros(())
+    return loss, stats_
 
 
 def cv_loss(x0, idx):
@@ -363,7 +403,7 @@ print("[5/5] DMD 학습 시작", flush=True)
 mem("학습 전")
 diag(0)
 t0 = time.time()
-acc = {"g": [], "c": [], "gap": [], "gn_g": [], "gn_c": [], "cv": [], "r_s": [], "r_t": [], "lam": []}
+acc = {"g": [], "c": [], "gap": [], "gn_g": [], "gn_c": [], "cv": [], "r_s": [], "r_t": [], "lam": [], "an": [], "lam_a": [], "s_L": [], "s_R": []}
 for step in range(1, args.max_steps + 1):
     f = random.choice(pair_files)
     idx = int(os.path.basename(f).split("_")[1])
@@ -382,6 +422,15 @@ for step in range(1, args.max_steps + 1):
             lam = args.cv_weight * (g_dmd / g_cv.clamp_min(1e-12)).item()
             acc["cv"].append(l_cv.item()); acc["r_s"].append(cvi["r_s"]); acc["r_t"].append(cvi["r_t"]); acc["lam"].append(lam)
             loss_g = loss_g + lam * l_cv
+        if args.anchor_weight > 0:
+            l_an, ani = anchor_loss(x0, idx)
+            if l_an.requires_grad:
+                g_dmd2 = torch.autograd.grad(loss_g, x0, retain_graph=True)[0].abs().mean()
+                g_an = torch.autograd.grad(l_an, x0, retain_graph=True)[0].abs().mean()
+                lam_a = args.anchor_weight * (g_dmd2 / g_an.clamp_min(1e-12)).item()
+                acc["an"].append(l_an.item()); acc["lam_a"].append(lam_a)
+                acc["s_L"].append(ani.get("s_L", float("nan"))); acc["s_R"].append(ani.get("s_R", float("nan")))
+                loss_g = loss_g + lam_a * l_an
         loss_g.backward()
         gn = torch.nn.utils.clip_grad_norm_(gen.parameters(), args.max_grad_norm)
         opt_g.step(); opt_g.zero_grad(set_to_none=True)
@@ -408,6 +457,10 @@ for step in range(1, args.max_steps + 1):
         g = f"gen {sum(acc['g'])/len(acc['g']):.4f} gap {sum(acc['gap'])/len(acc['gap']):.4f} |g| {sum(acc['gn_g'])/len(acc['gn_g']):.2f}" if acc["g"] else "gen -"
         if acc["cv"]:
             g += f" | cv {sum(acc['cv'])/len(acc['cv']):.4f} λ {sum(acc['lam'])/len(acc['lam']):.2e} (r_s {sum(acc['r_s'])/len(acc['r_s']):.3f} vs r_t {sum(acc['r_t'])/len(acc['r_t']):.3f})"
+        if acc["an"]:
+            import math as _m
+            sL = [x for x in acc["s_L"] if not _m.isnan(x)]; sR = [x for x in acc["s_R"] if not _m.isnan(x)]
+            g += f" | anchor {sum(acc['an'])/len(acc['an']):.4f} λ {sum(acc['lam_a'])/len(acc['lam_a']):.2e} (s_L {sum(sL)/max(len(sL),1):.3f} s_R {sum(sR)/max(len(sR),1):.3f}; 1.0=조건과 일치)"
         print(f"[step {step}/{args.max_steps}] {g} | critic {sum(acc['c'])/len(acc['c']):.4f} |g| {sum(acc['gn_c'])/len(acc['gn_c']):.2f} "
               f"| {el/step:.1f}s/step | max {torch.cuda.max_memory_allocated()/2**30:.1f}GB", flush=True)
         acc = {k: [] for k in acc}
