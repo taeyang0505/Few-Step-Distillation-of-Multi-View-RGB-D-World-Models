@@ -198,3 +198,22 @@
   Proposed pipeline: plan with the diverse mode, then one extra teacher step (+~0.2 s) on the selected future for precise geometry.
 - Main-table default stays S3b (advantage preservation is the claim); H4b presented as the precise mode. Deployment note: hybrid keeps
   the teacher UNet in memory (+ a few GB).
+
+## N12. FINAL 60-sample table (120 view-samples; diversity 20 samples x 4 seeds; 08-24 22:56) — definitive margins
+- Teacher baseline on 60 samples: PSNR 20.34, AbsRel 0.0725, LPIPS 0.1227, sharpness 0.0127, diversity 0.0185, CV 0.1685,
+  gripper centroid 17.0 cm. (Harder than the first 20 samples; all comparisons remain paired.)
+- Differences vs teacher, 90% CI:
+| config | calls/time | AbsRel | LPIPS | PSNR | sharpness | diversity | CV | gripper centroid |
+|---|---|---|---|---|---|---|---|---|
+| S3b | 3 / 1.64 s | +0.0133 [+0.0097,+0.0168] FAIL 0.010 | +0.0180 | -0.149 [-0.246,-0.053] PASS | +2% PASS | +5% [+1,+8] PASS (provable now) | -19% PASS | +0.66 [-0.62,+1.94] cm PASS 2cm |
+| S4b | 4 / 1.86 s | +0.0066 [+0.0029,+0.0102] marginal FAIL (upper 0.0102) | +0.0146 | -0.364 PASS | PASS | +8% [+4,+11] marginal FAIL | PASS | (not measured) |
+| S5b | 5 / 2.08 s | +0.0048 [+0.0011,+0.0085] **PASS practical 0.010 with full CI** | +0.0151 | -0.311 [-0.397,-0.225] PASS | PASS | +10% [+6,+14] marginal FAIL | PASS | -0.75 [-2.25,+0.75] PASS |
+| H3b | 3 / ~1.64 s | -0.0034 (better) | +0.0175 | +0.688 FAIL (above +0.5) | -10% FAIL | -39% FAIL | +2% n.s. | — |
+| H4b | 4 / ~1.9 s | -0.0062 [-0.0084,-0.0040] better than teacher | +0.0109 (best) | +0.469 [+0.377,+0.562] marginal | -8% FAIL | -33% FAIL | +5% [+2,+8] FAIL | +1.00 [+0.12,+1.89] PASS 2cm |
+- LPIPS strict (0.01) fails for every config (best H4b +0.0109); perceptual margin (0.05) passes for all.
+- CORRECTION of N3/N7-era claims: at n=120 the S3b gripper centroid difference is +0.66 cm [-0.62,+1.94] and S5b is -0.75 cm —
+  the 20-sample "+2.0 [+0.3,+3.7], likely degradation" conclusion does not replicate; the first 20 samples were unfavorable.
+  Lesson recorded: small-n CIs can exclude zero and still not replicate; region metrics need the larger n.
+- Final picture: no single config passes every strict margin; the configurations form an inference-time dial:
+  S3b = fastest, all soft metrics pass, depth fails; S5b = depth passes (sensor-level), mild over-dispersion (+10% [+6,+14]), 2.08 s;
+  H4b = precise mode, depth below teacher, diversity/sharpness sacrificed. Paper main table should present the dial.
