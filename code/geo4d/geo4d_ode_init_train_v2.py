@@ -26,7 +26,7 @@ parser.add_argument("--log_every", type=int, default=20)
 parser.add_argument("--save_every", type=int, default=200)
 args_cli = parser.parse_args()
 
-output_dir = "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple"
+output_dir = os.environ.get("GEO4D_TEACHER_DIR", "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple")   # 태스크 전환: 환경변수
 print("[1/4] 모델 로드 (teacher 가중치로 student 초기화)")
 cfg = OmegaConf.load(f"{output_dir}/config.yaml")
 for key in cfg:
@@ -57,7 +57,7 @@ pair_files = sorted(glob.glob(os.path.join(args_cli.pairs_dir, "pair_*.pt")))
 print(f"ODE 쌍: {len(pair_files)}개")
 
 print("[3/4] 데이터셋·optimizer 준비")
-cfg.task = OmegaConf.load("/home/sun4208/4dgen/config/task/inference.yaml")
+cfg.task = OmegaConf.load(os.environ.get("GEO4D_TASK_YAML", "/home/sun4208/4dgen/config/task/inference.yaml"))
 dataset = hydra.utils.instantiate(cfg.task.dataset)
 import bitsandbytes as bnb
 opt = bnb.optim.AdamW8bit([p for p in student.parameters() if p.requires_grad], lr=args_cli.lr)

@@ -4,7 +4,7 @@
 출력: ~/Geo4D/bench_out/precise_6a.txt (+ precise_6a_raw.json)"""
 import sys; sys.path.insert(0, "/home/sun4208/4dgen"); sys.path.insert(0, "/home/sun4208/4dgen/notebooks")
 from common import transformers_pre_import_mods  # isort:skip
-import argparse, json, time
+import argparse, os, json, time
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -101,7 +101,7 @@ def crossview(o):
 
 
 print("[1/3] 모델·LPIPS 로드", flush=True)
-output_dir = "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple"
+output_dir = os.environ.get("GEO4D_TEACHER_DIR", "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple")   # 태스크 전환: 환경변수
 cfg = OmegaConf.load(f"{output_dir}/config.yaml")
 for key in cfg:
     if OmegaConf.is_dict(cfg[key]) and "desc" in cfg[key]:
@@ -181,7 +181,7 @@ def set_fast(on, unet_on=None):
     model.first_stage_color_model.decode = _bf16(_orig["dec_col"]) if on else _orig["dec_col"]
 
 print("[2/3] 데이터", flush=True)
-cfg.task = OmegaConf.load("/home/sun4208/4dgen/config/task/inference.yaml")
+cfg.task = OmegaConf.load(os.environ.get("GEO4D_TASK_YAML", "/home/sun4208/4dgen/config/task/inference.yaml"))
 dataset = hydra.utils.instantiate(cfg.task.dataset)
 cfg.dataloader.shuffle = False
 cfg.dataloader.batch_size = 1

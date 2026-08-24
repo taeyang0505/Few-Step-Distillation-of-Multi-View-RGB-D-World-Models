@@ -24,7 +24,7 @@ parser.add_argument("--out_dir", type=str, default="/home/sun4208/Geo4D/ode_pair
 args_cli = parser.parse_args()
 os.makedirs(args_cli.out_dir, exist_ok=True)
 
-output_dir = "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple"
+output_dir = os.environ.get("GEO4D_TEACHER_DIR", "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple")   # 태스크 전환: 환경변수
 print("[1/3] 모델 로드")
 cfg = OmegaConf.load(f"{output_dir}/config.yaml")
 for key in cfg:
@@ -45,7 +45,7 @@ target_sigmas = [float(s) for s in model.sampler.discretization(4, device="cuda"
 print("student σ 타깃:", [f"{s:.1f}" for s in target_sigmas])
 
 print("[2/3] 데이터 준비")
-cfg.task = OmegaConf.load("/home/sun4208/4dgen/config/task/inference.yaml")
+cfg.task = OmegaConf.load(os.environ.get("GEO4D_TASK_YAML", "/home/sun4208/4dgen/config/task/inference.yaml"))
 dataset = hydra.utils.instantiate(cfg.task.dataset)
 cfg.dataloader.shuffle = False
 cfg.dataloader.batch_size = 1

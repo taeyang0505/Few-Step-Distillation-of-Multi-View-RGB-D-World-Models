@@ -5,7 +5,7 @@
 출력: ~/Geo4D/bench_out/policy_proxy{tag}.txt (+ _raw.json)"""
 import sys; sys.path.insert(0, "/home/sun4208/4dgen"); sys.path.insert(0, "/home/sun4208/4dgen/notebooks")
 from common import transformers_pre_import_mods  # isort:skip
-import argparse, json, time, random
+import argparse, os, json, time, random
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -27,8 +27,8 @@ ap.add_argument("--fast", action="store_true", help="student 설정에 bf16 auto
 ap.add_argument("--dilate", type=int, default=3, help="AbsRel/PSNR용 마스크 팽창 픽셀 (중심 오차는 팽창 없음)")
 a = ap.parse_args()
 
-GRIPPER_IDS = [29, 30, 31, 33, 34, 35]   # 데이터셋 masks와 동일 (오른팔 29–31, 왼팔 33–35)
-APPLE_ID = 44                             # 확인: 왼팔이 집어 올려 오른팔에 건네 통에 놓는 물체
+GRIPPER_IDS = [int(x) for x in os.environ.get("GEO4D_GRIPPER_IDS", "29,30,31,33,34,35").split(",")]   # 데이터셋 masks와 동일 (오른팔 29–31, 왼팔 33–35)
+APPLE_ID = int(os.environ.get("GEO4D_OBJECT_ID", "44"))                             # 확인: 왼팔이 집어 올려 오른팔에 건네 통에 놓는 물체
 CONFIGS_ALL = {"T25": ("teacher", "euler", 25), "T4": ("teacher", "euler", 4), "T1": ("teacher", "euler", 1),
                "T3r": ("teacher", "renoise", 3), "T1r": ("teacher", "renoise", 1),
                "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1),
@@ -83,7 +83,7 @@ def region_metrics(vd, v, mask_raw):
     return out
 
 print("[1/3] 모델 로드", flush=True)
-output_dir = "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple"
+output_dir = os.environ.get("GEO4D_TEACHER_DIR", "/home/sun4208/Geo4D/checkpoints/checkpoints/outputs/apple")   # 태스크 전환: 환경변수
 cfg = OmegaConf.load(f"{output_dir}/config.yaml")
 for key in cfg:
     if OmegaConf.is_dict(cfg[key]) and "desc" in cfg[key]:
@@ -146,7 +146,7 @@ def set_fast(on, unet_on=None):
     model.first_stage_color_model.decode = _bf16(_orig["dec_col"]) if on else _orig["dec_col"]
 
 print("[2/3] 데이터 (+ label·카메라 기록)", flush=True)
-cfg.task = OmegaConf.load("/home/sun4208/4dgen/config/task/inference.yaml")
+cfg.task = OmegaConf.load(os.environ.get("GEO4D_TASK_YAML", "/home/sun4208/4dgen/config/task/inference.yaml"))
 dataset = hydra.utils.instantiate(cfg.task.dataset)
 cfg.dataloader.shuffle = False; cfg.dataloader.batch_size = 1; cfg.dataloader.num_workers = 0; cfg.dataloader.persistent_workers = False
 # __getitem__ 내부에서 실제 쓰인 원본 시퀀스(정적 필터로 idx가 바뀔 수 있음)와 선택된 카메라 2개를 가로채 기록
