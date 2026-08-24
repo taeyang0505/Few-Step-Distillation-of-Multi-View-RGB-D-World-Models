@@ -6,7 +6,7 @@ set -e
 export TMPDIR="$HOME/tmp"; mkdir -p "$TMPDIR"
 source ~/miniconda3/etc/profile.d/conda.sh
 if ! conda env list | grep -q "^lbm_eval "; then
-  conda create -y -n lbm_eval python=3.12
+  conda create -y -n lbm_eval -c conda-forge --override-channels python=3.12
 fi
 conda activate lbm_eval
 mkdir -p ~/lbm_eval_wheels && cd ~/lbm_eval_wheels
