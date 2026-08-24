@@ -110,6 +110,19 @@
 - The policy proxy (N3) numbers were measured on the 6a student and have NOT been rerun on 6d-3200 — say so where cited.
 - Checkpoint file: ~/Geo4D/dmd_6d/dmd_gen_step3200.pt. Training cost of the main student: 2000 + 2000 resumed steps, ~2 h total.
 
+## N7. Policy proxy rerun on the 6d-3200 student (08-24 05:30) — REVERSAL: moving regions got WORSE
+| metric (paired vs teacher, n=40/37) | 6a-1600 student | 6d-3200 student |
+|---|---|---|
+| background AbsRel | +0.015 (p<0.001) | +0.010 (p<0.001) — improved |
+| gripper AbsRel | +0.019 (p=0.24, n.s.) | +0.032 (p=0.006) — worse |
+| gripper centroid error | +2.0 cm (p=0.11) | +3.1 cm (p=0.009) — worse |
+| apple AbsRel | -0.012 (n.s.) | +0.006 (p=0.27) |
+| apple centroid error | +1.6 cm (p=0.13) | +2.7 cm (p<0.001) — worse |
+- Per-frame gripper centroid (6d-3200): f1 10.9 (teacher 11.0), f3-f7 16.6-17.5 vs teacher 13.7-11.8.
+- Interpretation: the anchor loss pulls predicted frame-0 depth toward the conditioning frame INCLUDING the ~2-3% moving robot pixels;
+  the static background (97% of pixels) improves, which whole-image AbsRel rewards; the whole-image gain partly comes at the cost of the
+  policy-relevant moving regions. Source files: policy_proxy_6d3200.txt / _raw.json.
+
 ## N8. Run 6e (anchor loss with --anchor_exclude_robot, 4000 steps attempted) — FAILED (08-24 ~09:00)
 - Training crashed at step 3200 when the disk filled (checkpoint copy truncated; dmd_gen.pt at step 3200 was intact and used).
   Six obsolete checkpoints (18 GB) were deleted with user approval to recover space; evaluation rerun afterwards.

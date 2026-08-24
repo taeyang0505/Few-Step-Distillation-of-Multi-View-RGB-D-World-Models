@@ -31,7 +31,8 @@ GRIPPER_IDS = [29, 30, 31, 33, 34, 35]   # 데이터셋 masks와 동일 (오른�
 APPLE_ID = 44                             # 확인: 왼팔이 집어 올려 오른팔에 건네 통에 놓는 물체
 CONFIGS_ALL = {"T25": ("teacher", "euler", 25), "T4": ("teacher", "euler", 4), "T1": ("teacher", "euler", 1),
                "T3r": ("teacher", "renoise", 3), "T1r": ("teacher", "renoise", 1),
-               "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1)}
+               "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1),
+               "S4": ("student", "renoise", 4), "S5": ("student", "renoise", 5)}
 def _cfg(n):
     anchor = n.endswith("b") or n.endswith("c")
     core = n[:-1] if anchor else n

@@ -12,12 +12,19 @@ DEFAULT_SIGMAS = [700.0001220703125, 70.54086303710938, 2.2691192626953125]
 
 
 def sigmas_for_steps(n_steps, base=DEFAULT_SIGMAS):
-    """n_steps개 σ 스케줄. 3→[700,70.5,2.3], 2→[700,2.3], 1→[700]"""
-    if n_steps >= len(base):
+    """n_steps개 σ 스케줄. 3→[700,70.5,2.3], 2→[700,2.3], 1→[700].
+    4·5스텝은 학습된 σ 지점만 반복(새 σ는 학습 분포 밖이므로): 4→[700,70.5,2.3,2.3], 5→[700,70.5,70.5,2.3,2.3]"""
+    if n_steps == len(base):
         return list(base)
     if n_steps == 1:
         return [base[0]]
-    return [base[0], base[-1]]
+    if n_steps == 2:
+        return [base[0], base[-1]]
+    if n_steps == 4:
+        return [base[0], base[1], base[2], base[2]]
+    if n_steps == 5:
+        return [base[0], base[1], base[1], base[2], base[2]]
+    return list(base)
 
 
 class RenoiseSampler:

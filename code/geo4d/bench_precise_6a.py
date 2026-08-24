@@ -31,7 +31,8 @@ SEEDS = [0, 1, 2, 3]
 N_SUB = 4096
 CONFIGS_ALL = {"T25": ("teacher", "euler", 25), "T4": ("teacher", "euler", 4), "T1": ("teacher", "euler", 1),
                "T3r": ("teacher", "renoise", 3), "T1r": ("teacher", "renoise", 1),
-               "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1)}
+               "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1),
+               "S4": ("student", "renoise", 4), "S5": ("student", "renoise", 5)}
 def _cfg(n):
     anchor = n.endswith("b") or n.endswith("c")
     core = n[:-1] if anchor else n
