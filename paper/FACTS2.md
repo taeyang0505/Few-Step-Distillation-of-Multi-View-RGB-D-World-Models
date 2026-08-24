@@ -109,3 +109,19 @@
   AbsRel 0.082 (0.076/0.088), raw 0.175, LPIPS 0.137, sharpness 0.0136, PSNR 20.43, diversity 0.0224, CV 0.137.
 - The policy proxy (N3) numbers were measured on the 6a student and have NOT been rerun on 6d-3200 — say so where cited.
 - Checkpoint file: ~/Geo4D/dmd_6d/dmd_gen_step3200.pt. Training cost of the main student: 2000 + 2000 resumed steps, ~2 h total.
+
+## N8. Run 6e (anchor loss with --anchor_exclude_robot, 4000 steps attempted) — FAILED (08-24 ~09:00)
+- Training crashed at step 3200 when the disk filled (checkpoint copy truncated; dmd_gen.pt at step 3200 was intact and used).
+  Six obsolete checkpoints (18 GB) were deleted with user approval to recover space; evaluation rerun afterwards.
+- 6e step 3200 (20 samples): whole-image AbsRel 0.082 (+0.0158), LPIPS 0.136 (+0.0180), sharpness 0.0155 (+16% over-sharpened, p<0.001),
+  PSNR 20.18 (-0.44, p<0.001), diversity n.s. std ratio 1.081 at 3200 and rising -> the checkpoint sits in the over-sharpening region,
+  unlike 6d-3200, so the two runs are not at the same convergence point.
+- Policy proxy (paired vs teacher): gripper AbsRel +0.039 (p<0.001), gripper centroid +4.7 cm (p<0.001), apple centroid +4.4 cm
+  (p<0.001), background +0.0148 (p<0.001; the background gain of 6d is gone too).
+- Reading: excluding the robot pixels did not repair the moving-region degradation and lost the background gain; across 6d and 6e the
+  anchor-loss variants consistently hurt the policy-relevant moving regions even when whole-image metrics improve. Run-to-run variance
+  caveat: 6d and 6e are single runs each.
+- Standing insight for the paper: a well-motivated geometry loss can improve whole-image depth metrics while degrading the regions a
+  policy reads; whole-image metrics alone are insufficient for checkpoint or method selection (the policy-level analogue of Finding 1).
+- Decision pending (author): revert the main student to 6a-1600 (recommended; N6 promotion edits exist only locally), keep 6d-3200, or
+  evaluate 6e-2400 first.
