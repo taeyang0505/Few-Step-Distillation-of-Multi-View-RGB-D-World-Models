@@ -175,3 +175,26 @@
   degradation (+4.7 cm) are far outside the noise and stand. (2) Inference-side comparisons (S4/S5/A4/H3) reuse one checkpoint, so
   training noise cancels; they are the statistically clean improvement path. (3) The original main student (seed 0) happens to be the
   best of the three seeds — note as a selection-bias caveat; the recipe's gripper deficit is real (+2.0 to +2.7 cm across seeds).
+
+## N11. Avg-final (A4/A6) and hybrid last-step (H3/H4) results (08-24 19:30) — the dial is inside the last step
+- 20 samples, anchor applied, bf16. teacher: AbsRel 0.066, LPIPS 0.118, PSNR 20.62, sharp 0.0134, div 0.0227.
+| config | calls | AbsRel (L/R) | LPIPS | PSNR | sharpness | diversity | gripper centroid |
+|---|---|---|---|---|---|---|---|
+| S3b | 3 | 0.082 (.076/.088) | 0.136 | 20.43 | 0.0136 | 0.0224 | +2.0 cm |
+| S4b | 4 | 0.075 (.069/.081) | 0.133 | 20.24 | 0.0136 | 0.0240 | +1.7 |
+| A4b (3 sigma + avg2 at final) | 4 | 0.082 (.079/.085) | 0.142 | 20.76 | 0.0131 | 0.0172 (-24%) | +2.7 (p=0.009) |
+| A6b (4 sigma + avg2) | 5 | 0.073 (.068/.079) | 0.137 | 20.48 | 0.0134 | 0.0196 (-14%) | +1.4 |
+| H3b (student 700/70.5 + teacher 2.3) | 3 | 0.062 (.063/.061) — BETTER than teacher | 0.136 | 21.33 | 0.0120 (-10%) | 0.0131 (-42%) | +1.5 (p=0.03); gripper AbsRel +0.005 n.s.; background BETTER than teacher (-0.005) |
+| H4b | 4 | 0.060 (.061/.058) — best ever | 0.130 | 21.09 | 0.0123 (-8%) | 0.0158 (-30%) | +1.5 (p=0.20), gripper AbsRel +0.003 n.s. |
+- Mechanism (unified): sigma = 2.3 exceeds the latent scale (~1), so a large share of seed-to-seed diversity is CREATED by sampling at
+  the final step. The teacher denoiser is a mean predictor at every sigma; the DMD student was trained to emit samples at sigma 2.3.
+  Any mean-ward operation at the final step (teacher swap, x0 averaging) therefore trades diversity/sharpness for AbsRel/PSNR — the
+  perception-distortion dial lives inside the sampler's last step and can be set at inference time without retraining.
+  (Corrects the earlier assumption that diversity is decided at sigma 700.)
+- A4's premise (variance reduction without distribution shift) was disproved for the diversity axis: averaging collapses diversity -24%
+  and does not reproduce S4b's AbsRel gain (the S4b gain comes from the extra stochastic refinement cycle, not variance reduction).
+- Practical outcome: mode-switchable inference from ONE checkpoint — "diverse mode" S3b (1.64 s, all soft metrics at teacher level) for
+  sampling futures; "precise mode" H4b (~1.9 s, AbsRel 0.060 below the teacher, LPIPS 0.130) for metric-depth readout of a chosen future.
+  Proposed pipeline: plan with the diverse mode, then one extra teacher step (+~0.2 s) on the selected future for precise geometry.
+- Main-table default stays S3b (advantage preservation is the claim); H4b presented as the precise mode. Deployment note: hybrid keeps
+  the teacher UNet in memory (+ a few GB).
