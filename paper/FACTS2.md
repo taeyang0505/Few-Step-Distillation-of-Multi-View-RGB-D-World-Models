@@ -138,3 +138,26 @@
   policy reads; whole-image metrics alone are insufficient for checkpoint or method selection (the policy-level analogue of Finding 1).
 - Decision pending (author): revert the main student to 6a-1600 (recommended; N6 promotion edits exist only locally), keep 6d-3200, or
   evaluate 6e-2400 first.
+
+## N9. Inference-time step count (no training): 4 and 5 re-noising steps with repeated trained sigmas (08-24 14:20)
+- Schedules repeat trained sigmas only: 4 steps [700, 70.5, 2.3, 2.3]; 5 steps [700, 70.5, 70.5, 2.3, 2.3]. Student = 6a-1600 + per-view anchor, bf16.
+- 20 samples, paired vs teacher, 90% CI:
+| metric | 3 steps | 4 steps | 5 steps |
+|---|---|---|---|
+| pure inference (est.) | 1.64 s | ~1.86 s | ~2.08 s |
+| AbsRel | 0.082, +0.0155 [+0.0098,+0.0211] | 0.075, +0.0085 [+0.0023,+0.0146] | 0.072, +0.0058 [-0.0001,+0.0117] |
+| LPIPS | +0.0177 | +0.0147 [+0.0129,+0.0165] | +0.0147 [+0.0131,+0.0163] |
+| sharpness | +0.0002 | +0.0002 | +0.0003 |
+| diversity | -1% [-12,+9] | +6% [-6,+18] (n=6) | +17% [+2,+32] (n=6) — OVER-DISPERSED, exceeds the +/-10% margin |
+| PSNR | -0.19 [-0.34,-0.04] | -0.38 [-0.52,-0.24] (fails 0.5 dB TOST by 0.02) | -0.35 [-0.48,-0.23] (passes narrowly) |
+| CV | -0.032 | -0.027 | -0.021 |
+| gripper centroid (proxy) | +2.0 [+0.3,+3.7] cm | +1.7 [-0.2,+3.6] | +1.3 [-0.7,+3.3] |
+| gripper AbsRel (proxy) | +0.019 | +0.00 [-0.02,+0.03] | +0.00 |
+| background AbsRel (proxy) | +0.015 | +0.007 | +0.008 |
+- Reading: extra low-sigma refinement (no training) closes most of the depth gap (+0.0155 -> +0.0058) and the moving-region gaps
+  (gripper AbsRel to +0.00, centroid CI includes 0), supporting the "insufficient low-sigma refinement" diagnosis. The cost is a new
+  trade-off axis: each re-noise injects fresh noise, so repeated sigmas over-disperse the sampler (diversity +17% at 5 steps, above the
+  margin) and PSNR drops accordingly (consistent with E||y_hat - y*||^2 = Var(q) + Var(p) + bias^2). 4 steps sits in the margin for
+  diversity (+6%) but fails the PSNR TOST by 0.02 dB at n=40. Decision on the default step count deferred to the seed-variance runs and
+  the 60-sample rerun. Candidate follow-up: repeat the high sigma instead ([700, 700, 70.5, 2.3]) to seek geometry gains without
+  over-dispersion; test alongside the hybrid last-step experiment. Source: precise_6a_steps45.txt, policy_proxy_steps45.txt.
