@@ -2,6 +2,8 @@
 # E1 게이트: lbm_eval 설치(CPU, Docker 불필요) + 태스크 목록에서 우리 3개 태스크 존재 확인
 # 디스크 ~6G, 소요 ~20-40분(다운로드 포함). GPU 무관 — 지금 실행 가능.
 set -e
+# 모든 임시파일을 홈 안으로 (공용 /tmp 사용 금지)
+export TMPDIR="$HOME/tmp"; mkdir -p "$TMPDIR"
 source ~/miniconda3/etc/profile.d/conda.sh
 if ! conda env list | grep -q "^lbm_eval "; then
   conda create -y -n lbm_eval python=3.12
