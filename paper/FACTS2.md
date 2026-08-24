@@ -161,3 +161,17 @@
   diversity (+6%) but fails the PSNR TOST by 0.02 dB at n=40. Decision on the default step count deferred to the seed-variance runs and
   the 60-sample rerun. Candidate follow-up: repeat the high sigma instead ([700, 700, 70.5, 2.3]) to seek geometry gains without
   over-dispersion; test alongside the hybrid last-step experiment. Source: precise_6a_steps45.txt, policy_proxy_steps45.txt.
+
+## N10. Training-seed variance of the 6a recipe (three seeds, step 1600, S3b; 08-24 17:45)
+| seed | AbsRel (L/R) | LPIPS | sharpness | PSNR | diversity | gripper centroid vs teacher |
+|---|---|---|---|---|---|---|
+| 0 (main) | 0.0820 (.076/.088) | 0.136 | 0.0136 | 20.43 | 0.0224 | +2.0 cm (p=0.11) |
+| 1 | 0.0849 (.080/.090) | 0.138 | 0.0132 | 20.40 | 0.0232 | +2.4 cm (p=0.03) |
+| 2 | 0.0852 (.079/.091) | 0.138 | 0.0131 | 20.41 | 0.0230 | +2.7 cm (p=0.03) |
+- Range across seeds: AbsRel 0.003 (sd ~0.002), LPIPS 0.002, sharpness 0.0005, PSNR 0.03 dB, gripper 0.7 cm.
+  A same-seed rerun (train_long step 1600) reproduced seed 0 almost exactly (AbsRel 0.0820) -> the spread comes from the seed.
+- Consequences: (1) single-run training-side differences of <~0.004 AbsRel or <~1 cm gripper are within ~2x seed noise —
+  the 6d-3200 anchored-AbsRel gain (0.004) is not claimable from single runs; the 6d raw-scale fix (0.175 -> 0.098) and the 6e gripper
+  degradation (+4.7 cm) are far outside the noise and stand. (2) Inference-side comparisons (S4/S5/A4/H3) reuse one checkpoint, so
+  training noise cancels; they are the statistically clean improvement path. (3) The original main student (seed 0) happens to be the
+  best of the three seeds — note as a selection-bias caveat; the recipe's gripper deficit is real (+2.0 to +2.7 cm across seeds).
