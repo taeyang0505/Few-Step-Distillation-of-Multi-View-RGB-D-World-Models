@@ -32,7 +32,9 @@ N_SUB = 4096
 CONFIGS_ALL = {"T25": ("teacher", "euler", 25), "T4": ("teacher", "euler", 4), "T1": ("teacher", "euler", 1),
                "T3r": ("teacher", "renoise", 3), "T1r": ("teacher", "renoise", 1),
                "S3": ("student", "renoise", 3), "S1": ("student", "renoise", 1),
-               "S4": ("student", "renoise", 4), "S5": ("student", "renoise", 5)}
+               "S4": ("student", "renoise", 4), "S5": ("student", "renoise", 5),
+               "A4": ("student", "renoise_avg2", 3), "A6": ("student", "renoise_avg2", 4),
+               "H3": ("hybrid", "renoise", 3), "H4": ("hybrid", "renoise", 4)}
 def _cfg(n):
     anchor = n.endswith("b") or n.endswith("c")
     core = n[:-1] if anchor else n
@@ -118,6 +120,42 @@ student_sd = torch.load(a.student_ckpt, map_location="cpu")["student"]
 lpips_net = lpips_lib.LPIPS(net="alex").cuda().eval()
 
 # --fast: bf16 autocast 래핑 (student 설정에서만 켬)
+plain = model.model      # 원본(비-하이브리드) 래퍼. 설정 전환 시 항상 이걸 기준으로 복원
+import copy as _copy
+
+class HybridWrapper(torch.nn.Module):
+    """마지막 σ 호출만 teacher로 라우팅. bf16은 여기서 직접 처리(외부 forward 래핑 금지)."""
+
+    def __init__(self, student, teacher):
+        super().__init__()
+        self.student, self.teacher = student, teacher
+        self.use_teacher = False
+        self.bf16 = False
+
+    def forward(self, *a, **k):
+        m = self.teacher if self.use_teacher else self.student
+        if self.bf16:
+            with torch.autocast("cuda", dtype=torch.bfloat16):
+                out = m(*a, **k)
+            return out.float()
+        return m(*a, **k)
+
+
+_hybrid = {"mod": None}
+
+
+def get_hybrid():
+    if _hybrid["mod"] is None:
+        plain.__dict__.pop("forward", None)          # set_fast가 심었을 인스턴스 forward 제거 후 복사 (복사본 오염 방지)
+        t = _copy.deepcopy(plain)
+        t.__dict__.pop("forward", None)
+        t.load_state_dict(teacher_sd, strict=False)
+        t.eval().requires_grad_(False)
+        _hybrid["mod"] = HybridWrapper(plain, t.to("cuda"))
+        print("  [hybrid] teacher 사본 탑재 (마지막 σ만 teacher, CFG 없음)", flush=True)
+    return _hybrid["mod"]
+
+
 _orig = {"unet": model.model.forward, "cond": model.conditioner.forward,
          "dec_pm": model.first_stage_pointmap_model.decode, "dec_col": model.first_stage_color_model.decode}
 def _bf16(fn):
@@ -127,7 +165,8 @@ def _bf16(fn):
         return out.float() if torch.is_tensor(out) else out
     return w
 _compiled = {"done": False}
-def set_fast(on):
+def set_fast(on, unet_on=None):
+    unet_on = on if unet_on is None else unet_on
     if on and a.compile and not _compiled["done"]:
         model.model.diffusion_model = torch.compile(model.model.diffusion_model)
         model.model.diffusion_model_2 = model.model.diffusion_model      # 가중치 공유(발견 8)
@@ -136,7 +175,7 @@ def set_fast(on):
         _orig["unet"] = model.model.forward
         _compiled["done"] = True
         print("  [compile] UNet torch.compile 적용 (VAE 디코더는 제외)", flush=True)
-    model.model.forward = _bf16(_orig["unet"]) if on else _orig["unet"]
+    plain.forward = _bf16(_orig["unet"]) if unet_on else _orig["unet"]
     model.conditioner.forward = _bf16(_orig["cond"]) if on else _orig["cond"]
     model.first_stage_pointmap_model.decode = _bf16(_orig["dec_pm"]) if on else _orig["dec_pm"]
     model.first_stage_color_model.decode = _bf16(_orig["dec_col"]) if on else _orig["dec_col"]
@@ -173,16 +212,31 @@ raw = {}   # name -> {"view": [dict per view-sample], "cv": [per batch], "div": 
 cur = None
 for name, who, samp, steps, anchor in CONFIGS:
     if who != cur:
-        model.model.load_state_dict(teacher_sd if who == "teacher" else student_sd, strict=False)
+        if who == "hybrid":
+            hy = get_hybrid()
+            plain.load_state_dict(student_sd, strict=False)   # student 분기 가중치 보장
+            model.model = hy
+        else:
+            model.model = plain
+            plain.load_state_dict(teacher_sd if who == "teacher" else student_sd, strict=False)
         cur = who
-    model.sampler = RenoiseSampler(sigmas_for_steps(steps)) if samp == "renoise" else euler
+    if samp == "renoise_avg2":
+        model.sampler = RenoiseSampler(sigmas_for_steps(steps), avg_final=2)   # A4: 3σ+마지막 평균2 = 4호출 / A6: 4σ+평균2 = 5호출
+    elif who == "hybrid":
+        model.sampler = RenoiseSampler(sigmas_for_steps(steps), final_toggle=model.model)   # H3/H4: 마지막 σ만 teacher
+    else:
+        model.sampler = RenoiseSampler(sigmas_for_steps(steps)) if samp == "renoise" else euler
     if samp == "euler":
         model.sampler.num_steps = steps
     if anchor:
         enable_cond_anchor(model, per_view=(anchor == "b"), affine=(anchor == "c"))
     else:
         disable_cond_anchor(model)
-    set_fast(a.fast and who == "student")
+    if who == "hybrid":
+        set_fast(a.fast, unet_on=False)
+        model.model.bf16 = a.fast
+    else:
+        set_fast(a.fast and who == "student")
     rec = {"view": [], "cv": [], "div": [], "time": 0.0}
     t0 = time.time()
     n_gen = 0

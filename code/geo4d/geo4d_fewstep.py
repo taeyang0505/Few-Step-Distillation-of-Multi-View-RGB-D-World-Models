@@ -31,17 +31,42 @@ class RenoiseSampler:
     """sgm sampler와 같은 호출 규약: sampler(denoiser, randn, cond=c, uc=uc) -> x0 latent
     denoiser(input, sigma, c) 클로저를 받음. uc는 무시(student는 CFG 없이 cond-only)."""
 
-    def __init__(self, sigmas, device="cuda"):
+    def __init__(self, sigmas, device="cuda", avg_final=1, final_toggle=None):
+        # final_toggle: .use_teacher 속성을 가진 객체(HybridWrapper). 마지막 σ 호출만 teacher 분기로 라우팅.
+        self.final_toggle = final_toggle
         self.sigmas = [float(s) for s in sigmas]
         self.num_steps = len(self.sigmas)
         self.device = device
+        # avg_final>1: 마지막 σ에서 독립 재노이징으로 x0 예측을 avg_final회 평균.
+        # 입력은 항상 x0+σε(학습 분포 그대로), 주입 분산만 1/avg_final — η<1 재노이즈와 달리 분포를 깨지 않음.
+        self.avg_final = int(avg_final)
 
     def __call__(self, denoiser, x, cond, uc=None, num_steps=None, generator=None):
         x = x * math.sqrt(1.0 + self.sigmas[0] ** 2)  # sgm prepare_sampling_loop와 동일한 초기 스케일
         x0 = None
+        if self.final_toggle is not None:
+            self.final_toggle.use_teacher = False
+        try:
+            return self._run(denoiser, x, cond, generator)
+        finally:
+            if self.final_toggle is not None:
+                self.final_toggle.use_teacher = False   # 상태 잔류 방지
+
+    def _run(self, denoiser, x, cond, generator):
+        x0 = None
         for i, s in enumerate(self.sigmas):
             sigma = x.new_full((x.shape[0],), s)
-            x0 = denoiser(x, sigma, cond)
+            if i == self.num_steps - 1 and self.final_toggle is not None:
+                self.final_toggle.use_teacher = True
+            if i == self.num_steps - 1 and self.avg_final > 1:
+                acc = denoiser(x, sigma, cond)
+                base = x0 if x0 is not None else acc      # 직전 x0 기준으로 독립 재노이징
+                for _ in range(self.avg_final - 1):
+                    noise = torch.randn(base.shape, device=base.device, dtype=base.dtype, generator=generator)
+                    acc = acc + denoiser(base + s * noise, sigma, cond)
+                x0 = acc / self.avg_final
+            else:
+                x0 = denoiser(x, sigma, cond)
             if i < self.num_steps - 1:
                 noise = torch.randn(x0.shape, device=x0.device, dtype=x0.dtype, generator=generator)
                 x = x0 + self.sigmas[i + 1] * noise
