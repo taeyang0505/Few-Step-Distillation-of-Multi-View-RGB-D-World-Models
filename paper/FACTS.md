@@ -121,6 +121,21 @@ Anything marked "NOT DONE" must be described as future work, never as a result.
 | student re-noising 3 steps | 1.19 | 0.73 | 0.88 | 2.81 s |
 | student re-noising 1 step | 0.40 | 0.73 | 0.88 | 2.01 s |
 - Student UNet per call 0.40 s = half the teacher's 0.81 s because no CFG (batch 20 instead of 40). Fixed cost = 0.73 + 0.88 = 1.6 s.
+### 6.1b Joint re-measurement, teacher and students in ONE run (08-25, bench_timing_final.py, 5 batches, RTX 5090)
+Authoritative source of the headline speed-up: teacher and student measured in the same process, same harness, same data.
+| configuration | total | UNet (calls) | conditioner (calls) | VAE decode | anchor |
+|---|---|---|---|---|---|
+| T25 teacher, Euler 25 steps, CFG, fp32 | 21.49 s | 19.95 (25) | 0.60 (2) | 0.92 | - |
+| S3b student, re-noising 3 steps, anchor, bf16 | 1.64 s (13.1x) | 0.66 (3) | 0.30 (1) | 0.68 | 0.001 |
+| S4b student, 4 steps | 1.86 s (11.6x) | 0.88 (4) | 0.30 (1) | 0.68 | 0.001 |
+| S5b student, 5 steps | 2.08 s (10.3x) | 1.09 (5) | 0.30 (1) | 0.68 | 0.001 |
+- Replaces the earlier separate measurements (teacher 21.75 s) and the ESTIMATED 4/5-step times of N12 (1.86 / 2.08 s), which the
+  re-measurement reproduced exactly. Paper headline updated to 1.64 s vs 21.49 s = 13.1x (was 13.3x vs 21.8 s).
+- Teacher UNet per call 0.798 s (CFG, batch 40) vs student 0.219 s (no CFG, batch 20) = 3.6x, of which about 2x is the dropped uc branch.
+- Per-view anchor costs 0.001 s — free relative to everything else.
+- Fixed cost in this bf16, non-compiled configuration = conditioner 0.30 + decode 0.68 = 0.98 s (0.63 s after decoder compile, 6.2).
+- H4b (hybrid 4 steps) routes only the last call to the teacher UNet without CFG at the same batch, so its cost equals S4b.
+- Raw output: results/quantitative/timing_final.txt and timing_final_raw.json.
 ### 6.2 Acceleration variants (5 samples, same seed; AbsRel L/R shown to verify no quality drift)
 | variant | total | UNet | cond | decode | AbsRel L/R |
 |---|---|---|---|---|---|
@@ -136,14 +151,14 @@ Anything marked "NOT DONE" must be described as future work, never as a result.
 - UNet torch.compile verified on 20 samples paired: vs teacher AbsRel +0.016 (p<0.001), LPIPS +0.018 (p<0.001), sharpness +0.0002
   (p=0.69), diversity -0.0003 (p=1.00) — same conclusions as bf16; time about 1.5 s in the eval harness. Decoder compile could not be run in
   the eval path (sgm VideoDecoder sets a `timesteps` attribute on the module at call time, which conflicts with the torch.compile wrapper),
-  so 1.18 s is verified on 5 samples only. Headline number in the paper: 1.64 s (bf16), 13.3x faster than 21.80 s.
+  so 1.18 s is verified on 5 samples only. Headline number in the paper: 1.64 s (bf16), 13.1x faster than 21.49 s (joint re-measurement, 6.1b).
 - Remaining fixed cost 0.63 s (conditioner 0.30 + decode 0.33) blocks the humanoid target; the UNet itself (0.55 s for 3 calls) must shrink
   (quantization, resolution) for 0.3-0.5 s.
 
 ## 7. MAIN TABLE (20 samples = 40 view-samples, data seed 1234, fake pixels excluded, diversity 3 samples x 4 seeds)
 | method | training | steps | pure inference | PSNR ^ | AbsRel v (L/R) | LPIPS v | sharpness | diversity | CV-Chamfer v |
 |---|---|---|---|---|---|---|---|---|---|
-| Geo4D teacher (Euler) | none | 25 | 21.80 s | 20.62 | 0.066 (0.067/0.066) | 0.118 | 0.0134 | 0.0227 | 0.169 |
+| Geo4D teacher (Euler) | none | 25 | 21.49 s | 20.62 | 0.066 (0.067/0.066) | 0.118 | 0.0134 | 0.0227 | 0.169 |
 | teacher, fewer steps (Euler) | none | 4 | 4.84 s | 21.22 | 0.064 | 0.132 | 0.0121 | 0.0131 | 0.165 |
 | teacher, fewer steps (re-noising) | none | 3 | 2.81 s | 21.30 | 0.066 | 0.132 | 0.0119 | 0.0120 | 0.167 |
 | ODE regression init (v2) | regression | 4 | 7.9 s* | 14.42 | 0.547 | — | fog | seeds identical | 0.137 |
@@ -177,7 +192,7 @@ Anything marked "NOT DONE" must be described as future work, never as a result.
 8 Geo4D's two views share 100% of weights (shallow-copy bug).
 9 Training-free few-step teacher loses 47% diversity regardless of sampler.
 10 53% of right-view GT pixels are transformed invalid pixels (0.418 -> 0.064).
-11 Reported times included 2.9 s of evaluation scaffolding; pure inference is 21.8 s / 2.81 s (fp32).
+11 Reported times included 2.9 s of evaluation scaffolding; pure inference is 21.5 s / 2.81 s (fp32).
 12 Input anchor also improves the teacher (0.072 -> 0.060).
 
 ## 10. Status of the policy-level evaluation — NOT DONE

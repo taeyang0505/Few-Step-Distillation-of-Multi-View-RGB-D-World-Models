@@ -20,7 +20,7 @@ OUT_PNG = os.path.join(OUT_DIR, "fig6_speed_quality.png")
 #   key: (pure inference time [s], AbsRel, LPIPS, seed diversity)
 # ---------------------------------------------------------------------------
 DATA = {
-    "T25": (21.80, 0.066, 0.118, 0.0227),  # Geo4D teacher, Euler, 25 steps
+    "T25": (21.49, 0.066, 0.118, 0.0227),  # Geo4D teacher, Euler, 25 steps
     "T4":  (4.84,  0.064, 0.132, 0.0131),  # teacher, Euler, 4 steps
     "T3r": (2.81,  0.066, 0.132, 0.0120),  # teacher, re-noising, 3 steps
     "S3":  (1.64,  0.082, 0.136, 0.0224),  # DMD student, 3 steps + per-view anchor, bf16

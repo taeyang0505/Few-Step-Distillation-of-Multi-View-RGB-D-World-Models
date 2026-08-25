@@ -96,7 +96,7 @@
 
 ## N6. PROMOTION DECISION (author-approved, 08-24): 6d step 3200 is the MAIN student
 - The paper's main student is now "DMD + self-anchored training loss (beta=1, 3200 steps) + per-view inference anchor + bf16".
-  Inference pipeline and timing unchanged: 1.64 s (13.3x), 1.18 s with compile — same architecture and sampler as before.
+  Inference pipeline and timing unchanged: 1.64 s (13.1x), 1.18 s with compile — same architecture and sampler as before.
 - Main numbers (20 samples, paired vs teacher n=40):
   PSNR 20.45 (d -0.16 [90% CI -0.31, -0.01], p=0.070); AbsRel 0.078, L 0.076 / R 0.080 (d +0.0113 [+0.0069, +0.0157], p<0.001);
   LPIPS 0.135 (d +0.0172 [+0.0150, +0.0194], p<0.001); sharpness 0.0135 (d +0.0001, p=0.94); diversity 0.0213 (d -0.0014, p=0.44, n=6);
@@ -144,7 +144,7 @@
 - 20 samples, paired vs teacher, 90% CI:
 | metric | 3 steps | 4 steps | 5 steps |
 |---|---|---|---|
-| pure inference (est.) | 1.64 s | ~1.86 s | ~2.08 s |
+| pure inference (measured 08-25) | 1.64 s | 1.86 s | 2.08 s |
 | AbsRel | 0.082, +0.0155 [+0.0098,+0.0211] | 0.075, +0.0085 [+0.0023,+0.0146] | 0.072, +0.0058 [-0.0001,+0.0117] |
 | LPIPS | +0.0177 | +0.0147 [+0.0129,+0.0165] | +0.0147 [+0.0131,+0.0163] |
 | sharpness | +0.0002 | +0.0002 | +0.0003 |

@@ -2,7 +2,7 @@
 
 All numbers are copied from FACTS.md Sections 6.1 and 6.2 (one RTX 5090, one
 sample = 2 views x 10 frames at 256 x 320). Horizontal stacked bars with a
-broken x axis so that the 21.75 s teacher bar and the ~1 s student bars are
+broken x axis so that the 21.49 s teacher bar and the ~1 s student bars are
 readable on the same scale. Printed totals are the totals reported in FACTS.md.
 """
 import os
@@ -19,7 +19,7 @@ OUT = os.path.join(HERE, "fig7_time_breakdown.png")
 # ---------------------------------------------------------------- data (FACTS.md 6.1-6.2)
 # label, UNet, conditioner, VAE decode, total as reported in FACTS.md
 ROWS = [
-    ("Teacher, Euler 25 steps (CFG)",          20.13, 0.73, 0.89, 21.75),
+    ("Teacher, Euler 25 steps (CFG)",          19.95, 0.60, 0.92, 21.49),
     ("Teacher, Euler 4 steps",                  3.22, 0.73, 0.89,  4.83),
     ("Student, 3 steps, fp32",                  1.19, 0.73, 0.88,  2.81),
     ("+ no unconditional branch",               1.18, 0.30, 0.90,  2.38),

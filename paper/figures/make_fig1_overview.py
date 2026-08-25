@@ -1,10 +1,10 @@
 """Figure 1 (overview): Geo4D teacher vs. our 3-step DMD student.
 
 All numbers come from FACTS.md:
-  teacher: 25 Euler steps, sigma_max = 700, CFG (batch 2x), fp32, 2 views x 10 RGB-D frames, 21.8 s
+  teacher: 25 Euler steps, sigma_max = 700, CFG (batch 2x), fp32, 2 views x 10 RGB-D frames, 21.5 s
   student: 3 re-noising steps at sigma = 700 -> 70.5 -> 2.3, x0 prediction then re-noise, no CFG, bf16,
            per-view input anchor (scale from conditioning pointmap; right view via inv(E_L) E_R),
-           1.64 s (13.3x), AbsRel +0.015, LPIPS +0.018, sharpness and seed diversity preserved.
+           1.64 s (13.1x), AbsRel +0.015, LPIPS +0.018, sharpness and seed diversity preserved.
 """
 import matplotlib
 
@@ -149,7 +149,7 @@ ax.text((sx1 + sx2) / 2, Y_SCHED - 0.13, "25 Euler steps, CFG guider (batch 2x)"
         ha="center", va="top", fontsize=9)
 
 bracket(x_cond - w_cond / 2, x_vae + w_vae / 2, Y_BRK)
-ax.text((x_cond - w_cond / 2 + x_vae + w_vae / 2) / 2, Y_TIME, "21.8 s per prediction",
+ax.text((x_cond - w_cond / 2 + x_vae + w_vae / 2) / 2, Y_TIME, "21.5 s per prediction",
         ha="center", va="center", fontsize=11, weight="bold")
 
 # ================================================================ divider
@@ -209,7 +209,7 @@ ax.text(x_anc2 + 0.22, Y_SCHED + 0.30,
 
 bracket(x_cond2 - w_cond / 2, x_anc2 + w_anc / 2, Y_BRK, color=ACCENT)
 ax.text((x_cond2 - w_cond / 2 + x_anc2 + w_anc / 2) / 2, Y_TIME,
-        "1.64 s per prediction (13.3x faster)", ha="center", va="center",
+        "1.64 s per prediction (13.1x faster)", ha="center", va="center",
         fontsize=11, weight="bold", color=ACCENT)
 ax.text((x_cond2 - w_cond / 2 + x_anc2 + w_anc / 2) / 2, Y_RES,
         "sharpness and seed diversity preserved;  AbsRel +0.015,  LPIPS +0.018  (vs. teacher)",
