@@ -15,7 +15,7 @@ echo "[1/4] teacher 체크포인트 (22.7G)"
 python - <<PYEOF
 from huggingface_hub import snapshot_download
 snapshot_download("Zeyi/4dgen-ckpts", local_dir="/home/sun4208/Geo4D/checkpoints",
-                  allow_patterns=["checkpoints/outputs/$TASK/*"], max_workers=8)
+                  allow_patterns=["checkpoints/outputs/$TASK/*", "checkpoints/VAE/$TASK/*"], max_workers=8)
 print("ckpt ok")
 PYEOF
 echo "[2/4] 추론 에피소드 0-3 (~7.6G)"
