@@ -18,14 +18,15 @@
 
 Reducing the number of Euler steps is the simplest way to make the teacher faster. Table 2 reports the sweep from 25 to 1 step on 10 samples, and Figure 2 plots each metric against the step count. It was run before the fake-pixel mask existed, so the right-view part of CV-Chamfer is contaminated and we use the table for trends only; the times include evaluation overhead. PSNR rises from 19.75 dB at 25 steps to 20.64 dB at 1 step (peaking at 20.66 dB at 2 steps), while CV-Chamfer worsens from 0.176 to 0.194. Between the endpoints, LPIPS increases by 20.7% (0.1222 to 0.1474), sharpness decreases by 12.5%, and seed diversity decreases by 77% (0.0188 to 0.0043).
 
-Table 2: Training-free step reduction of the Geo4D teacher (Euler, 10 samples, pre-maskfix). Fewer steps raise PSNR while LPIPS and diversity degrade; CV-Chamfer degrades below 4 steps. LPIPS and diversity were measured at the two endpoints only.
+Table 2: Training-free step reduction of the Geo4D teacher (Euler, 10 samples, pre-maskfix). Fewer steps raise PSNR while LPIPS and diversity degrade; CV-Chamfer degrades below 4 steps. PSNR, CV-Chamfer, and time come from the 10-sample sweep; LPIPS and diversity come from the blur-hypothesis run on 2 samples with 4 seeds each, which covered the same step counts plus 16 steps.
 
 | steps | s/sample | PSNR ↑ | CV-Chamfer ↓ | LPIPS ↓ | diversity |
 |---|---|---|---|---|---|
 | 25 | 25.8 | 19.75 | 0.1758 | 0.1222 | 0.0188 |
-| 8 | 11.4 | 20.06 | 0.1692 | — | — |
-| 4 | 7.9 | 20.35 | 0.1796 | — | — |
-| 2 | 6.4 | 20.66 | 0.1919 | — | — |
+| 16 | 18.1 | 19.76 | 0.1754 | 0.1228 | 0.0174 |
+| 8 | 11.4 | 20.06 | 0.1692 | 0.1269 | 0.0141 |
+| 4 | 7.9 | 20.35 | 0.1796 | 0.1361 | 0.0105 |
+| 2 | 6.4 | 20.66 | 0.1919 | 0.1473 | 0.0043 |
 | 1 | 5.4 | 20.64 | 0.1943 | 0.1474 | 0.0043 |
 
 ![Figure 2: Metrics against step count for the training-free teacher. PSNR improves as steps are removed while diversity, LPIPS, sharpness, and CV-Chamfer degrade, each starting at a different step count; the dashed line marks the 25-step value.](figures/fig2_step_sweep.png)
