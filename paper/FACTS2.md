@@ -238,3 +238,31 @@ ONE sample, left view, Laplacian variance averaged over the 10 predicted frames,
 - Consequence for the paper: the sharpness margin of Section 4.1 (+/-5%) was applied to a whole-image metric; a region-wise
   version of the same margin is the honest test, and the main student may fail it. Figure 9 (fig9_zoom_qualitative.png)
   shows the crops with these numbers.
+
+## N14. D1 Task 1 (cereal_box) — the recipe transfers, but the diverse mode degrades far more; the hybrid rescues it (08-26)
+Pipeline: 160 ODE pairs (apple had 284), 1200-step regression init, 2000-step DMD, checkpoint step 1600 (std ratio 1.021, the same
+criterion used for apple). Evaluation: 20 samples = 40 view-samples, same protocol as apple. GT sharpness 0.01216 (apple 0.02137).
+| config | s/gen | PSNR | AbsRel (L/R) | LPIPS | sharpness | CV | diversity |
+|---|---|---|---|---|---|---|---|
+| T25 teacher | 24.7 | 18.91 | 0.1325 (.1388/.1262) | 0.1610 | 0.00889 | 0.0538 | 0.02683 |
+| S3b | 4.4 | 18.51 | 0.1845 | 0.1861 | 0.01184 | 0.0557 | 0.02676 |
+| S5b | 4.8 | 18.04 | 0.1600 | 0.1811 | 0.01236 | 0.0488 | 0.02959 |
+| H4b | 4.6 | 19.25 | 0.1390 | 0.1781 | 0.00906 | 0.0408 | 0.01804 |
+Paired vs T25: S3b AbsRel +0.0519 (p<0.001), LPIPS +0.0251, PSNR -0.39, sharpness +0.0029 (**+33%, 100% of samples**), diversity n.s.
+S5b AbsRel +0.0275, PSNR -0.87. **H4b AbsRel +0.0065 (p=0.383, NOT significant), PSNR +0.34, sharpness n.s. (p=0.259), CV better;
+only diversity -33%.**
+- Comparison with apple (same S3b recipe): AbsRel gap +0.052 here vs +0.013 there; LPIPS +0.025 vs +0.018; sharpness +33% vs +2%.
+  The teacher is also much weaker on this task (AbsRel 0.133 vs 0.073), so the task is harder for both.
+- Policy proxy (object id 39, 20 samples): gripper centroid 11.04 -> 18.23 cm (+7.19, p=1.3e-11, 95% of samples worse), object centroid
+  2.82 -> 8.63 cm (+5.80), gripper AbsRel +0.102, background AbsRel +0.044. Far worse than apple's +0.66 cm at n=120.
+- Diagnosis: the student is OVER-SHARPENED on this task (sharpness 0.0118 against a teacher of 0.0089 and a ground truth of 0.0122):
+  it hallucinates high-frequency detail while the geometry degrades. The std-ratio checkpoint criterion did NOT catch this - the ratio
+  moves smoothly from 0.99 (step 1200) to 1.05 (step 2000) with no signal at 1600 (1.021). This is a limitation of our own selection
+  diagnostic and must be reported as such.
+- Reading for the paper: the recipe transfers in the sense that DMD still restores diversity (n.s. vs teacher) and gives a 5.6x speed-up,
+  but on this harder task the 3-step diverse mode is NOT teacher-equivalent on geometry. The hybrid precise mode IS
+  (AbsRel indistinguishable, PSNR better). The honest claim becomes: the dial generalizes, and on harder tasks the precise mode is the
+  one that preserves geometry, at the cost of a third of the diversity.
+- Only two checkpoints survive (step 1600 and step 2000); intermediates were overwritten. Testing whether an earlier checkpoint avoids
+  the over-sharpening needs a 1 h retrain with per-step saving. NOT yet done.
+- Source: results/quantitative/precise_6a_cereal_box.txt, policy_proxy_cereal_box.txt.
