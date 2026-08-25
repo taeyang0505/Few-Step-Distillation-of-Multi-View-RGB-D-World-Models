@@ -217,3 +217,24 @@
 - Final picture: no single config passes every strict margin; the configurations form an inference-time dial:
   S3b = fastest, all soft metrics pass, depth fails; S5b = depth passes (sensor-level), mild over-dispersion (+10% [+6,+14]), 2.08 s;
   H4b = precise mode, depth below teacher, diversity/sharpness sacrificed. Paper main table should present the dial.
+
+## N13. Region-wise sharpness — the whole-image sharpness metric is background-dominated (08-26, PRELIMINARY)
+Measured offline on the saved native-resolution qualitative grid (results/qualitative/dmd6a_qual_lr/rgb_left.png):
+ONE sample, left view, Laplacian variance averaged over the 10 predicted frames, two hand-drawn ROIs.
+| row | whole image (Table 1, 20 samples) | moving ROI (arm + gripper over the bowl) | static ROI (right gripper) |
+|---|---|---|---|
+| GT | 0.0197 | 1461 | 1326 |
+| teacher 25 steps | 0.0134 (-32% vs GT) | 692 (-53% vs GT) | 779 (-41% vs GT) |
+| student 3 steps | 0.0136 (+2% vs teacher) | 413 (**-40% vs teacher**) | 807 (+4% vs teacher) |
+| student 1 step | 0.0107 (-20%) | 117 (-83%) | 631 (-19%) |
+- Reading: the headline "sharpness preserved" (+2%) is an average dominated by static pixels. Split by region the two
+  directions are opposite: the student MATCHES the teacher on static content and loses 40% on the moving arm. This is the
+  same structure as the AbsRel finding (whole-image gap came from the background) with the sign reversed, and it means the
+  reviewer complaint "the arm looks blurry" is supported by measurement, not just impression.
+- Every frame shows the same ordering (student < teacher in the moving ROI at all 10 frames), so it is not a frame artifact,
+  but this is ONE sample with hand-drawn boxes. CONCLUSIVE MEASUREMENT STILL REQUIRED: rerun with the GT label masks
+  (gripper ids 29-35, plus a dilated moving-object mask) over 20-60 samples, same protocol as the policy proxy, and add
+  region-wise LPIPS at the same time. Until then this must not be quoted as a result.
+- Consequence for the paper: the sharpness margin of Section 4.1 (+/-5%) was applied to a whole-image metric; a region-wise
+  version of the same margin is the honest test, and the main student may fail it. Figure 9 (fig9_zoom_qualitative.png)
+  shows the crops with these numbers.
