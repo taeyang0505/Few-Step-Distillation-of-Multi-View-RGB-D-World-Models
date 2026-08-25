@@ -80,10 +80,23 @@ def lap_var(gray, mask):
     return float(x.var().item())
 
 def motion_mask(vd, v, thr):
-    """조건 프레임(=프레임0) 대비 GT 3D 위치가 thr 이상 바뀐 픽셀 = 실제로 움직인 영역."""
+    """조건 프레임(=프레임0) 대비 GT 3D 위치가 thr 이상 바뀐 픽셀 = 실제로 움직인 영역.
+    주의(08-26 버그 수정): 오른쪽 뷰의 GT 포인트맵은 참조(왼쪽) 좌표계로 변환돼 있는데 조건 포인트맵은
+    오른쪽 카메라 좌표계다. 그냥 빼면 좌표계 차이가 전부 '움직임'으로 잡혀 moving 이 53%까지 부풀었다.
+    앵커(cond_anchor_scale_right)와 동일하게 외부 파라미터로 조건을 참조 프레임에 옮긴 뒤 비교한다."""
     gt = unnormalize(vd[f"gt_video_{v}"][:, :3], -1, 2)                       # (T,3,H,W)
     cond = vd[f"cond_pointmap_{v}"]
-    cond = unnormalize(cond.reshape(-1, *cond.shape[-3:])[-1], -1, 2)         # (3,H,W)
+    cond = unnormalize(cond.reshape(-1, *cond.shape[-3:])[-1], -1, 2)         # (3,H,W) 자기 카메라 프레임
+    ex = vd.get("extra", {})
+    if v == "right":
+        if "cam_extr" not in ex or "cam_extr_right" not in ex:
+            return torch.zeros(gt.shape[0], *gt.shape[-2:], dtype=torch.bool, device=gt.device)   # 변환 불가 → 측정 포기
+        E1 = ex["cam_extr"].reshape(-1, 4, 4)[0].to(gt.device).float()
+        E2 = ex["cam_extr_right"].reshape(-1, 4, 4)[0].to(gt.device).float()
+        T = torch.linalg.inv(E1) @ E2
+        valid_c = cond[2] > 0
+        cond = (T[:3, :3] @ cond.reshape(3, -1) + T[:3, 3:4]).reshape(3, *cond.shape[-2:])
+        cond[2] = torch.where(valid_c, cond[2], torch.zeros_like(cond[2]))
     if cond.shape[-2:] != gt.shape[-2:]:
         cond = F.interpolate(cond[None], size=gt.shape[-2:], mode="nearest")[0]
     valid = (gt[:, 2] > 0) & (cond[2][None] > 0)
@@ -277,7 +290,7 @@ def ci90(d):
 
 KEYS = []
 for reg in ["whole", "moving", "static", "grip", "obj"]:
-    KEYS += [(f"{reg}_sharp", f"{reg} 선명도(라플라시안 분산) ^", 1, ".1f"),
+    KEYS += [(f"{reg}_sharp", f"{reg} 선명도(라플라시안 분산) ^", 1, ".5f"),
              (f"{reg}_LPIPS", f"{reg} LPIPS v", 1, ".4f"),
              (f"{reg}_AbsRel", f"{reg} AbsRel v", 1, ".4f"),
              (f"{reg}_PSNR", f"{reg} PSNR ^", 1, ".2f")]
