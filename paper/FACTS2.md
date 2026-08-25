@@ -266,3 +266,31 @@ only diversity -33%.**
 - Only two checkpoints survive (step 1600 and step 2000); intermediates were overwritten. Testing whether an earlier checkpoint avoids
   the over-sharpening needs a 1 h retrain with per-step saving. NOT yet done.
 - Source: results/quantitative/precise_6a_cereal_box.txt, policy_proxy_cereal_box.txt.
+
+## N15. Region-wise sharpness and LPIPS, CONFIRMED at 20 samples (08-26) — supersedes the preliminary N13
+Protocol: apple, LEFT VIEW ONLY (20 samples), masks = motion mask (GT 3D moved > 2 cm from the conditioning frame; 3.6% of pixels),
+GT label gripper ids 29-35 (2.14%) and object id 44 (0.21%). Sharpness = Laplacian variance inside the mask after 1 px erosion;
+LPIPS = spatial LPIPS map averaged inside the mask. Paired 90% CI by bootstrap.
+RIGHT VIEW EXCLUDED: the first run's motion mask compared the right-view GT (reference frame) with the right conditioning pointmap
+(right-camera frame) and flagged 53% of pixels as moving. Fixed in the script (extrinsic transform, same as cond_anchor_scale_right),
+but the numbers below are left-view only and the right view has NOT been re-measured.
+| region | GT sharpness | teacher (% of GT) | S3b (% of GT) | S5b | H4b |
+|---|---|---|---|---|---|
+| whole | 0.02171 | 0.01624 (75%) | 0.01622 (75%) | 0.01647 (76%) | 0.01527 (70%) |
+| static | 0.02175 | 0.01629 (75%) | 0.01635 (75%) | 0.01656 (76%) | 0.01542 (71%) |
+| moving | 0.03759 | 0.01705 (45%) | 0.01193 (**32%**) | 0.01457 (39%) | 0.00906 (**24%**) |
+| gripper | 0.03281 | 0.01516 (46%) | 0.01337 (41%) | 0.01399 (43%) | 0.01194 (36%) |
+| object | 0.03134 | 0.01715 (55%) | 0.01397 (45%) | 0.01539 (49%) | 0.01251 (40%) |
+S3b - teacher, paired: whole sharpness **-0.1% [CI -0.00038, +0.00040] (parity)**; static +0.3% (parity);
+**moving -30.0% [-0.00606, -0.00421]**; gripper -11.8% [-0.00302, -0.00044]; object -18.5% [-0.00566, -0.00052].
+LPIPS by region (teacher -> S3b): whole 0.1154 -> 0.1356 (+17.6%); static 0.1115 -> 0.1312 (+17.6%); moving 0.3336 -> 0.3868 (+15.9%);
+gripper 0.2434 -> 0.2990 (+22.9%); object 0.2132 -> 0.2501 (+17.3%).
+- FINDING 1: the paper's "sharpness preserved" is an artifact of a background-dominated metric. The moving region, 3.6% of pixels,
+  loses 30% of its sharpness with a CI that excludes zero. The +/-5% sharpness margin of Section 4.1 PASSES on the whole image and
+  FAILS by a wide margin on the moving region. This must be corrected in the abstract, Section 4.1, 4.3 and Table 1.
+- FINDING 2: the LPIPS gap is uniform across regions in relative terms (16-23%), so it cannot be dismissed as a background-texture
+  effect, and it is not specific to the arm either. It is a global texture difference introduced by DMD.
+- FINDING 3: the hybrid H4b, our "precise mode", is the WORST configuration on moving-region sharpness (24% of GT against the
+  teacher's 45%, i.e. -46%) and on moving/gripper LPIPS, even though its depth is the best. The dial therefore trades appearance in the
+  moving region for depth accuracy; S5b is the best compromise there (39% vs teacher 45%, -13%).
+- Source: results/quantitative/region_perceptual_apple.txt / _raw.json (right-view rows invalid, see above).
