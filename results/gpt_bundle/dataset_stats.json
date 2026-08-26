@@ -1,0 +1,30 @@
+{
+ "apple": {
+  "frames": 218,
+  "cameras": 4,
+  "unit_scale_to_m": 1000.0,
+  "depth_m_p2": 0.419,
+  "depth_m_p50": 0.8,
+  "depth_m_p98": 1.467,
+  "moving_px_frac_2cm": 0.1151,
+  "moving_px_frac_10cm": 0.0853,
+  "invalid_depth_frac": 0.4239,
+  "n_labels": 39,
+  "largest_label_frac": 0.4171,
+  "gripper_px_frac": 0.0292
+ },
+ "cereal_box": {
+  "frames": 180,
+  "cameras": 4,
+  "unit_scale_to_m": 1000.0,
+  "depth_m_p2": 0.299,
+  "depth_m_p50": 0.88,
+  "depth_m_p98": 1.41,
+  "moving_px_frac_2cm": 0.1455,
+  "moving_px_frac_10cm": 0.0912,
+  "invalid_depth_frac": 0.3328,
+  "n_labels": 36,
+  "largest_label_frac": 0.3274,
+  "gripper_px_frac": 0.049
+ }
+}
