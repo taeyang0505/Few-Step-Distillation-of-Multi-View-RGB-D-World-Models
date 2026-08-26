@@ -27,7 +27,7 @@
 
 | | T25 (teacher) | T3r (학습 없음) | S3b | S4b | S5b | H4b |
 |---|---|---|---|---|---|---|
-| 학습 | 없음 | 없음 | DMD 2000 step | S3b와 **같은 가중치** | 같은 가중치 | 같은 가중치 |
+| 학습 | 없음 | 없음 | DMD 2000-step 레시피의 **step 1600 체크포인트** | 좌동(같은 파일) | 좌동 | 좌동 |
 | 샘플러 | EulerEDM | 재노이징 | 재노이징 | 재노이징 | 재노이징 | 재노이징 + 마지막만 teacher |
 | σ 스케줄 | 25 step, σmax 700 | [700, 70.5, 2.3] | [700, 70.5, 2.3] | [700, 70.5, 2.3, 2.3] | [700, 70.5, 70.5, 2.3, 2.3] | [700, 70.5, 2.3, 2.3] |
 | UNet 호출 | 25 (배치 40) | 3 (배치 20) | 3 (배치 20) | 4 | 5 | 4 (마지막은 teacher, CFG 없음) |
@@ -37,7 +37,7 @@
 | 순수 추론 | 21.49초 | 2.81초(fp32) | 1.64초 | 1.86초 | 2.08초 | ~1.9초 |
 | 추론 시 teacher 필요 | — | — | ✗ | ✗ | ✗ | **✓ (메모리에 상주)** |
 
-**S3b/S4b/S5b/H4b는 전부 같은 체크포인트(step 1600)** 이고 샘플러 설정만 다릅니다. 즉 이들 사이의 차이는 학습 노이즈가 아니라 순수한 추론 시점 차이입니다.
+**S3b/S4b/S5b/H4b는 전부 같은 체크포인트 파일(`dmd_gen_step1600.pt`, 2000-step 학습 중 1600번째)** 을 쓰고 샘플러 설정만 다릅니다. 즉 이들 사이의 차이는 학습 노이즈가 아니라 순수한 추론 시점 차이입니다.
 
 DMD 학습 설정: generator = ODE회귀 v2 초기화, real score = 동결 teacher(CFG 가이더 유지), fake score = 학습되는 teacher 사본. DMD2식 backward simulation(k∈{0,1,2} 무작위, 마지막 x₀에만 그래디언트). lr_gen 2e-6, lr_critic 4e-7, gen_every 5, AdamW8bit, grad clip 10, batch 1, bf16, 2000 step ≈ 1시간, peak 24.4GB. 체크포인트 선택 = std비(student x₀ std ÷ teacher latent std) ≈ 1.0.
 
@@ -126,6 +126,7 @@ cereal이 **움직이는 픽셀이 27% 많고, 그리퍼가 68% 크며, 최근�
 
 ## 파일 목록
 
+- **시간 열 주의**: CSV의 `s_per_gen_eval_harness`는 **평가 파이프라인**(`log_images` 경로) 기준이라 apple S3b가 4.40초로 찍힙니다. 여기에는 평가 전용 작업 약 2.9초(평가 손실용 UNet 추가 호출, GT 재구성 디코딩, GT 인코딩, conditioner 중복 호출)가 포함됩니다. **논문의 순수 추론 1.64초와는 다른 경로**이며, 순수 추론 값은 `timing_final.txt`에만 있습니다.
 - `csv/` — 실행 20개분 79개 CSV. 파일명 규칙: `{실행}.csv`(샘플×뷰×설정), `{실행}_perframe.csv`(프레임 1–10별 그리퍼 중심오차), `{실행}_cv_div.csv`(CV-Chamfer·다양성 원시값).
   주요 파일: `precise_6a_final60.csv`(apple 60샘플 720행), `precise_6a_cereal_box.csv`(cereal 20샘플), `region_perceptual_apple.csv`(영역별 36열), `policy_proxy_*.csv`.
 - `dataset_stats.json` — §3 원본.
