@@ -48,7 +48,7 @@ $$ s = \operatorname{median}_{p \in \Omega}\ \frac{z_{\mathrm{cond}}(p)}{z_{\mat
 
 where $\Omega$ is the set of conditioning-frame pixels with valid depth. No ground-truth future frame is used; on the left view $s$ agrees with the oracle scale fitted to ground truth to three decimals.
 
-The right view needs its own anchor. Its conditioning pointmap is in the right camera frame while the prediction is in the reference frame, so we transform it with $T = E_L^{-1} E_R$ from the dataset extrinsics before computing $s$ for that view (the transformed frame matches ground-truth frame 0 to AbsRel 0.001 and 0.006 on two checked samples). A scale-plus-offset variant fitted per view gave no further gain (Section 4.5). The same anchor also reduces the teacher's AbsRel (Finding 12), so it is a property of the input rather than a repair specific to the student.
+The right view needs its own anchor. Its conditioning pointmap is in the right camera frame while the prediction is in the reference frame, so we transform it with $T = E_L^{-1} E_R$ from the dataset extrinsics before computing $s$ for that view (the transformed frame matches ground-truth frame 0 to AbsRel 0.001 and 0.006 on two checked samples). A scale-plus-offset variant fitted per view gave no further gain (Section 4.6). The same anchor also reduces the teacher's AbsRel (Finding 12), so it is a property of the input rather than a repair specific to the student.
 
 ## 3.5 Inference Path
 
