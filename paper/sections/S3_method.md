@@ -42,7 +42,7 @@ To fit one 32 GB GPU, all three UNets are kept in bf16 (9.2 GB), the optimizer i
 
 ## 3.4 Input-Anchored Depth Calibration
 
-After DMD the student matches the teacher in sharpness and seed diversity, but its depth is globally too far by about 9% (median scale to ground truth 0.909 versus 0.979 for the teacher), and fitting one scale and offset per sample removes 97% of its AbsRel gap. The error is a global shift, not broken structure (Figure 5), so we correct it with one scalar per view. Geo4D receives the conditioning frame's pointmap as input, and the first predicted frame should coincide with it, so we set
+After DMD the student matches the teacher in whole-image sharpness and seed diversity, although it loses 30% of the teacher's sharpness inside the moving region (Section 4.4), and its depth is globally too far by about 9% (median scale to ground truth 0.909 versus 0.979 for the teacher), and fitting one scale and offset per sample removes 97% of its AbsRel gap. The error is a global shift, not broken structure (Figure 5), so we correct it with one scalar per view. Geo4D receives the conditioning frame's pointmap as input, and the first predicted frame should coincide with it, so we set
 
 $$ s = \operatorname{median}_{p \in \Omega}\ \frac{z_{\mathrm{cond}}(p)}{z_{\mathrm{pred},0}(p)}, \qquad \tilde{z}_{\mathrm{pred},t} = s \cdot z_{\mathrm{pred},t}\ \ \text{for all } t, $$ (5)
 
