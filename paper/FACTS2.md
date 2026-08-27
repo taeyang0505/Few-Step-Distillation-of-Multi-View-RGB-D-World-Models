@@ -391,3 +391,39 @@ i.e. it buys back exactly the region a policy reads.** This is the strongest evi
 - Oracle selection (GT used to pick) — upper bound only.
 - Efficiency note: the script regenerates each batch once per view although log_images returns both views, so it
   did 2x the necessary work (1h42 instead of ~50 min). Fix before reuse.
+
+## N18. Definitive 60-sample table with the training-free anchored baseline (08-28, apple, 120 view-samples)
+All five configurations measured in ONE run, same samples and seeds, diversity on 20 samples x 4 seeds.
+| config | s/gen (eval harness) | PSNR | AbsRel (L/R) | LPIPS | sharpness | CV-Chamfer | diversity |
+|---|---|---|---|---|---|---|---|
+| T25 teacher | 24.9 | 20.34 | 0.0725 (.0829/.0621) | 0.1227 | 0.01268 | 0.1685 | 0.01846 |
+| T3r (3 steps, no training, no anchor) | 5.9 | 20.99 | 0.0697 (.0777/.0616) | 0.1375 | 0.01128 | 0.1673 | 0.00977 |
+| **T3rb (3 steps, no training, + anchor)** | 5.9 | 20.99 | **0.0614 (.0718/.0510)** | 0.1375 | 0.01128 | 0.1669 | 0.00977 |
+| S3b (DMD 3 steps + anchor) | 4.4 | 20.19 | 0.0858 | 0.1407 | 0.01295 | 0.1373 | 0.01931 |
+| S5b (DMD 5 steps + anchor) | 4.8 | 20.03 | 0.0773 | 0.1378 | 0.01296 | 0.1452 | 0.02027 |
+Paired vs T25 (n=120 view-samples, Wilcoxon):
+| metric | T3r | T3rb | S3b | S5b |
+|---|---|---|---|---|
+| PSNR | +0.653 (p<0.001) | +0.653 (p<0.001) | -0.149 (p=0.003) | -0.311 (p<0.001) |
+| AbsRel | -0.0028 (p=0.091) | **-0.0111 (p<0.001, better on 82.5%)** | +0.0133 (p<0.001) | +0.0048 (p=0.047) |
+| LPIPS | +0.0148 | +0.0148 (identical) | +0.0180 | +0.0151 |
+| sharpness | -0.0014 (-11%) | -0.0014 (identical) | +0.0003 | +0.0003 |
+| CV-Chamfer | -0.0012 (p=0.180) | -0.0016 (p=0.122) | **-0.0312 (p<0.001)** | **-0.0233 (p<0.001)** |
+| diversity | -0.0087 (-47%) | -0.0087 (identical) | +0.0008 (+4%) | +0.0018 (+10%) |
+### Role decomposition — each component does exactly one thing
+- **Step reduction 25->3**: gives the entire speed-up. Costs diversity (-47%), LPIPS (+0.0148), sharpness (-11%).
+  Does NOT cost depth (T3r AbsRel -0.0028, p=0.091, indistinguishable from the 25-step teacher).
+- **Per-view anchor**: changes depth ONLY. AbsRel 0.0697 -> 0.0614; LPIPS, sharpness and diversity are bit-identical
+  because it rescales pointmap XYZ and never touches RGB. **CV-Chamfer moves by only -0.0004 (p=0.122) — the anchor
+  does NOT meaningfully improve cross-view consistency**, contrary to what we had loosely assumed.
+- **DMD**: costs depth (+0.021 against T3rb), buys diversity (0.0098 -> 0.0193, +98%), sharpness (+15%), and
+  **cross-view consistency (CV-Chamfer -0.0312, p<0.001, 18% better than the 25-step teacher)**.
+### The headline result that reshapes the paper
+**T3rb — the released teacher run for 3 re-noising steps with the training-free anchor and no distillation at all —
+beats the 25-step teacher on depth by a significant margin (AbsRel 0.0614 vs 0.0725, p<0.001, better on 82.5% of
+view-samples) and on PSNR (+0.65 dB), at a quarter of the cost.** On depth, distillation is not merely unnecessary,
+it is harmful (+0.021). DMD's case rests on diversity, moving-region appearance (N16b) and cross-view consistency.
+### Caveat on CV-Chamfer
+S3b has the best CV-Chamfer and the worst AbsRel: this is the cross-view metric trap of Finding 3 (two views wrong
+in the same way agree with each other). Note the student's left/right AbsRel are nearly equal (.0870/.0845) while
+T3rb's are not (.0718/.0510). CV-Chamfer must not be read as evidence of correct geometry on its own.
