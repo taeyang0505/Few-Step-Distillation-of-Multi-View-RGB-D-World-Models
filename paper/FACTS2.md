@@ -354,3 +354,40 @@ i.e. it buys back exactly the region a policy reads.** This is the strongest evi
   trajectories (e.g. gripper path spread) would test the planning argument more directly.
 - Honest reading as of now: (b) supports DMD on appearance in the moving region; (c) does NOT support the claim
   that DMD's diversity converts into better depth, even under oracle selection.
+
+## N17. Anchor control for best-of-N, and trajectory diversity (08-28, apple, 10 samples = 20 view-samples, 8 seeds)
+### (a) Anchor is the confound in N16(c) — CONFIRMED
+| config | anchor | N=1 | N=8 | gain | seed-to-seed AbsRel std |
+|---|---|---|---|---|---|
+| T3r | no | 0.0720 | 0.0613 | 14.9% | 0.0066 |
+| T3rb | **yes** | 0.0611 | 0.0545 | 10.9% | 0.0037 |
+| S3 | no | 0.1764 | 0.1484 | 15.8% | 0.0182 |
+| S3b | **yes** | 0.0868 | 0.0784 | 9.7% | 0.0074 |
+- The anchor cuts the best-of-N gain in BOTH pairs (14.9->10.9 teacher, 15.8->9.7 student) and halves the
+  seed-to-seed spread, because it rescales every sample to the same conditioning depth.
+- Fair comparison, anchor matched: without anchor T3r 14.9% vs S3 15.8%; with anchor T3rb 10.9% vs S3b 9.7%.
+  **DMD's extra pixel diversity (2x) does NOT convert into extra depth-selection benefit — it is neutral,
+  not harmful. The N16(c) reading that DMD's diversity is less useful was an artifact of the mismatched anchor.**
+- **NEW AND IMPORTANT: T3rb (teacher weights, 3 re-noising steps, anchor, NO distillation) has the best depth of
+  any configuration measured: AbsRel 0.0611 against the 25-step teacher's 0.0724 and our S3b's 0.0868.**
+  Step reduction plus the training-free anchor beats the full 25-step teacher on depth at about 1/8 the cost.
+  Consequence: on the depth axis DMD is not needed. DMD's justification now rests entirely on moving-region
+  appearance, N16(b), where it is decisive (25% -> 37%/43% of GT against the teacher's 49%).
+### (b) Trajectory diversity — the gripper-path version of the diversity question
+| config | trajectory spread (cm) | mean error (cm) | best-of-1 | best-of-8 | gain |
+|---|---|---|---|---|---|
+| T25 | 4.08 | 13.71 | 13.74 | 11.51 | 16.2% |
+| T3r | **2.63** | 14.04 | 14.20 | 12.50 | 12.0% |
+| S3b | **5.81** | 17.61 | 16.96 | 14.33 | 15.5% |
+| S5b | 5.59 | 16.70 | 17.12 | 13.57 | **20.8%** |
+- Training-free step reduction collapses the spread of predicted gripper paths to 2.63 cm against the teacher's
+  4.08 cm (64%); DMD raises it to 5.8 cm (142% of teacher) — i.e. the student predicts a WIDER range of arm
+  trajectories than the teacher, not a narrower one.
+- best-of-N gain: S5b 20.8% > T25 16.2% > S3b 15.5% > T3r 12.0%. **On the trajectory axis, the distilled models
+  benefit MORE from drawing multiple samples than the training-free one — the opposite ordering to the depth axis.**
+- Caveat: the distilled models start from a worse mean error (17.6 / 16.7 cm vs 13.7 / 14.0 cm), so even after
+  8 draws S5b (13.57) only reaches the teacher's single draw (13.74). Diversity buys selection headroom but does
+  not close the accuracy gap.
+- Oracle selection (GT used to pick) — upper bound only.
+- Efficiency note: the script regenerates each batch once per view although log_images returns both views, so it
+  did 2x the necessary work (1h42 instead of ~50 min). Fix before reuse.
