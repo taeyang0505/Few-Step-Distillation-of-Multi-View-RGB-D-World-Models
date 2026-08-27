@@ -46,7 +46,8 @@ Anything marked "NOT DONE" must be described as future work, never as a result.
   GT encoding 0.49 s, duplicated conditioner call 1.09 s). Finding 11.
 
 ## 3. Teacher profile (Step 0)
-- log_images path: 25.4 s total, UNet 21.14 s (26 calls, 0.81 s/call, 83.8%), conditioner 1.81 s (7.2%), VAE decode 1.75 s (7.0%),
+- log_images path: 25.22 s total (components sum exactly; an earlier note said 25.4 s, which did not match its own breakdown),
+  UNet 21.14 s (26 calls, 0.813 s/call, 83.8%), conditioner 1.81 s (7.2%), VAE decode 1.75 s (7.0%),
   VAE encode 0.48 s (1.9%); peak VRAM 13.2 GB. Bottleneck = running the same UNet 25 times, not memory.
 - Pure inference (uc included, CFG batch of 40): UNet 20.13, conditioner 0.73, VAE decode 0.89, total 21.75 s (rounded 21.8 s).
 
