@@ -294,3 +294,63 @@ gripper 0.2434 -> 0.2990 (+22.9%); object 0.2132 -> 0.2501 (+17.3%).
   teacher's 45%, i.e. -46%) and on moving/gripper LPIPS, even though its depth is the best. The dial therefore trades appearance in the
   moving region for depth accuracy; S5b is the best compromise there (39% vs teacher 45%, -13%).
 - Source: results/quantitative/region_perceptual_apple.txt / _raw.json (right-view rows invalid, see above).
+
+## N16. Step-count curves, T3r region comparison, and best-of-N (08-27, apple, 20 samples unless noted)
+### (a) Metric vs step count, ONE run each (teacher curve and student curve measured separately, T25 in both)
+teacher weights + re-noising sampler, no training:
+| steps | AbsRel | LPIPS | sharpness | diversity |
+|---|---|---|---|---|
+| 1 | 0.0676 | 0.1455 | 0.01169 | 0.00492 (22%) |
+| 2 | 0.0646 | 0.1333 | 0.01194 | 0.01123 (49%) |
+| 3 | 0.0655 | 0.1321 | 0.01193 | 0.01195 (53%) |
+| 4 | 0.0642 | 0.1288 | 0.01215 | 0.01344 (59%) |
+| 5 | 0.0632 | 0.1294 | 0.01212 | 0.01414 (62%) |
+| 6 | 0.0632 | 0.1276 | 0.01228 | 0.01474 (65%) |
+| 8 | 0.0664 | 0.1264 | 0.01232 | 0.01289 (57%) |
+| 25 | 0.0664 | 0.1179 | 0.01340 | 0.02271 (100%) |
+**The teacher's depth accuracy is flat from 1 to 25 steps (0.063-0.068). Steps buy diversity and LPIPS, not depth.**
+This answers "why did the authors use 25 steps": not for geometry.
+DMD student + per-view anchor:
+| steps | AbsRel | LPIPS | sharpness | diversity |
+|---|---|---|---|---|
+| 1 | 0.1161 | 0.1766 | 0.01065 | 0.01167 |
+| 2 | 0.0822 | 0.1367 | 0.01344 | 0.02235 |
+| 3 | 0.0819 | 0.1357 | 0.01362 | 0.02242 |
+| 4 | 0.0749 | 0.1326 | 0.01363 | 0.02398 |
+| **5** | **0.0722 (minimum)** | 0.1327 | 0.01372 | 0.02660 |
+| 6 | 0.0737 | 0.1312 | 0.01377 | 0.02719 |
+| 8 | 0.0763 | 0.1309 | 0.01406 | 0.02598 |
+**AbsRel has a clear optimum at 5 steps and worsens at 6 and 8; sharpness passes the teacher at ~8 steps
+(over-sharpening) and diversity over-disperses to 120% at 6. Five steps is the balance point.**
+### (b) Region-wise, ALL FOUR configs in ONE run (20 samples, left view) — sharpness as % of GT
+| region | T25 | T3r (no training) | S3b (DMD) | S5b |
+|---|---|---|---|---|
+| whole | 75% | 68% | 75% | 75% |
+| static | 75% | 69% | 76% | 76% |
+| **moving** | **49%** | **25%** | **37%** | **43%** |
+| gripper | 46% | 33% | 41% | 43% |
+| object | 58% | 40% | 50% | 52% |
+LPIPS vs teacher: moving T3r +23.7% / S3b +15.1% / S5b +11.2%; gripper T3r +23.3% / S3b +18.3% / S5b +13.3%;
+static T3r **+11.1%** / S3b +15.4% / S5b +13.0%.
+**DECISIVE FOR THE DMD JUSTIFICATION: the training-free 3-step teacher loses HALF the teacher's moving-region
+sharpness (25% vs 49%) while its whole-image number looks fine (68% vs 75%). DMD restores it to 37% (S3b) and
+43% (S5b). DMD trades static-region fidelity (where T3r wins) for moving-region fidelity (where DMD wins) —
+i.e. it buys back exactly the region a policy reads.** This is the strongest evidence we have that DMD is not decorative.
+### (c) best-of-N (10 samples = 20 view-samples, 8 seeds, AbsRel, oracle selection) — NEGATIVE RESULT
+| config | N=1 | N=8 | gain | seed-to-seed std of AbsRel |
+|---|---|---|---|---|
+| T25 | 0.0724 | 0.0598 | **17.3%** | 0.0087 |
+| T3r | 0.0720 | 0.0613 | **14.9%** | 0.0066 |
+| S3b | 0.0868 | 0.0784 | **9.7%** | 0.0074 |
+| S5b | 0.0788 | 0.0726 | **7.8%** | 0.0072 |
+- The DMD student has ~2x the pixel diversity of T3r (0.0224 vs 0.0120) yet gains LESS from drawing 8 samples
+  (9.7% vs 14.9%). Its diversity is in appearance, not in depth accuracy: seed-to-seed AbsRel spread is
+  comparable (0.0074 vs 0.0066).
+- Even with 8 draws and oracle selection, S3b (0.0784) never reaches T3r's single draw (0.0720).
+- **CONFOUND, must be resolved before quoting this**: S3b/S5b have the per-view anchor, which rescales each
+  sample's depth to the conditioning frame and therefore compresses exactly the seed-to-seed AbsRel spread this
+  experiment measures. T3r has no anchor. A fair rerun needs T3r+anchor (or S3b without anchor); ~15 min GPU.
+- Caveat 2: this measures diversity of DEPTH ERROR, not diversity of plausible futures. A metric over
+  trajectories (e.g. gripper path spread) would test the planning argument more directly.
+- Honest reading as of now: (b) supports DMD on appearance in the moving region; (c) does NOT support the claim
+  that DMD's diversity converts into better depth, even under oracle selection.
