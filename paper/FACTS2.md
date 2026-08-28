@@ -427,3 +427,41 @@ it is harmful (+0.021). DMD's case rests on diversity, moving-region appearance 
 S3b has the best CV-Chamfer and the worst AbsRel: this is the cross-view metric trap of Finding 3 (two views wrong
 in the same way agree with each other). Note the student's left/right AbsRel are nearly equal (.0870/.0845) while
 T3rb's are not (.0718/.0510). CV-Chamfer must not be read as evidence of correct geometry on its own.
+
+## N19. Full 2x2x2 factorial: {3,5 steps} x {DMD, none} x {anchor, none} (08-28, apple, 20 samples, ONE run)
+teacher baseline T25: AbsRel 0.0664, PSNR 20.62, LPIPS 0.1179, sharpness 0.01340, CV 0.1694, diversity 0.02271
+| steps | DMD | anchor | AbsRel | dAbsRel vs T25 (p) | PSNR | LPIPS | sharpness | diversity |
+|---|---|---|---|---|---|---|---|---|
+| 3 | no | no | 0.0655 | -0.0009 (0.868) | 21.30 | 0.1321 | 0.01193 | 0.01195 (53%) |
+| 3 | no | **yes** | **0.0560** | **-0.0104 (p<0.001, 82.5%)** | 21.30 | 0.1321 | 0.01193 | 0.01195 |
+| 3 | yes | no | 0.1611 | +0.0947 (p<0.001) | 20.43 | 0.1357 | 0.01362 | 0.02242 (99%) |
+| 3 | yes | yes | 0.0819 | +0.0155 (p<0.001) | 20.43 | 0.1357 | 0.01362 | 0.02242 |
+| 5 | no | no | 0.0632 | -0.0032 (0.094) | 21.14 | 0.1294 | 0.01212 | 0.01414 (62%) |
+| 5 | no | **yes** | **0.0546** | **-0.0118 (p<0.001, 85.0%)** | 21.14 | 0.1294 | 0.01212 | 0.01414 |
+| 5 | yes | no | 0.1536 | +0.0872 (p<0.001) | 20.27 | 0.1327 | 0.01372 | 0.02660 (117%) |
+| 5 | yes | yes | 0.0722 | +0.0058 (0.039) | 20.27 | 0.1327 | 0.01372 | 0.02660 |
+### Clean separation, now with every cell measured in one run
+- **Anchor changes AbsRel and nothing else.** In all four pairs PSNR, LPIPS, sharpness and diversity are bit-identical;
+  only AbsRel moves (-0.0095 for no-DMD rows, -0.079 / -0.081 for DMD rows). CV-Chamfer moves by <0.001 for no-DMD
+  and by -0.024 for DMD (the DMD rows have a large per-view scale error that the anchor removes).
+- **DMD costs depth and buys diversity.** Without anchor: 0.0655 -> 0.1611 (3 steps), 0.0632 -> 0.1536 (5 steps),
+  i.e. distillation introduces a ~0.09 AbsRel global scale error. Diversity: 53% -> 99% (3 steps), 62% -> 117% (5 steps).
+- **Steps buy depth slightly and diversity substantially, in both DMD and no-DMD arms.**
+- **BEST DEPTH OF ALL EIGHT CELLS: 5 steps, no distillation, with anchor — AbsRel 0.0546 against the 25-step
+  teacher's 0.0664 (-0.0118, p<0.001, better on 85% of view-samples) at about 1/4 the eval-harness time.**
+- LPIPS ordering is unchanged by the anchor and improves with steps: T5r/T5rb 0.1294 < T3r/T3rb 0.1321 <
+  S5/S5b 0.1327 < S3/S3b 0.1357. **No cell beats the teacher's 0.1179.**
+### Consequence for the paper's headline
+The strongest "we beat the released model" statement available is on depth: **5 steps + anchor, no distillation.**
+It costs diversity (62% of teacher) and LPIPS (+0.0114). The distilled arms are the only ones that keep or exceed
+diversity, and they pay 0.0155 (3 steps) / 0.0058 (5 steps) of AbsRel for it.
+### N20. Last-step CFG experiment — VOID, and why (08-28)
+G3_1p5b / G3_2p0b / G3_2p5b / G5_2p0b came out bit-identical to S3b / S5b. Cause is not our code: in Geo4D's
+inference path `sample_multiview_video` calls
+`get_unconditional_conditioning(batch, batch_uc=batch)` with no `force_uc_zero_embeddings`, so the unconditional
+conditioning is computed from the same batch and is **bit-identical to the conditional one** (verified: crossattn
+and concat both exactly equal). The guider then computes uc + w*(c-uc) = c for any w.
+**Therefore the released Geo4D teacher runs classifier-free guidance as an identity operation while paying a
+doubled UNet batch (40 instead of 20) — roughly 10 s of its 19.95 s UNet time is a duplicate computation.**
+`log_images` does build a properly zeroed uc, but `sample_multiview_video` recomputes and discards it.
+Open question (NOT yet tested): whether a correctly zeroed uc would change or improve teacher quality.
